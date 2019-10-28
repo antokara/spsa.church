@@ -8,16 +8,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackTemplatePlugin = require('html-webpack-template');
 
 module.exports = {
-  entry: './src/index.tsx',
+  mode: 'development',
+  devtool: 'eval',
+  entry: path.resolve(__dirname, 'src/index.tsx'),
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
     alias: {
-      src: path.resolve(__dirname, './src')
+      src: path.resolve(__dirname, 'src')
     }
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, './dist')
+    path: path.resolve(__dirname, 'dist')
   },
   devServer: {
     contentBase: path.join(__dirname, './'),
@@ -51,7 +53,7 @@ module.exports = {
   },
   plugins: [
     new Dotenv({
-      path: path.resolve(__dirname, './.env'),
+      path: path.resolve(__dirname, '.env'),
       safe: true,
       systemvars: true
     }),
@@ -60,7 +62,7 @@ module.exports = {
       DEBUG: false
     }),
     new HtmlWebpackPlugin({
-      title: 'spsa.church',
+      title: 'St. Peter & St. Andrew Coptic Orthodox Church',
       minify: false,
       inject: false,
       template: HtmlWebpackTemplatePlugin,
