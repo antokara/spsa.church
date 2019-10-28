@@ -1,7 +1,7 @@
 {
   "name": "spsa.church",
   "version": "1.0.0",
-  "description": "Coptic Orthodox church web site",
+  "description": "St. Peter & St. Andrew Coptic Orthodox Church website",
   "private": true,
   "main": "src/index.tsx",
   "scripts": {
@@ -12,7 +12,7 @@
     "lint": "tslint 'src/**/*.ts?(x)' -c tslint.json",
     "build": "npm run build:clean && npm run build:js",
     "build:clean": "rm dist/* -rf",
-    "build:js": "webpack --config ./webpack.prod.js --env.NODE_ENV=production --env.production --progress",
+    "build:js": "webpack --config ./webpack.build.js --env.NODE_ENV=production --env.production --progress",
     "cl": "commitlint --from=HEAD~1",
     "ts:validate": "tsc --outDir /tmp",
     "start": "node --max-old-space-size=2048 node_modules/webpack-dev-server/bin/webpack-dev-server.js --config ./webpack.dev.js"
@@ -58,8 +58,14 @@
     "@testing-library/dom": "^6.8.1",
     "@testing-library/jest-dom": "^4.1.2",
     "@testing-library/react": "^9.3.0",
+    "@types/dotenv": "^8.2.0",
     "@types/jest": "^24.0.19",
+    "clean-webpack-plugin": "^3.0.0",
     "coveralls": "^3.0.7",
+    "dotenv": "^8.1.0",
+    "dotenv-webpack": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-template": "^6.2.0",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "react-dom": "^16.10.2",
@@ -73,13 +79,9 @@
     "tslint-react": "^4.1.0",
     "typescript": "^3.6.4",
     "webpack": "^4.41.2",
+    "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.9",
-    "@types/dotenv": "^8.2.0",
-    "html-webpack-plugin": "^3.2.0",
-    "html-webpack-template": "^6.2.0",
-    "webpack-dev-server": "^3.8.2",
-    "dotenv": "^8.1.0",
-    "dotenv-webpack": "^1.7.0"
+    "webpack-dev-server": "^3.8.2"
   },
   "dependencies": {
     "@types/react": "^16.9.5",
