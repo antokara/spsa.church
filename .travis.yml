@@ -1,0 +1,35 @@
+env:
+  global:
+    - GIT_AUTHOR_NAME: 'Antonios Karagiannis'
+    - GIT_AUTHOR_EMAIL: 'antokarag@gmail.com'
+    - GIT_COMMITTER_NAME: 'Antonios Karagiannis'
+    - GIT_COMMITTER_EMAIL: 'antokarag@gmail.com'
+
+sudo: false
+language: node_js
+node_js:
+  - 10.16.0
+
+stages:
+  - lint
+  - test
+  - build
+  - name: deploy
+    if: branch = master AND type = push
+
+jobs:
+  include:
+    - stage: lint
+      script:
+        - npm run cl
+        - npm run prettier
+        - npm run lint
+
+    - stage: test
+      script:
+        - npm run test:cov
+        - npm run coveralls
+
+    - stage: build
+      script:
+        - npm run build
