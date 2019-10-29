@@ -35,6 +35,8 @@ jobs:
         - npm run build
 
     - stage: deploy
+      before_deploy:
+        - npm run build
       provider: s3
       access_key_id:
         secure: 'eayk1ePny2VPBV55j4I5KNRZtwPEC1tQOCp52UOpVUslNZritoE1hMKqfHDM8/coKT4fm2ivHBZ6ZfU8lzj13PBHxE7/9+0Rykgi7gx3UK9f6g2KlhXRl9KgZI9hIjIOazcmWyeCecVwb0HbxTvOjgBOtN0SHsv+UZNocF34thadMYgL0rY4zk1vGQP0ytliNEcLr9MjPgQmehXzWSGoktaKhsJih9dTi2NHRjiKG6eo62SS1gYE0hgAtNrdNCfafLAeimDW6pkS/E8XC8/Vz/z3Fcr7urQEV97mwXBJzxlnGlrx4Y7E1od5XuN4aYYXquXt+YHLPTPPELvdzsXOtQzMIYj285QWh3y/PE4rmKsnxDQtZxq9Ytza5zVLiCyyPDMutAOfUB9LjvjMUcVxmokBS+IjI7jkOV9LWbq1Dze4HyOimUlU32+Qc8fYsQUIQoM8ytujKEsTjIQ/C37fI3l9kDEFFPt/3DdlsqVNotGQ/3clcOT+barW7Gy57z+QgwvXqOORnDf0a5M/jFUS9hrMuTGJXWsYypL/5CxW0eaYZUX3hhxE1YEyKdcDZZgU7DLBcKWgnZUE82dL191N8dg6nEZJby4uCVOP11wTs7mLEhmXzFgpeJBEUJZL+aPqDNFV1lrBGKaAChtuLH4aQTH9A8/SX0Nk7H0TUIVOn7k='
