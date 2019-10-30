@@ -35,11 +35,11 @@ jobs:
 
     deploy:
       provider: s3
+      bucket: 'spsa.church-production'
+      region: us-east-1
+      local_dir: dist
       access_key_id:
         secure: 'eayk1ePny2VPBV55j4I5KNRZtwPEC1tQOCp52UOpVUslNZritoE1hMKqfHDM8/coKT4fm2ivHBZ6ZfU8lzj13PBHxE7/9+0Rykgi7gx3UK9f6g2KlhXRl9KgZI9hIjIOazcmWyeCecVwb0HbxTvOjgBOtN0SHsv+UZNocF34thadMYgL0rY4zk1vGQP0ytliNEcLr9MjPgQmehXzWSGoktaKhsJih9dTi2NHRjiKG6eo62SS1gYE0hgAtNrdNCfafLAeimDW6pkS/E8XC8/Vz/z3Fcr7urQEV97mwXBJzxlnGlrx4Y7E1od5XuN4aYYXquXt+YHLPTPPELvdzsXOtQzMIYj285QWh3y/PE4rmKsnxDQtZxq9Ytza5zVLiCyyPDMutAOfUB9LjvjMUcVxmokBS+IjI7jkOV9LWbq1Dze4HyOimUlU32+Qc8fYsQUIQoM8ytujKEsTjIQ/C37fI3l9kDEFFPt/3DdlsqVNotGQ/3clcOT+barW7Gy57z+QgwvXqOORnDf0a5M/jFUS9hrMuTGJXWsYypL/5CxW0eaYZUX3hhxE1YEyKdcDZZgU7DLBcKWgnZUE82dL191N8dg6nEZJby4uCVOP11wTs7mLEhmXzFgpeJBEUJZL+aPqDNFV1lrBGKaAChtuLH4aQTH9A8/SX0Nk7H0TUIVOn7k='
       secret_access_key:
         secure: 'ZH+3C1s/AyD5QBw6aad0Rp80rnQGwRBaufglTVR9Rycdxy4ZX4TF8ie9Vxj9GNheaMTn2+HCc13BWoHSw7/x3rizYshvxWKhT9W9a9H+PIruX9gTeU9PoHHe+lOhPUGApc5ZIyWWaIZGH3v95veopH2RT3ytKyqUhVJ/bNkfEosvrmoMqofzhFCBuVQotASJSy/fwPFXbZW+kbhf2DlP0Ba+Q02h2xqeCSJUE319IEzmvOHsAQVXDpINMHutRimvleni4MmZnIu8kp9zLmeB27e3xEmiZ8/pNozyMwHCHxytOpCL+c++LRJw5GH/cbYaofi47nVAwTp33qGWK8HMf3LWh3voS0t9C+Gg4+qREeJCJHn6GeCaRhIs1bLvk1itvrrqrZbafY43IGhqt5ouMU6o4i2ky6lIUbGwePEicpzKCAe0QukCbIy4QOrS0IuwLtC5K0meSVjjrWg5/zuscf7MCnF2YDcZY4ZF8Ozsd/HPoiwu8t7SGTL2A4QxNtgRX2h9JuY1Ceu/911t19upCn53AdVmBAKDItIyGBbSLUWHkmT8V3YWUAOx3B5KKTMZRZ/Ef8U7YD94e/DVARyxyBz631zTIYplLpIn/hHotw8yInw2QFH+EBcoycCfYhXFF1QY5U5RhE/3EmMUdx8Jc6CYHvRR8WfZyNNM3hoo8lQ='
-      bucket: 'spsa.church-production'
-      region: us-east-1
-      local_dir: dist
       skip_cleanup: true
