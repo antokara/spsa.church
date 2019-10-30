@@ -1,21 +1,18 @@
 env:
   global:
-    - GIT_AUTHOR_NAME: 'Antonios Karagiannis'
-    - GIT_AUTHOR_EMAIL: 'antokarag@gmail.com'
-    - GIT_COMMITTER_NAME: 'Antonios Karagiannis'
-    - GIT_COMMITTER_EMAIL: 'antokarag@gmail.com'
-
+    - GIT_AUTHOR_NAME: Antonios Karagiannis
+    - GIT_AUTHOR_EMAIL: antokarag@gmail.com
+    - GIT_COMMITTER_NAME: Antonios Karagiannis
+    - GIT_COMMITTER_EMAIL: antokarag@gmail.com
 language: node_js
 node_js:
   - 10.16.3
-
 stages:
   - lint
   - test
   - build
   - name: deploy
     if: branch = master
-
 jobs:
   include:
     - stage: lint
@@ -23,26 +20,23 @@ jobs:
         - npm run cl
         - npm run prettier
         - npm run lint
-
     - stage: test
       script:
         - npm run test:cov
         - npm run coveralls
-
     - stage: build
       script:
         - npm run build
-
     - stage: deploy
       script:
         - npm run build
       deploy:
         skip_cleanup: true
         provider: s3
-        bucket: 'spsa.church-production'
+        bucket: spsa.church-production
         region: us-east-2
         local_dir: dist
         access_key_id:
-          secure: 'eayk1ePny2VPBV55j4I5KNRZtwPEC1tQOCp52UOpVUslNZritoE1hMKqfHDM8/coKT4fm2ivHBZ6ZfU8lzj13PBHxE7/9+0Rykgi7gx3UK9f6g2KlhXRl9KgZI9hIjIOazcmWyeCecVwb0HbxTvOjgBOtN0SHsv+UZNocF34thadMYgL0rY4zk1vGQP0ytliNEcLr9MjPgQmehXzWSGoktaKhsJih9dTi2NHRjiKG6eo62SS1gYE0hgAtNrdNCfafLAeimDW6pkS/E8XC8/Vz/z3Fcr7urQEV97mwXBJzxlnGlrx4Y7E1od5XuN4aYYXquXt+YHLPTPPELvdzsXOtQzMIYj285QWh3y/PE4rmKsnxDQtZxq9Ytza5zVLiCyyPDMutAOfUB9LjvjMUcVxmokBS+IjI7jkOV9LWbq1Dze4HyOimUlU32+Qc8fYsQUIQoM8ytujKEsTjIQ/C37fI3l9kDEFFPt/3DdlsqVNotGQ/3clcOT+barW7Gy57z+QgwvXqOORnDf0a5M/jFUS9hrMuTGJXWsYypL/5CxW0eaYZUX3hhxE1YEyKdcDZZgU7DLBcKWgnZUE82dL191N8dg6nEZJby4uCVOP11wTs7mLEhmXzFgpeJBEUJZL+aPqDNFV1lrBGKaAChtuLH4aQTH9A8/SX0Nk7H0TUIVOn7k='
+          secure: 'B/xWaGytf/v4H4iCQS+wpklfu2yT/1oOvCaw3s2v7fyWfxfpPXtF+tSQmafcSshpcM61cd0zU2UfIV8pPq8dOzvM6HcyHLHiQ0zIK2pBeT6NN3cnkMFEJ73GBbsiknfggVbHKClZkQTqiFWB56E5fOpCM4ckbo9bqkoukpb+zJIZvE6qSDZFYC6fV3elNoz6TIeSebwFJ0D0rTQaSJdY0TvH2hFG+DKy1pV68FjX6gFPm7DpVonREH7RL9+YFhzq2ANoJTIDHRlQs+52rDRByXwZxZABHzWHOzljAVF4cQofj0kEa+OMm6v/h3DIUcclepilml6tBbrkyvwMNg8xwfWvkPRoUwSmf5vbUF+2o8Whi497FI13O3CEOhl0pBkE1aM7dfRHZVp5Q29JA2dI7n93LkEcMAJHAbe7FmW9cQVH03FF/RQxe8776aAjBha5kkMwburtBxtuqL0xYpbN+AfIj4ksFrT/+bDEE+UWttzWMY40LPwFX0VxeZ7njC/HoAPpxloSowVtd6VjRN5bPtK67uNYjgA8Wv1eVUA61x1W2TxAXnaEkEqgW50fGPxhMt7dcR2ARhpFQtVO6NIPn1AMXil1JpkGZ+VZu43Oqy1IpBdXC6eauHeb/0jP3Tj6zOVksoD7df2e3O5iHITOO8E4ERDjvTZHIeYsMhsGSr4='
         secret_access_key:
-          secure: 'ZH+3C1s/AyD5QBw6aad0Rp80rnQGwRBaufglTVR9Rycdxy4ZX4TF8ie9Vxj9GNheaMTn2+HCc13BWoHSw7/x3rizYshvxWKhT9W9a9H+PIruX9gTeU9PoHHe+lOhPUGApc5ZIyWWaIZGH3v95veopH2RT3ytKyqUhVJ/bNkfEosvrmoMqofzhFCBuVQotASJSy/fwPFXbZW+kbhf2DlP0Ba+Q02h2xqeCSJUE319IEzmvOHsAQVXDpINMHutRimvleni4MmZnIu8kp9zLmeB27e3xEmiZ8/pNozyMwHCHxytOpCL+c++LRJw5GH/cbYaofi47nVAwTp33qGWK8HMf3LWh3voS0t9C+Gg4+qREeJCJHn6GeCaRhIs1bLvk1itvrrqrZbafY43IGhqt5ouMU6o4i2ky6lIUbGwePEicpzKCAe0QukCbIy4QOrS0IuwLtC5K0meSVjjrWg5/zuscf7MCnF2YDcZY4ZF8Ozsd/HPoiwu8t7SGTL2A4QxNtgRX2h9JuY1Ceu/911t19upCn53AdVmBAKDItIyGBbSLUWHkmT8V3YWUAOx3B5KKTMZRZ/Ef8U7YD94e/DVARyxyBz631zTIYplLpIn/hHotw8yInw2QFH+EBcoycCfYhXFF1QY5U5RhE/3EmMUdx8Jc6CYHvRR8WfZyNNM3hoo8lQ='
+          secure: 'SiJb1KOrJ6Dsh+NSQnyhLqZLaBHrPuZrlVx0EXD9RMrhqdUGReE2uxHYJu6MiPZceFIUmAPcVqk7XFf1ZzutFoqCZ6/ijPYFHHF2+lissaLzkqoiG4ep6CTK6rk4Ymb320YR5PktY9Vg2sSgDw+bdqjMEpSbcX7MtoY0iqqn7toKe3B5KTLmKE1thUKfwXrnh11j8KgDQ4e/ErBk94sl9gR/GznmhMuIYtiKrE29TPZMRgHjtyk2L40KvXgD/Etz393mYEW6YSMxSztnQEayPZKSlpVb4RvZ125ftwdsj+RAl/JA/sHSpzzfbTLlfW/R+fIBRsqv79vydGo5vfOVcaf5FG706z4jnhN6U+jLM59WhAKCcCoUCDPzzAFocl86lR2wGZDVudkyWoKG2ojAw0rmlYo4iaA+yx8NKXljgv2LDehABUKaetUD0Fyqt6rnMqf3/ezUcK8SblNrVjRe4HmNjiW/t7q7HMIadUGLOU2o/qAAC/+vHaFiEjTTuqTD/sjEwpE3U8eUhdSo/iQQBYwL7eYR/voJzO9SyfAx/ji90Pm6j0KqZrzysnf/vt/gBzvamBrRQ9bC009cLfcA3YQFZOtE/rWVoi5k9xjESmYV+7rIplt5ZFlLpUg2G4hMYmLlOybCk/njIEMZUnwixP+fspBtyAg8NuYbeTChlJc='
