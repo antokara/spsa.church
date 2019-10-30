@@ -5,7 +5,6 @@ env:
     - GIT_COMMITTER_NAME: 'Antonios Karagiannis'
     - GIT_COMMITTER_EMAIL: 'antokarag@gmail.com'
 
-sudo: false
 language: node_js
 node_js:
   - 10.16.3
@@ -35,7 +34,7 @@ jobs:
         - npm run build
 
     - stage: deploy
-      before_deploy:
+      script:
         - npm run build
       provider: s3
       access_key_id:
