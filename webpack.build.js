@@ -30,7 +30,8 @@ module.exports = {
     new Dotenv({
       path: path.resolve(__dirname, '.env'),
       safe: true,
-      systemvars: true
+      systemvars: true,
+      silent: true
     }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
