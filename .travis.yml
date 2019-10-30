@@ -34,7 +34,8 @@ jobs:
         - npm run build
 
     - stage: deploy
-      script: skip
+      script:
+        - npm run build
       deploy:
         skip_cleanup: true
         provider: s3
