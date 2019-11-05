@@ -14,7 +14,7 @@
     "build:clean": "rm dist/* -rf",
     "build:js": "webpack --config ./webpack.build.js --env.NODE_ENV=production --env.production --progress",
     "cl": "commitlint --from=HEAD~1",
-    "ts:validate": "tsc --outDir /tmp",
+    "ts:validate": "tsc -p tsconfig.build.json --outDir /tmp",
     "start": "node --max-old-space-size=2048 node_modules/webpack-dev-server/bin/webpack-dev-server.js --config ./webpack.dev.js"
   },
   "repository": {
