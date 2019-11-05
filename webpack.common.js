@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 const WorkboxPlugin = require('workbox-webpack-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 require('dotenv').config();
 
 // plugins
@@ -32,6 +32,11 @@ module.exports = env => {
       chunkFilename: '[name].chunk.js',
       path: path.resolve(__dirname, 'dist')
     },
+    performance: {
+      assetFilter: function(assetFilename) {
+        return assetFilename.endsWith('.js');
+      }
+    },
     module: {
       rules: [
         {
@@ -45,6 +50,17 @@ module.exports = env => {
                   environment === 'development'
                     ? 'tsconfig.json'
                     : 'tsconfig.build.json'
+              }
+            }
+          ]
+        },
+        {
+          test: /\.(png|jpg|gif|svg)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                outputPath: 'assets/'
               }
             }
           ]
@@ -62,50 +78,56 @@ module.exports = env => {
         systemvars: true,
         silent: true
       }),
-      new webpack.EnvironmentPlugin({
-        NODE_ENV: 'development',
-        DEBUG: false
-      }),
       new HtmlWebpackPlugin({
-        title,
-        minify: {
-          minifyCSS: true,
-          minifyJS: true,
-          minifyURLs: true,
-          sortClassName: true,
-          useShortDoctype: true,
-          collapseWhitespace: true
-        },
-        inject: false,
-        template: HtmlWebpackTemplatePlugin,
-        lang: 'en-US',
-        appMountId: 'root',
-        baseHref: '/'
-      }),
-      new WebpackPwaManifest({
-        name: title,
-        short_name: shortName,
-        description,
-        theme_color: '#82171d',
-        background_color: '#c68567',
-        display: 'standalone',
-        crossorigin: 'use-credentials',
-        orientation: 'portrait',
+        title: 'Antonios Karagiannis',
+        minify: false,
         inject: true,
-        ios: {
-          'apple-mobile-web-app-title': title,
-          'apple-mobile-web-app-status-bar-style': 'black'
-        },
-        icons: [
-          {
-            src: path.resolve(__dirname, `assets/churchLogo.png`),
-            sizes: [96, 128, 192, 256, 384, 512]
-          },
-          {
-            src: path.resolve(__dirname, `assets/churchLogo.png`),
-            size: '1024x1024'
+        template: HtmlWebpackTemplatePlugin,
+        mobile: true,
+        lang: 'en-US',
+        appMountId: 'root'
+      }),
+      new FaviconsWebpackPlugin({
+        logo: path.resolve(__dirname, 'assets/churchLogo.png'),
+        cache: true,
+        inject: 'force',
+        prefix: 'assets/',
+        mode: 'webapp',
+        devMode: 'webapp',
+        // @see https://github.com/haydenbleasel/favicons#usage
+        favicons: {
+          mode: 'webapp',
+          appName: title,
+          appShortName: shortName,
+          appDescription: description,
+          developerName: 'Antonios Karagiannis',
+          developerURL: 'https://antokara.me',
+          background: '#c68567',
+          theme_color: '#82171d',
+          dir: 'auto',
+          lang: 'en-US',
+          appleStatusBarStyle: 'default',
+          display: 'standalone',
+          orientation: 'portrait',
+          scope: '/',
+          start_url: '/',
+          version: '1.0',
+          logging: false,
+          pixel_art: false,
+          loadManifestWithCredentials: false,
+          icons: {
+            android: true,
+            appleIcon: true,
+            appleStartup: true,
+            coast: false,
+            favicons: true,
+            firefox: true,
+            opengraph: true,
+            twitter: true,
+            yandex: false,
+            windows: true
           }
-        ]
+        }
       }),
       new WorkboxPlugin.InjectManifest({
         swSrc: path.resolve(__dirname, 'src/sw.js'),
