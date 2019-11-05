@@ -21,6 +21,5 @@ module.exports = env =>
       },
       disableHostCheck: true
     },
-
     plugins: [new webpack.HotModuleReplacementPlugin()]
   });
