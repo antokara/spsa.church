@@ -4,7 +4,12 @@ import { App } from 'src/components/App';
 import { serviceWorker } from 'src/helpers/serviceWorker';
 
 // attempt register our service worker
-serviceWorker();
+const serviceWorkerResult:
+  | Promise<ServiceWorkerRegistration>
+  | undefined = serviceWorker();
+if (serviceWorkerResult !== undefined) {
+  serviceWorkerResult.then().catch();
+}
 
 // render the main application
 render(<App />, document.getElementById('root'));
