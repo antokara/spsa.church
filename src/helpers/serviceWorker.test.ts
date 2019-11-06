@@ -34,17 +34,17 @@ describe('serviceWorker function', () => {
         // mock the "navigator.serviceWorker" method
         Object.defineProperty(global.navigator, 'serviceWorker', {
           value: {
-            register: jest.fn().mockImplementation(
-              (swPath: string): Promise<string> =>
-                new Promise(
-                  (
-                    resolve: (value?: string | undefined) => void,
-                    reject: (reason?: string) => void
-                  ): void => {
-                    resolve(`successful-sw-registration:${swPath}`);
-                  }
-                )
-            )
+            register: jest
+              .fn()
+              .mockImplementation(
+                (swPath: string): Promise<string> =>
+                  new Promise(
+                    (
+                      resolve: (value?: string | undefined) => void,
+                      reject: (reason?: string) => void
+                    ): void => resolve(`successful-sw-registration:${swPath}`)
+                  )
+              )
           },
           configurable: true
         });
@@ -72,17 +72,18 @@ describe('serviceWorker function', () => {
         // mock the "navigator.serviceWorker" method
         Object.defineProperty(global.navigator, 'serviceWorker', {
           value: {
-            register: jest.fn().mockImplementation(
-              (swPath: string): Promise<string> =>
-                new Promise(
-                  (
-                    resolve: (value?: string | undefined) => void,
-                    reject: (reason?: string) => void
-                  ): void => {
-                    reject(`failed-sw-registration:${swPath}`);
-                  }
-                )
-            )
+            register: jest
+              .fn()
+              .mockImplementation(
+                (swPath: string): Promise<string> =>
+                  new Promise(
+                    (
+                      resolve: (value?: string | undefined) => void,
+                      reject: (reason?: Error) => void
+                    ): void =>
+                      reject(new Error(`failed-sw-registration:${swPath}`))
+                  )
+              )
           },
           configurable: true
         });
@@ -99,7 +100,7 @@ describe('serviceWorker function', () => {
       it('rejects the Promise', () => {
         expect.assertions(1);
 
-        return expect(result).rejects.toStrictEqual(
+        return expect(result).rejects.toThrowError(
           'failed-sw-registration:sw.js'
         );
       });

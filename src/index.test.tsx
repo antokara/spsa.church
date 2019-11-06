@@ -31,32 +31,96 @@ jest.mock('src/helpers/serviceWorker', () => ({
 }));
 
 describe('index function', () => {
-  beforeEach(() => {
-    // initialize the mock render fn
-    render = jest.fn();
-    // initialize the mock service worker fn
-    serviceWorker = jest.fn();
-    // dynamically import the index, after our mocks
-    import('./index');
-  });
-  afterEach(() => jest.resetModules());
+  describe('without serviceWorker support', () => {
+    beforeEach(() => {
+      // initialize the mock render fn
+      render = jest.fn();
+      // initialize the mock service worker fn
+      serviceWorker = jest.fn().mockReturnValue(undefined);
+      // dynamically import the index, after our mocks
+      import('./index');
+    });
+    afterEach(() => jest.resetModules());
 
-  it('calls serviceWorker once', () => {
-    expect(serviceWorker).toHaveBeenCalledTimes(1);
+    it('calls serviceWorker once', () => {
+      expect(serviceWorker).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls serviceWorker without arguments', () => {
+      expect(serviceWorker).toHaveBeenCalledWith();
+    });
+
+    it('calls render once', () => {
+      expect(render).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls render with the App / root', () => {
+      expect(render).toHaveBeenCalledWith(
+        <App />,
+        document.getElementById('root')
+      );
+    });
   });
 
-  it('calls serviceWorker without arguments', () => {
-    expect(serviceWorker).toHaveBeenCalledWith();
+  describe('with serviceWorker support that registers successfuly', () => {
+    beforeEach(() => {
+      // initialize the mock render fn
+      render = jest.fn();
+      // initialize the mock service worker fn
+      serviceWorker = jest.fn().mockResolvedValue(true);
+      // dynamically import the index, after our mocks
+      import('./index');
+    });
+    afterEach(() => jest.resetModules());
+
+    it('calls serviceWorker once', () => {
+      expect(serviceWorker).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls serviceWorker without arguments', () => {
+      expect(serviceWorker).toHaveBeenCalledWith();
+    });
+
+    it('calls render once', () => {
+      expect(render).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls render with the App / root', () => {
+      expect(render).toHaveBeenCalledWith(
+        <App />,
+        document.getElementById('root')
+      );
+    });
   });
 
-  it('calls render once', () => {
-    expect(render).toHaveBeenCalledTimes(1);
-  });
+  describe('with serviceWorker support that fails to register', () => {
+    beforeEach(() => {
+      // initialize the mock render fn
+      render = jest.fn();
+      // initialize the mock service worker fn
+      serviceWorker = jest.fn().mockRejectedValue(false);
+      // dynamically import the index, after our mocks
+      import('./index');
+    });
+    afterEach(() => jest.resetModules());
 
-  it('calls render with the App / root', () => {
-    expect(render).toHaveBeenCalledWith(
-      <App />,
-      document.getElementById('root')
-    );
+    it('calls serviceWorker once', () => {
+      expect(serviceWorker).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls serviceWorker without arguments', () => {
+      expect(serviceWorker).toHaveBeenCalledWith();
+    });
+
+    it('calls render once', () => {
+      expect(render).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls render with the App / root', () => {
+      expect(render).toHaveBeenCalledWith(
+        <App />,
+        document.getElementById('root')
+      );
+    });
   });
 });
