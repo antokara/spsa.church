@@ -2,3 +2,15 @@
 // @see https://github.com/testing-library/jest-dom#usage
 // tslint:disable-next-line:no-import-side-effect no-submodule-imports
 import '@testing-library/jest-dom/extend-expect';
+
+// augment the global interface with the "navigator" object
+// so that it can be mocked in our tests
+declare global {
+  namespace NodeJS {
+    interface Global {
+      document: Document;
+      window: Window;
+      navigator: Navigator;
+    }
+  }
+}
