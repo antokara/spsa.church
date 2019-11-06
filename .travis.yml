@@ -12,7 +12,7 @@ stages:
   - test
   - build
   - name: deploy
-    if: branch = master
+    if: branch = master AND type = push
 jobs:
   include:
     - stage: lint
