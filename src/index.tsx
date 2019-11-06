@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { App } from 'src/components/App';
+import { App } from 'src/containers/App';
 import { serviceWorker } from 'src/helpers/serviceWorker';
 
 // attempt register our service worker
