@@ -8,7 +8,7 @@ const serviceWorker: () => Promise<ServiceWorkerRegistration> | undefined = ():
   | undefined => {
   // if service worker is supported
   if ('serviceWorker' in navigator) {
-    const promise: Promise<ServiceWorkerRegistration> = new Promise(
+    return new Promise(
       (
         resolve: (
           value?:
