@@ -5,7 +5,6 @@ import {
   Store,
   StoreEnhancer
 } from 'redux';
-// import { composeWithDevTools } from 'ReduxDevtoolsExtension';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { storeMiddlewares } from 'src/helpers/storeMiddlewares';
 import { index } from 'src/reducers/index';
@@ -15,8 +14,10 @@ let storeEnhancer: StoreEnhancer = applyMiddleware(...storeMiddlewares);
 
 // add the redux devtools enhancer but only when not in production or test
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
-  const composeEnhancers: typeof compose = composeWithDevTools({});
-  storeEnhancer = composeEnhancers(storeEnhancer);
+  const composeEnhancers: typeof compose | undefined = composeWithDevTools({});
+  if (composeEnhancers) {
+    storeEnhancer = composeEnhancers(storeEnhancer);
+  }
 }
 
 // create the store with our reducer and enhancer
