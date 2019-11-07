@@ -20,7 +20,7 @@ jest.mock(
 const App: () => JSX.Element = (): JSX.Element => <div>mocked component</div>;
 
 // mock the App Module
-jest.mock('src/components/App', () => ({
+jest.mock('src/containers/App', () => ({
   App
 }));
 
