@@ -8,6 +8,13 @@ import { hot } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { history } from 'src/helpers/history';
 import { store } from 'src/helpers/store';
+import * as WebFont from 'webfontloader';
+
+WebFont.load({
+  google: {
+    families: ['Merienda:400,700:latin', 'Rochester:400:latin']
+  }
+});
 
 const App: React.FunctionComponent = (): React.ReactElement<
   React.ReactNode
