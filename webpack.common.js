@@ -19,8 +19,7 @@ module.exports = env => {
   const environment =
     env && env.NODE_ENV ? env.NODE_ENV.toLocaleLowerCase() : 'development';
   return {
-    devtool: 'eval',
-    entry: path.resolve(__dirname, 'src/index.tsx'),
+    entry: [path.resolve(__dirname, 'src/index.tsx')],
     resolve: {
       extensions: ['.js', '.ts', '.tsx'],
       alias: {

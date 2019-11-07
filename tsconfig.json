@@ -16,7 +16,10 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "src/*": ["src/*"]
+      "src/*": ["src/*"],
+      "redux-logger": ["node_modules/redux-logger"],
+      "redux-devtools-extension": ["node_modules/redux-devtools-extension"],
+      "ReactHotLoader": ["node_modules/react-hot-loader"]
     },
     "typeRoots": ["node_modules/@types"]
   },

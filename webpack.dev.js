@@ -21,5 +21,20 @@ module.exports = env =>
       },
       disableHostCheck: true
     },
+    entry: ['react-hot-loader/patch'],
+    resolve: {
+      alias: {
+        'react-dom': '@hot-loader/react-dom',
+        /**
+         * avoid development packages in production build
+         *
+         * @see https://web-dev-etc.blogspot.com/2017/12/dynamic-import-of-es6-modules-with.html
+         * @see tslint.json, tsconfig.json, tsconfig.build.json
+         */
+        'redux-logger': 'redux-logger',
+        'redux-devtools-extension': 'redux-devtools-extension',
+        ReactHotLoader$: 'react-hot-loader'
+      }
+    },
     plugins: [new webpack.HotModuleReplacementPlugin()]
   });

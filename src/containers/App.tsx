@@ -4,8 +4,8 @@
  */
 import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
-import { hot } from 'react-hot-loader';
 import { Provider } from 'react-redux';
+import { hot } from 'ReactHotLoader';
 import { history } from 'src/helpers/history';
 import { store } from 'src/helpers/store';
 import * as WebFont from 'webfontloader';
