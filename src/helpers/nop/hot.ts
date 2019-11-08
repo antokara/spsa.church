@@ -20,4 +20,4 @@ const hot: (mdl: any) => THocFn = (mdl: any): THocFn => <
   props?: AppContainerProps
 ): T => Component;
 
-export { hot };
+export { hot, THocFn };
