@@ -9,6 +9,7 @@ module.exports = {
   testURL: 'http://localhost',
   coverageDirectory: '<rootDir>/reports/coverage',
   collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
+  coveragePathIgnorePatterns: ['.*.test/.*$'],
   coverageThreshold: {
     global: {
       branches: 100,
