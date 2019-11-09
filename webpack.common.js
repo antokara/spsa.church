@@ -78,7 +78,7 @@ module.exports = env => {
         silent: true
       }),
       new HtmlWebpackPlugin({
-        title: 'Antonios Karagiannis',
+        title: 'St. Peter & St. Andrew Coptic Orthodox Church',
         minify: false,
         inject: true,
         template: HtmlWebpackTemplatePlugin,
