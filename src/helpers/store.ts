@@ -12,8 +12,8 @@ import { index } from 'src/reducers/index';
 // apply middlewares to our enhancer
 let storeEnhancer: StoreEnhancer = applyMiddleware(...storeMiddlewares);
 
-// add the redux devtools enhancer but only when not in production
-if (process.env.NODE_ENV !== 'production') {
+// add the redux devtools enhancer but only when not in production or test
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   const composeEnhancers: typeof compose | undefined = composeWithDevTools({});
   if (composeEnhancers) {
     storeEnhancer = composeEnhancers(storeEnhancer);
