@@ -12,7 +12,7 @@ import * as WebFont from 'webfontloader';
 
 WebFont.load({
   google: {
-    families: ['Merienda:400,700:latin', 'Rochester:400:latin']
+    families: ['Noto Serif JP:400,500,700:latin']
   }
 });
 
