@@ -5,8 +5,8 @@ import { history } from 'src/helpers/history';
 
 const storeMiddlewares: Middleware[] = [];
 
-// add the logger middleware but only when not in production
-if (process.env.NODE_ENV !== 'production') {
+// add the logger middleware but only when not in production or test
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   const loggerMiddleware: // tslint:disable-next-line:no-any
   Middleware<{}, any, Dispatch<AnyAction>> | undefined = createLogger();
   if (loggerMiddleware) {
