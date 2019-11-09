@@ -48,6 +48,10 @@ describe('store object', () => {
   });
 
   describe('with process.env.NODE_ENV:"development"', () => {
+    beforeEach(() => {
+      process.env.NODE_ENV = 'development';
+    });
+
     describe('with "composeEnhancers" returning a function', () => {
       beforeEach(() => {
         //
@@ -65,7 +69,6 @@ describe('store object', () => {
       });
 
       beforeEach(async () => {
-        process.env.NODE_ENV = 'development';
         ({ store } = await import('src/helpers/store'));
       });
 
@@ -127,7 +130,6 @@ describe('store object', () => {
       });
 
       beforeEach(async () => {
-        process.env.NODE_ENV = 'development';
         ({ store } = await import('src/helpers/store'));
       });
 
