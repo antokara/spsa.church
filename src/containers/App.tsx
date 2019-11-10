@@ -6,6 +6,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { hot } from 'ReactHotLoader';
+import { App as AppComponent } from 'src/components/App';
 import { history } from 'src/helpers/history';
 import { store } from 'src/helpers/store';
 import * as WebFont from 'webfontloader';
@@ -20,7 +21,7 @@ const App: React.FunctionComponent = (): React.ReactElement<React.ReactNode> => 
   <React.Fragment>
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <div>test app container</div>
+        <AppComponent />
       </ConnectedRouter>
     </Provider>
   </React.Fragment>
