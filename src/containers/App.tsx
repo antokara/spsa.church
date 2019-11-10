@@ -16,9 +16,7 @@ WebFont.load({
   }
 });
 
-const App: React.FunctionComponent = (): React.ReactElement<
-  React.ReactNode
-> => (
+const App: React.FunctionComponent = (): React.ReactElement<React.ReactNode> => (
   <React.Fragment>
     <Provider store={store}>
       <ConnectedRouter history={history}>
