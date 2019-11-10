@@ -1,8 +1,28 @@
 import { render, RenderResult } from '@testing-library/react';
 import * as React from 'react';
-import { App } from './App';
+import { DummyContainer } from 'src/containers/app.test/DummyContainer';
+import { dummyStore } from 'src/containers/app.test/dummyStore';
 
 describe('App container', () => {
+  let App: React.FunctionComponent;
+
+  beforeAll(async () => {
+    // mock the store so that the Provider uses it
+    jest.mock('src/helpers/store', () => ({
+      store: dummyStore
+    }));
+
+    // mock the app component
+    // we don't care about what the component does
+    // but we do need a consistent test for the container
+    // and we need a way to test the store/router providers
+    jest.mock('src/components/App', () => ({
+      App: DummyContainer
+    }));
+
+    ({ App } = await import('./App'));
+  });
+
   let rr: RenderResult;
   let node: ChildNode | null;
   beforeEach(() => {
@@ -11,13 +31,15 @@ describe('App container', () => {
   });
 
   it('renders the div element', () => {
-    expect(node).toMatchInlineSnapshot(
-      `
-      <div>
-        test app container
+    expect(node).toMatchInlineSnapshot(`
+      <div
+        data-dummy-store-prop-aa="test-a"
+        data-dummy-store-prop-bb="10"
+        data-testid="dummy-test-id"
+      >
+        dummyComponent
       </div>
-    `
-    );
+    `);
   });
 
   it('renders the link element for the web fonts', () => {
@@ -42,7 +64,6 @@ describe('App container', () => {
     expect(linkElement).toBeTruthy();
   });
 
-  // @todo check for store provider
   // @todo check for connected router with history
   // @todo check for hot
 });
