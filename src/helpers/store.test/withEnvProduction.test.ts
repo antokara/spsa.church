@@ -9,7 +9,6 @@ describe('store object', () => {
   let oldEnv: string | undefined;
   let store: Store;
   type TComposeEnhancer = (next: StoreCreator) => StoreCreator;
-  let composeEnhancers: jest.MockedFunction<TComposeEnhancer>;
   let composeWithDevTools: () => jest.MockedFunction<TComposeEnhancer>;
   let dMiddlewareSpy: TDummyMiddlewareMockedFn;
   let dMiddleware: TDummyMiddleware;
@@ -23,11 +22,6 @@ describe('store object', () => {
     // initialize the dummy middleware and its spy
     dMiddlewareSpy = jest.fn();
     dMiddleware = dummyMiddleware(dMiddlewareSpy);
-
-    // just pass-through the store creator
-    composeEnhancers = jest
-      .fn()
-      .mockImplementation((next: StoreCreator): StoreCreator => next);
 
     // mock the index reducer, so that our tests stay the same
     // in the future, as we modify the reducers/store
