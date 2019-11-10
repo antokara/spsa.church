@@ -20,7 +20,28 @@ describe('App container', () => {
     );
   });
 
-  // @otod check for web font load
+  it('renders the link element for the web fonts', () => {
+    const linkElements: HTMLCollection = document.head.getElementsByTagName(
+      'link'
+    );
+    let linkElement: HTMLLinkElement | undefined;
+    for (let i: number = 0; i < linkElements.length; i += 1) {
+      const element: HTMLLinkElement | null = linkElements.item(
+        i
+      ) as HTMLLinkElement;
+      if (
+        element &&
+        element.href ===
+          'https://fonts.googleapis.com/css?family=Noto+Serif+JP:400,500,700&subset=latin'
+      ) {
+        linkElement = element;
+        break;
+      }
+    }
+
+    expect(linkElement).toBeTruthy();
+  });
+
   // @todo check for store provider
   // @todo check for connected router with history
   // @todo check for hot
