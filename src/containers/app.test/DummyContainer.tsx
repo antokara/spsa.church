@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, ConnectedComponent } from 'react-redux';
-import { IDummyStore } from './dummyStoreCreator';
+import { IDummyStore } from './IDummyStore';
 
 // props for the dummy component
 interface IMapStateProps {
