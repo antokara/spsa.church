@@ -2,13 +2,13 @@ import { render, RenderResult } from '@testing-library/react';
 import * as React from 'react';
 import { AnyAction } from 'redux';
 import { default as configureStore, MockStoreEnhanced } from 'redux-mock-store';
-import { DummyContainer } from 'src/containers/app.test/DummyContainer';
-import { IDummyStore } from 'src/containers/app.test/IDummyStore';
+import { IMockStore } from 'src/containers/app.test/IMockStore';
+import { MockContainer } from 'src/containers/app.test/MockContainer';
 
 describe('App container', () => {
   let App: React.FunctionComponent;
-  let dummyStore: MockStoreEnhanced<IDummyStore>;
-  const defaultState: IDummyStore = {
+  let mockStore: MockStoreEnhanced<IMockStore>;
+  const defaultState: IMockStore = {
     router: {
       action: 'POP',
       location: {
@@ -18,20 +18,20 @@ describe('App container', () => {
         state: undefined
       }
     },
-    dummy: {
-      dummyStorePropA: 'test-a',
-      dummyStorePropB: 10
+    mock: {
+      mockStorePropA: 'test-a',
+      mockStorePropB: 10
     }
   };
 
   beforeAll(async () => {
     // create the store
-    dummyStore = configureStore<IDummyStore>([])(defaultState);
+    mockStore = configureStore<IMockStore>([])(defaultState);
 
     // mock the store so that
     // the Providers in the container use it
     jest.mock('src/helpers/store', () => ({
-      store: dummyStore
+      store: mockStore
     }));
 
     // mock the app component
@@ -39,7 +39,7 @@ describe('App container', () => {
     // but we do need a consistent test for the container
     // and we need a way to test the store/router providers
     jest.mock('src/components/App', () => ({
-      App: DummyContainer
+      App: MockContainer
     }));
 
     ({ App } = await import('./App'));
@@ -49,24 +49,24 @@ describe('App container', () => {
   let node: ChildNode | null;
   let actions: AnyAction[];
   beforeEach(() => {
-    dummyStore.clearActions();
+    mockStore.clearActions();
     rr = render(<App />);
     node = rr.container.firstChild;
-    actions = dummyStore.getActions();
+    actions = mockStore.getActions();
   });
 
   // this also covers the store provider,
-  // since the "data-dummy-store-prop" props
+  // since the "data-mock-store-prop" props
   // are being populated by the react-redux connect
   // which needs the store in the context
   it('renders the div element', () => {
     expect(node).toMatchInlineSnapshot(`
       <div
-        data-dummy-store-prop-aa="test-a"
-        data-dummy-store-prop-bb="10"
-        data-testid="dummy-test-id"
+        data-mock-store-prop-aa="test-a"
+        data-mock-store-prop-bb="10"
+        data-testid="mock-test-id"
       >
-        dummyComponent
+        mockComponent
       </div>
     `);
   });
@@ -115,5 +115,6 @@ describe('App container', () => {
     ]);
   });
 
+  // @todo refactor/rename mock to mock
   // @todo check for hot
 });
