@@ -1,12 +1,24 @@
 import { render, RenderResult } from '@testing-library/react';
 import * as React from 'react';
+import { Store } from 'redux';
 import { DummyContainer } from 'src/containers/app.test/DummyContainer';
-import { dummyStore } from 'src/containers/app.test/dummyStore';
+import {
+  dummyStoreCreator,
+  TActionSpy
+} from 'src/containers/app.test/dummyStoreCreator';
 
 describe('App container', () => {
   let App: React.FunctionComponent;
+  let actionSpy: TActionSpy;
+  let dummyStore: Store;
 
   beforeAll(async () => {
+    // initialize the action spy fn
+    actionSpy = jest.fn();
+
+    // create the store
+    dummyStore = dummyStoreCreator(actionSpy);
+
     // mock the store so that the Provider uses it
     jest.mock('src/helpers/store', () => ({
       store: dummyStore
@@ -26,10 +38,15 @@ describe('App container', () => {
   let rr: RenderResult;
   let node: ChildNode | null;
   beforeEach(() => {
+    actionSpy.mockClear();
     rr = render(<App />);
     node = rr.container.firstChild;
   });
 
+  // this also covers the store provider,
+  // since the "data-dummy-store-prop" props
+  // are being populated by the react-redux connect
+  // which needs the store in the context
   it('renders the div element', () => {
     expect(node).toMatchInlineSnapshot(`
       <div
@@ -64,6 +81,25 @@ describe('App container', () => {
     expect(linkElement).toBeTruthy();
   });
 
-  // @todo check for connected router with history
+  it('dispatches one action', () => {
+    expect(actionSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('dispatches a Connected Router action', () => {
+    expect(actionSpy).toHaveBeenCalledWith(expect.any(Object), {
+      type: '@@router/LOCATION_CHANGE',
+      payload: {
+        action: 'POP',
+        isFirstRendering: true,
+        location: {
+          hash: '',
+          pathname: '/',
+          search: '',
+          state: undefined
+        }
+      }
+    });
+  });
+
   // @todo check for hot
 });
