@@ -1,9 +1,9 @@
 import { Action, Store, StoreCreator } from 'redux';
 import {
-  dummyMiddleware,
-  TDummyMiddleware,
-  TDummyMiddlewareMockedFn
-} from './dummyMiddleware';
+  mockMiddleware,
+  TMockMiddleware,
+  TMockMiddlewareMockedFn
+} from './mockMiddleware';
 
 describe('store object', () => {
   let oldEnv: string | undefined;
@@ -11,8 +11,8 @@ describe('store object', () => {
   type TComposeEnhancer = (next: StoreCreator) => StoreCreator;
   let composeEnhancers: jest.MockedFunction<TComposeEnhancer>;
   let composeWithDevTools: () => jest.MockedFunction<TComposeEnhancer>;
-  let dMiddlewareSpy: TDummyMiddlewareMockedFn;
-  let dMiddleware: TDummyMiddleware;
+  let dMiddlewareSpy: TMockMiddlewareMockedFn;
+  let dMiddleware: TMockMiddleware;
 
   beforeAll(() => {
     oldEnv = process.env.NODE_ENV;
@@ -20,9 +20,9 @@ describe('store object', () => {
   beforeEach(() => {
     jest.resetModules();
 
-    // initialize the dummy middleware and its spy
+    // initialize the mock middleware and its spy
     dMiddlewareSpy = jest.fn();
-    dMiddleware = dummyMiddleware(dMiddlewareSpy);
+    dMiddleware = mockMiddleware(dMiddlewareSpy);
 
     // just pass-through the store creator
     composeEnhancers = jest
@@ -58,11 +58,11 @@ describe('store object', () => {
         // mock the redux-devtools-extension, so that we can test
         // if it gets used or not, without caring of what it does
         //
-        // use our dummy middleware which we can spy if it gets invoked
+        // use our mock middleware which we can spy if it gets invoked
         // when an action gets dispatched to the store
         composeWithDevTools = jest
           .fn()
-          .mockImplementation((): TDummyMiddleware => dMiddleware);
+          .mockImplementation((): TMockMiddleware => dMiddleware);
         jest.mock('redux-devtools-extension', () => ({
           composeWithDevTools
         }));
@@ -104,7 +104,7 @@ describe('store object', () => {
             });
           });
 
-          it('invokes the dummyMiddlewareSpy', () => {
+          it('invokes the mockMiddlewareSpy', () => {
             expect(dMiddlewareSpy).toHaveBeenCalledTimes(1);
           });
         });
@@ -169,7 +169,7 @@ describe('store object', () => {
             });
           });
 
-          it('does not invoke the dummyMiddlewareSpy', () => {
+          it('does not invoke the mockMiddlewareSpy', () => {
             expect(dMiddlewareSpy).not.toHaveBeenCalled();
           });
         });

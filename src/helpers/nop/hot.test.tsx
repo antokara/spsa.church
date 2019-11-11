@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { hot, THocFn } from './hot';
 
-// our dummy component
-const DummyComponent: () => JSX.Element = (): JSX.Element => (
-  <div>dummyComponent</div>
+// our mock component
+const MockComponent: () => JSX.Element = (): JSX.Element => (
+  <div>mockComponent</div>
 );
 
 describe('hot function', () => {
@@ -22,7 +22,7 @@ describe('hot function', () => {
     let passedComponent: JSX.Element;
 
     beforeEach(() => {
-      passedComponent = <DummyComponent />;
+      passedComponent = <MockComponent />;
       resultComponent = resultFn(passedComponent);
     });
 
