@@ -1,25 +1,35 @@
 import { render, RenderResult } from '@testing-library/react';
 import * as React from 'react';
-import { Store } from 'redux';
+import { AnyAction } from 'redux';
+import { default as configureStore, MockStoreEnhanced } from 'redux-mock-store';
 import { DummyContainer } from 'src/containers/app.test/DummyContainer';
-import {
-  dummyStoreCreator,
-  TActionSpy
-} from 'src/containers/app.test/dummyStoreCreator';
+import { IDummyStore } from 'src/containers/app.test/IDummyStore';
 
 describe('App container', () => {
   let App: React.FunctionComponent;
-  let actionSpy: TActionSpy;
-  let dummyStore: Store;
+  let dummyStore: MockStoreEnhanced<IDummyStore>;
+  const defaultState: IDummyStore = {
+    router: {
+      action: 'POP',
+      location: {
+        hash: '',
+        pathname: '/',
+        search: '',
+        state: undefined
+      }
+    },
+    dummy: {
+      dummyStorePropA: 'test-a',
+      dummyStorePropB: 10
+    }
+  };
 
   beforeAll(async () => {
-    // initialize the action spy fn
-    actionSpy = jest.fn();
-
     // create the store
-    dummyStore = dummyStoreCreator(actionSpy);
+    dummyStore = configureStore<IDummyStore>([])(defaultState);
 
-    // mock the store so that the Provider uses it
+    // mock the store so that
+    // the Providers in the container use it
     jest.mock('src/helpers/store', () => ({
       store: dummyStore
     }));
@@ -37,10 +47,12 @@ describe('App container', () => {
 
   let rr: RenderResult;
   let node: ChildNode | null;
+  let actions: AnyAction[];
   beforeEach(() => {
-    actionSpy.mockClear();
+    dummyStore.clearActions();
     rr = render(<App />);
     node = rr.container.firstChild;
+    actions = dummyStore.getActions();
   });
 
   // this also covers the store provider,
@@ -82,23 +94,25 @@ describe('App container', () => {
   });
 
   it('dispatches one action', () => {
-    expect(actionSpy).toHaveBeenCalledTimes(1);
+    expect(actions).toHaveLength(1);
   });
 
   it('dispatches a Connected Router action', () => {
-    expect(actionSpy).toHaveBeenCalledWith(expect.any(Object), {
-      type: '@@router/LOCATION_CHANGE',
-      payload: {
-        action: 'POP',
-        isFirstRendering: true,
-        location: {
-          hash: '',
-          pathname: '/',
-          search: '',
-          state: undefined
+    expect(actions).toEqual([
+      {
+        type: '@@router/LOCATION_CHANGE',
+        payload: {
+          action: 'POP',
+          isFirstRendering: true,
+          location: {
+            hash: '',
+            pathname: '/',
+            search: '',
+            state: undefined
+          }
         }
       }
-    });
+    ]);
   });
 
   // @todo check for hot
