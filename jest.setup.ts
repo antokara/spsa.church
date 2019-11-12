@@ -23,7 +23,15 @@ global.console.error = (...args: Error[] | string[]): void => {
   }
 };
 
-// @see https://www.npmjs.com/package/jest-fetch-mock#typescript-guide
+/**
+ * we need to mock fetch because it is not available in NodeJS and
+ * because of that, some tests fail.
+ *
+ * That includes ie. the App container, which uses the GraphQL provider.
+ * Not just tests that directly depend on fetch...
+ *
+ * @see https://www.npmjs.com/package/jest-fetch-mock#typescript-guide
+ */
 const customGlobal: GlobalWithFetchMock = <GlobalWithFetchMock>global;
 // tslint:disable-next-line:no-var-requires no-require-imports
 customGlobal.fetch = require('jest-fetch-mock');
