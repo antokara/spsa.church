@@ -39,12 +39,12 @@ describe('App container', () => {
       store: mockStore
     }));
 
-    // mock the app component
+    // mock the Layout1 component
     // we don't care about what the component does
     // but we do need a consistent test for the container
     // and we need a way to test the store/router providers
-    jest.doMock('src/components/App', () => ({
-      App: MockContainer
+    jest.doMock('src/components/layouts/Layout1', () => ({
+      Layout1: MockContainer
     }));
 
     mockStore.clearActions();
