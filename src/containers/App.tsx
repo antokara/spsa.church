@@ -4,9 +4,11 @@
  */
 import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
+import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { hot } from 'ReactHotLoader';
 import { App as AppComponent } from 'src/components/App';
+import { ApolloClient } from 'src/helpers/ApolloClient';
 import { history } from 'src/helpers/history';
 import { store } from 'src/helpers/store';
 import * as WebFont from 'webfontloader';
@@ -21,7 +23,9 @@ const App: React.FunctionComponent = (): React.ReactElement<React.ReactNode> => 
   <React.Fragment>
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <AppComponent />
+        <ApolloProvider client={ApolloClient}>
+          <AppComponent />
+        </ApolloProvider>
       </ConnectedRouter>
     </Provider>
   </React.Fragment>
