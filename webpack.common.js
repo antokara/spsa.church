@@ -54,6 +54,11 @@ module.exports = env => {
           ]
         },
         {
+          test: /\.gql$/,
+          exclude: /node_modules/,
+          loader: 'graphql-tag/loader'
+        },
+        {
           test: /\.(png|jpg|gif|svg)$/,
           use: [
             {

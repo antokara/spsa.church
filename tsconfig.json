@@ -21,7 +21,7 @@
       "redux-devtools-extension": ["node_modules/redux-devtools-extension"],
       "ReactHotLoader": ["node_modules/react-hot-loader"]
     },
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["types", "node_modules/@types"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"],
