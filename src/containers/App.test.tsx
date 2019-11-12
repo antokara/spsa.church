@@ -3,7 +3,9 @@ import * as React from 'react';
 import { AnyAction } from 'redux';
 import { default as configureStore, MockStoreEnhanced } from 'redux-mock-store';
 import { IMockStore } from 'src/containers/app.test/IMockStore';
-import { MockContainer } from 'src/containers/app.test/MockContainer';
+import { MockComponent } from 'src/containers/app.test/MockComponent';
+// import { MockApolloConsumer } from 'src/containers/app.test/MockApolloConsumer';
+// import { MockReduxContainer } from 'src/containers/app.test/MockReduxContainer';
 
 describe('App container', () => {
   let App: React.FunctionComponent;
@@ -44,7 +46,7 @@ describe('App container', () => {
     // but we do need a consistent test for the container
     // and we need a way to test the store/router providers
     jest.doMock('src/components/layouts/Layout1', () => ({
-      Layout1: MockContainer
+      Layout1: MockComponent
     }));
 
     mockStore.clearActions();
@@ -54,18 +56,29 @@ describe('App container', () => {
     actions = mockStore.getActions();
   });
 
-  // this also covers the store provider,
-  // since the "data-mock-store-prop" props
-  // are being populated by the react-redux connect
-  // which needs the store in the context
-  it('renders the div element', () => {
+  // this test covers the following:
+  //  - proper render of the component
+  //  - access to the "Redux store" using the "Redux Provider"
+  //  - access to the "Apollo client" using the "Apollo Provider"
+  it('renders the container/consumer components', () => {
     expect(node).toMatchInlineSnapshot(`
-      <div
-        data-mock-store-prop-aa="test-a"
-        data-mock-store-prop-bb="10"
-        data-testid="mock-test-id"
-      >
-        mockComponent
+      <div>
+        <div
+          data-client-cache-type="object"
+          data-client-name="ApolloClient"
+          data-client-query-type="function"
+          data-client-store="DataStore"
+          data-testid="mock-apollo-consumer"
+        >
+          MockApolloConsumer
+        </div>
+        <div
+          data-mock-store-prop-aa="test-a"
+          data-mock-store-prop-bb="10"
+          data-testid="mock-redux-component"
+        >
+          mockReduxComponent
+        </div>
       </div>
     `);
   });
