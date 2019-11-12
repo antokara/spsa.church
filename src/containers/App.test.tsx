@@ -23,14 +23,19 @@ describe('App container', () => {
       mockStorePropB: 10
     }
   };
+  let rr: RenderResult;
+  let node: ChildNode | null;
+  let actions: AnyAction[];
 
-  beforeAll(async () => {
+  beforeAll(() => {
     // create the store
     mockStore = configureStore<IMockStore>([])(defaultState);
+  });
 
+  beforeEach(async () => {
     // mock the store so that
     // the Providers in the container use it
-    jest.mock('src/helpers/store', () => ({
+    jest.doMock('src/helpers/store', () => ({
       store: mockStore
     }));
 
@@ -38,18 +43,12 @@ describe('App container', () => {
     // we don't care about what the component does
     // but we do need a consistent test for the container
     // and we need a way to test the store/router providers
-    jest.mock('src/components/App', () => ({
+    jest.doMock('src/components/App', () => ({
       App: MockContainer
     }));
 
-    ({ App } = await import('./App'));
-  });
-
-  let rr: RenderResult;
-  let node: ChildNode | null;
-  let actions: AnyAction[];
-  beforeEach(() => {
     mockStore.clearActions();
+    ({ App } = await import('./App'));
     rr = render(<App />);
     node = rr.container.firstChild;
     actions = mockStore.getActions();
@@ -93,11 +92,11 @@ describe('App container', () => {
     expect(linkElement).toBeTruthy();
   });
 
-  it('dispatches one action', () => {
+  it('dispatches only one action', () => {
     expect(actions).toHaveLength(1);
   });
 
-  it('dispatches a Connected Router action', () => {
+  it('dispatches the Connected Router action', () => {
     expect(actions).toEqual([
       {
         type: '@@router/LOCATION_CHANGE',
@@ -114,7 +113,4 @@ describe('App container', () => {
       }
     ]);
   });
-
-  // @todo refactor/rename mock to mock
-  // @todo check for hot
 });
