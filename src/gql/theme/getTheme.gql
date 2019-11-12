@@ -1,0 +1,11 @@
+query getTheme {
+  theme {
+    headerMenu {
+      label
+      menuEntries {
+        label
+        url
+      }
+    }
+  }
+}
