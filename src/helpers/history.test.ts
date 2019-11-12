@@ -8,35 +8,35 @@ describe('history object', () => {
 
   describe('"location" property', () => {
     it('is an object', () => {
-      expect(history.location).toBeInstanceOf(Object);
+      expect(history).toHaveProperty('location', expect.any(Object));
     });
 
     it('has "pathname" property', () => {
-      expect(typeof history.location.pathname).toEqual('string');
+      expect(history).toHaveProperty('location.pathname', expect.any(String));
     });
 
     it('has "search" property', () => {
-      expect(typeof history.location.search).toEqual('string');
+      expect(history).toHaveProperty('location.search', expect.any(String));
     });
 
     it('has "hash" property', () => {
-      expect(typeof history.location.hash).toEqual('string');
+      expect(history).toHaveProperty('location.hash', expect.any(String));
     });
   });
 
   it('has the "length" property', () => {
-    expect(typeof history.length).toEqual('number');
+    expect(history).toHaveProperty('length', expect.any(Number));
     expect(history.length).toEqual(1);
   });
 
   it('has the "action" property', () => {
-    expect(typeof history.action).toEqual('string');
+    expect(history).toHaveProperty('action', expect.any(String));
     expect(history.action).toEqual('POP');
   });
 
   describe('"push" property', () => {
     it('is a function', () => {
-      expect(history.push).toBeInstanceOf(Function);
+      expect(history).toHaveProperty('push', expect.any(Function));
     });
 
     it('invokes the listen callback when called', () => {
@@ -44,7 +44,7 @@ describe('history object', () => {
       const unlisten: Function = history.listen(
         (location: Location, action: Action) => {
           expect(location).toBeInstanceOf(Object);
-          expect(location.pathname).toEqual('/test-location');
+          expect(location).toHaveProperty('pathname', '/test-location');
           expect(action).toEqual('PUSH');
           unlisten();
         }
@@ -56,7 +56,7 @@ describe('history object', () => {
 
   describe('"listen" property', () => {
     it('is a function', () => {
-      expect(history.listen).toBeInstanceOf(Function);
+      expect(history).toHaveProperty('listen', expect.any(Function));
     });
 
     it('gets invoked when push is called', () => {
@@ -64,7 +64,7 @@ describe('history object', () => {
       const unlisten: Function = history.listen(
         (location: Location, action: Action) => {
           expect(location).toBeInstanceOf(Object);
-          expect(location.pathname).toEqual('/test-location');
+          expect(location).toHaveProperty('pathname', '/test-location');
           expect(action).toEqual('PUSH');
           unlisten();
         }

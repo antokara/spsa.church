@@ -78,7 +78,7 @@ describe('store object', () => {
 
       describe('"getState" method', () => {
         it('exists', () => {
-          expect(store.getState).toBeInstanceOf(Function);
+          expect(store).toHaveProperty('getState', expect.any(Function));
         });
 
         it('returns the state object', () => {
@@ -90,7 +90,7 @@ describe('store object', () => {
 
       describe('"dispatch" method', () => {
         it('exists', () => {
-          expect(store.dispatch).toBeInstanceOf(Function);
+          expect(store).toHaveProperty('dispatch', expect.any(Function));
         });
 
         describe('called', () => {
@@ -111,11 +111,11 @@ describe('store object', () => {
       });
 
       it('is has the "subscribe" method', () => {
-        expect(store.subscribe).toBeInstanceOf(Function);
+        expect(store).toHaveProperty('subscribe', expect.any(Function));
       });
 
       it('is has the "replaceReducer" method', () => {
-        expect(store.replaceReducer).toBeInstanceOf(Function);
+        expect(store).toHaveProperty('replaceReducer', expect.any(Function));
       });
     });
 
@@ -143,7 +143,7 @@ describe('store object', () => {
 
       describe('"getState" method', () => {
         it('exists', () => {
-          expect(store.getState).toBeInstanceOf(Function);
+          expect(store).toHaveProperty('getState', expect.any(Function));
         });
 
         it('returns the state object', () => {
@@ -155,7 +155,7 @@ describe('store object', () => {
 
       describe('"dispatch" method', () => {
         it('exists', () => {
-          expect(store.dispatch).toBeInstanceOf(Function);
+          expect(store).toHaveProperty('dispatch', expect.any(Function));
         });
 
         describe('called', () => {
@@ -176,11 +176,11 @@ describe('store object', () => {
       });
 
       it('is has the "subscribe" method', () => {
-        expect(store.subscribe).toBeInstanceOf(Function);
+        expect(store).toHaveProperty('subscribe', expect.any(Function));
       });
 
       it('is has the "replaceReducer" method', () => {
-        expect(store.replaceReducer).toBeInstanceOf(Function);
+        expect(store).toHaveProperty('replaceReducer', expect.any(Function));
       });
     });
   });
