@@ -8,7 +8,10 @@ interface IMapStateProps {
   mockStorePropBB: number;
 }
 
-// our mock component
+/**
+ * a mock functional component which accepts
+ * props mapped from the redux state
+ */
 const MockComponent: (props: IMapStateProps) => JSX.Element = (
   props: IMapStateProps
 ): JSX.Element => (
@@ -28,7 +31,10 @@ const mapStateToProps: (state: IMockStore) => IMapStateProps = (
   mockStorePropBB: state.mock.mockStorePropB
 });
 
-// our mock container
+/**
+ * a mock container for testing the existence of the redux store provider
+ * in the context using the redux "connect" function
+ */
 const MockContainer: ConnectedComponent<
   (props: {}) => JSX.Element,
   Pick<{}, never>
