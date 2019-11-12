@@ -7,7 +7,7 @@ import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { hot } from 'ReactHotLoader';
-import { App as AppComponent } from 'src/components/App';
+import { Layout1 } from 'src/components/layouts/Layout1';
 import { ApolloClient } from 'src/helpers/ApolloClient';
 import { history } from 'src/helpers/history';
 import { store } from 'src/helpers/store';
@@ -24,7 +24,7 @@ const App: React.FunctionComponent = (): React.ReactElement<React.ReactNode> => 
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <ApolloProvider client={ApolloClient}>
-          <AppComponent />
+          <Layout1 />
         </ApolloProvider>
       </ConnectedRouter>
     </Provider>
