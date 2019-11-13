@@ -1,4 +1,4 @@
-import { GlobalWithFetchMock } from 'jest-fetch-mock';
+import * as fetchMock from 'fetch-mock';
 
 // throw on console.warn/error
 // to force the failure of the test(s)
@@ -30,9 +30,6 @@ global.console.error = (...args: Error[] | string[]): void => {
  * That includes ie. the App container, which uses the GraphQL provider.
  * Not just tests that directly depend on fetch...
  *
- * @see https://www.npmjs.com/package/jest-fetch-mock#typescript-guide
+ * @see http://www.wheresrhys.co.uk/fetch-mock/#aboutintroduction
  */
-const customGlobal: GlobalWithFetchMock = <GlobalWithFetchMock>global;
-// tslint:disable-next-line:no-var-requires no-require-imports
-customGlobal.fetch = require('jest-fetch-mock');
-customGlobal.fetchMock = customGlobal.fetch;
+fetchMock.mock();
