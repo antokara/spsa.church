@@ -11,6 +11,9 @@ module.exports = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/'
   }),
+  transform: {
+    '\\.gql$': 'jest-transform-graphql'
+  },
   testURL: 'http://localhost',
   coverageDirectory: '<rootDir>/reports/coverage',
   collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
