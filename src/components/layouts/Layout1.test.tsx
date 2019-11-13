@@ -1,6 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
 import {
-  act,
   getByText,
   render,
   RenderResult,
@@ -13,6 +12,23 @@ import { Layout1 } from './Layout1';
 describe('Layout1 component', () => {
   let rr: RenderResult;
   let node: ChildNode | null;
+
+  /**
+   * returns a promise which gets resolved when the loading ends
+   * which also signifies that the useQuery->MockedProvider->Promise
+   * has been resolved...
+   *
+   * important: we must resolve that promise
+   *  before we exit each test that initiates it.
+   *  Meaning, it must run "onBeforeEach" or "onAfterEach"
+   *  in the scope that it is pending...
+   */
+  const waitForLoadingToEnd: () => Promise<
+    HTMLElement
+  > = (): Promise<HTMLElement> =>
+    waitForElementToBeRemoved(() => getByText(rr.container, 'loading'), {
+      container: rr.container
+    });
 
   beforeEach(() => {
     const mocks: MockedResponse[] = [
@@ -42,18 +58,18 @@ describe('Layout1 component', () => {
       }
     ];
 
-    act(() => {
-      rr = render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <Layout1 />
-        </MockedProvider>
-      );
-    });
+    rr = render(
+      <MockedProvider mocks={mocks} addTypename={false} cache={undefined}>
+        <Layout1 />
+      </MockedProvider>
+    );
     node = rr.container.firstChild;
   });
 
   describe('while loading', () => {
-    it('renders the loading indicator', () => {
+    afterEach(waitForLoadingToEnd);
+
+    it('renders the loading indicator', async () => {
       expect(node).toMatchInlineSnapshot(`
         <div>
           spsa.church
@@ -67,16 +83,7 @@ describe('Layout1 component', () => {
   });
 
   describe('on successful load', () => {
-    beforeEach(async () => {
-      await act(async () => {
-        await waitForElementToBeRemoved(
-          () => getByText(rr.container, 'loading'),
-          {
-            container: rr.container
-          }
-        );
-      });
-    });
+    beforeEach(waitForLoadingToEnd);
 
     it('renders the loaded component', () => {
       expect(node).toMatchInlineSnapshot(`
