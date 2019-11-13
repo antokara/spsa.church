@@ -1,5 +1,6 @@
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
 import {
+  act,
   getByText,
   render,
   RenderResult,
@@ -41,11 +42,13 @@ describe('Layout1 component', () => {
       }
     ];
 
-    rr = render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Layout1 />
-      </MockedProvider>
-    );
+    act(() => {
+      rr = render(
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Layout1 />
+        </MockedProvider>
+      );
+    });
     node = rr.container.firstChild;
   });
 
@@ -65,12 +68,14 @@ describe('Layout1 component', () => {
 
   describe('on successful load', () => {
     beforeEach(async () => {
-      await waitForElementToBeRemoved(
-        () => getByText(rr.container, 'loading'),
-        {
-          container: rr.container
-        }
-      );
+      await act(async () => {
+        await waitForElementToBeRemoved(
+          () => getByText(rr.container, 'loading'),
+          {
+            container: rr.container
+          }
+        );
+      });
     });
 
     it('renders the loaded component', () => {
