@@ -8,7 +8,9 @@ const Layout1: () => JSX.Element = (): JSX.Element => {
 
   return (
     <div>
-      spsa.church {loading && 'loading'} / {data?.theme.headerMenu.label}
+      spsa.church
+      <div>{loading && 'loading'}</div>
+      <div>{data?.theme.headerMenu.label}</div>
     </div>
   );
 };
