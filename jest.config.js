@@ -1,6 +1,11 @@
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
 const { compilerOptions } = require('./tsconfig');
 
+// allow our tests to use the .env file values
+// just like the dev/build do
+// it's required for API keys, etc.
+require('dotenv').config();
+
 module.exports = {
   preset: 'ts-jest',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
