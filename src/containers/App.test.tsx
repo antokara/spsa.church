@@ -4,8 +4,6 @@ import { AnyAction } from 'redux';
 import { default as configureStore, MockStoreEnhanced } from 'redux-mock-store';
 import { IMockStore } from 'src/containers/app.test/IMockStore';
 import { MockComponent } from 'src/containers/app.test/MockComponent';
-// import { MockApolloConsumer } from 'src/containers/app.test/MockApolloConsumer';
-// import { MockReduxContainer } from 'src/containers/app.test/MockReduxContainer';
 
 describe('App container', () => {
   let App: React.FunctionComponent;
@@ -103,6 +101,27 @@ describe('App container', () => {
     }
 
     expect(linkElement).toBeTruthy();
+  });
+
+  it('renders the style element for the Material UI CSS baseline', () => {
+    const styleElements: HTMLCollection = document.head.getElementsByTagName(
+      'style'
+    );
+    let styleElement: HTMLStyleElement | undefined;
+    for (let i: number = 0; i < styleElements.length; i += 1) {
+      const element: HTMLStyleElement | null = styleElements.item(
+        i
+      ) as HTMLStyleElement;
+      if (
+        element &&
+        element.attributes.getNamedItem('data-meta')?.value === 'MuiCssBaseline'
+      ) {
+        styleElement = element;
+        break;
+      }
+    }
+
+    expect(styleElement).toBeTruthy();
   });
 
   it('dispatches only one action', () => {
