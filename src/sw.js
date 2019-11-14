@@ -43,5 +43,5 @@ workbox.routing.registerRoute(
 // cache anything that webpack is aware of (through the workbox webpack plugin)
 workbox.precaching.precacheAndRoute(self.__precacheManifest);
 
-// @todo enable google analytics
+// TODO: enable google analytics
 // workbox.googleAnalytics.initialize();
