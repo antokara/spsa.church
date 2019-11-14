@@ -2,6 +2,7 @@
  * Application Container
  * the main container of the whole application
  */
+import { CssBaseline } from '@material-ui/core';
 import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
@@ -24,6 +25,7 @@ const App: React.FunctionComponent = (): React.ReactElement<React.ReactNode> => 
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <ApolloProvider client={ApolloClient}>
+          <CssBaseline />
           <Layout1 />
         </ApolloProvider>
       </ConnectedRouter>
