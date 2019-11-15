@@ -1,8 +1,7 @@
-type TDefaultState = {
+type TState = {
   menuOpen: boolean;
 };
 
-// TODO change with immutable
-const defaultState: TDefaultState = { menuOpen: false };
+const defaultState: TState = { menuOpen: false };
 
-export { defaultState, TDefaultState };
+export { defaultState, TState };
