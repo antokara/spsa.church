@@ -8,6 +8,10 @@
   ],
   "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
   "rules": {
+    // warn but do not fail the build for TODO (until we stabilize the app)
+    "no-suspicious-comment": {
+      "severity": "warning"
+    },
     // we will instead, use prettier for that style rule
     "align": [false],
     "max-file-line-count": [true, 250],
