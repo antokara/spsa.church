@@ -2,12 +2,6 @@ import { ApolloClient } from 'apollo-client';
 import * as React from 'react';
 import { ApolloConsumer } from 'react-apollo';
 
-// props for the mock component
-type TProps = {
-  mockStorePropAA: string;
-  mockStorePropBB: number;
-};
-
 const fn: (client: ApolloClient<{}>) => JSX.Element = (
   client: ApolloClient<{}>
 ): JSX.Element => (
