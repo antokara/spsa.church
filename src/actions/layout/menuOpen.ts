@@ -4,6 +4,9 @@ import { MENU_OPEN } from 'src/constants/actionTypes/layout/MENU_OPEN';
 type TAction = Action<boolean>;
 type TActionCreator = ActionFunction1<boolean, TAction>;
 
+/**
+ * sets if the menu is open or not with the flag passed
+ */
 const menuOpen: TActionCreator = createAction<boolean>(MENU_OPEN);
 
 export { menuOpen, TAction, TActionCreator };
