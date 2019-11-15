@@ -8,10 +8,8 @@ const layout: Reducer = produce((draft: TState, action: TAction) => {
   switch (action.type) {
     case MENU_OPEN:
       draft.menuOpen = action.payload;
-
     default:
-      return draft ?? defaultState;
   }
-});
+}, defaultState);
 
 export { layout };
