@@ -4,13 +4,13 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { menuOpen, TAction, TActionCreator } from 'src/actions/layout/menuOpen';
+import { TState } from 'src/reducers/index';
 
 const Header: () => JSX.Element = (): JSX.Element => {
   const dispatch: Dispatch = useDispatch();
   const menuOpenAc: TActionCreator = bindActionCreators(menuOpen, dispatch);
   const menuOpenSt: boolean = useSelector(
-    // tslint:disable-next-line:no-any
-    (state: any) => state.layout.menuOpen
+    (state: TState) => state.layout.menuOpen
   );
   const onClick: () => TAction = (): TAction => menuOpenAc(!menuOpenSt);
 
