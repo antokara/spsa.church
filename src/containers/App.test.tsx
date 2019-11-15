@@ -1,7 +1,8 @@
-import { render, RenderResult } from '@testing-library/react';
+import { getByTestId, render, RenderResult } from '@testing-library/react';
 import * as React from 'react';
 import { AnyAction } from 'redux';
 import { default as configureStore, MockStoreEnhanced } from 'redux-mock-store';
+import { THEME } from 'src/constants/THEME';
 import { IMockStore } from 'src/containers/app.test/IMockStore';
 import { MockComponent } from 'src/containers/app.test/MockComponent';
 
@@ -50,35 +51,81 @@ describe('App container', () => {
     mockStore.clearActions();
     ({ App } = await import('./App'));
     rr = render(<App />);
-    node = rr.container.firstChild;
     actions = mockStore.getActions();
   });
 
-  // this test covers the following:
-  //  - proper render of the component
-  //  - access to the "Redux store" using the "Redux Provider"
-  //  - access to the "Apollo client" using the "Apollo Provider"
-  it('renders the container/consumer components', () => {
-    expect(node).toMatchInlineSnapshot(`
-      <div>
-        <div
-          data-client-cache-type="object"
-          data-client-name="ApolloClient"
-          data-client-query-type="function"
-          data-client-store="DataStore"
-          data-testid="mock-apollo-consumer"
-        >
-          MockApolloConsumer
-        </div>
-        <div
-          data-mock-store-prop-aa="test-a"
-          data-mock-store-prop-bb="10"
-          data-testid="mock-redux-component"
-        >
-          mockReduxComponent
-        </div>
-      </div>
-    `);
+  describe('Apollo Provider', () => {
+    beforeEach(() => {
+      node = getByTestId(rr.container, 'mock-apollo-consumer');
+    });
+
+    it('renders the consumer component', () => {
+      expect(node).toBeTruthy();
+    });
+
+    it('provides the client cache type', () => {
+      expect(node).toHaveAttribute('data-client-cache-type', 'object');
+    });
+
+    it('provides the client name', () => {
+      expect(node).toHaveAttribute('data-client-name', 'ApolloClient');
+    });
+
+    it('provides the client query type', () => {
+      expect(node).toHaveAttribute('data-client-query-type', 'function');
+    });
+    it('provides the client store', () => {
+      expect(node).toHaveAttribute('data-client-store', 'DataStore');
+    });
+  });
+
+  describe('Redux Provider', () => {
+    beforeEach(() => {
+      node = getByTestId(rr.container, 'mock-redux-component');
+    });
+
+    it('renders the consumer component', () => {
+      expect(node).toBeTruthy();
+    });
+
+    it('provides access to the "state.mock.mockStorePropA"', () => {
+      expect(node).toHaveAttribute('data-mock-store-prop-aa', 'test-a');
+    });
+
+    it('provides access to the "state.mock.mockStorePropA"', () => {
+      expect(node).toHaveAttribute('data-mock-store-prop-bb', '10');
+    });
+  });
+
+  describe('Material UI Theme Provider', () => {
+    beforeEach(() => {
+      node = getByTestId(rr.container, 'mock-mui-theme-consumer');
+    });
+
+    it('renders the consumer component', () => {
+      expect(node).toBeTruthy();
+    });
+
+    it('provides access to the "theme.palette.primary.main"', () => {
+      expect(node).toHaveAttribute(
+        'data-palette-primary-main',
+        THEME.palette.primary.main
+      );
+    });
+
+    it('provides access to the "theme.palette.secondary.main"', () => {
+      expect(node).toHaveAttribute(
+        'data-palette-secondary-main',
+        THEME.palette.secondary.main
+      );
+    });
+
+    it('provides access to the "theme.palette.text.primary"', () => {
+      expect(node).toHaveAttribute(
+        'data-palette-text-primary',
+        THEME.palette.text.primary
+      );
+    });
   });
 
   it('renders the link element for the web fonts', () => {

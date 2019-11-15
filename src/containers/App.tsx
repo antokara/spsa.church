@@ -2,13 +2,14 @@
  * Application Container
  * the main container of the whole application
  */
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { hot } from 'ReactHotLoader';
 import { Layout1 } from 'src/components/layouts/Layout1';
+import { THEME } from 'src/constants/THEME';
 import { ApolloClient } from 'src/helpers/ApolloClient';
 import { history } from 'src/helpers/history';
 import { store } from 'src/helpers/store';
@@ -25,8 +26,10 @@ const App: React.FunctionComponent = (): React.ReactElement<React.ReactNode> => 
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <ApolloProvider client={ApolloClient}>
-          <CssBaseline />
-          <Layout1 />
+          <MuiThemeProvider theme={THEME}>
+            <CssBaseline />
+            <Layout1 />
+          </MuiThemeProvider>
         </ApolloProvider>
       </ConnectedRouter>
     </Provider>
