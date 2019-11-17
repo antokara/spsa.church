@@ -4,7 +4,7 @@ import { Layout1 } from './Layout1';
 
 // mock the Header Module
 jest.mock('src/components/layouts/header/Header', () => ({
-  Header: (): JSX.Element => <div data-testid="mocked header component" />
+  Header: (): JSX.Element => <div data-testid="mocked-header-component" />
 }));
 
 describe('Layout1 component', () => {
@@ -20,7 +20,7 @@ describe('Layout1 component', () => {
     expect(node).toMatchInlineSnapshot(`
       <div>
         <div
-          data-testid="mocked header component"
+          data-testid="mocked-header-component"
         />
         spsa.church
       </div>
