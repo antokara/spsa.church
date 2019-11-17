@@ -16,7 +16,7 @@ describe('Layout1 component', () => {
     node = rr.container.firstChild;
   });
 
-  it('renders the loaded component', () => {
+  it('renders the component', () => {
     expect(node).toMatchInlineSnapshot(`
       <div>
         <div
