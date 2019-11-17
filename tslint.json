@@ -8,6 +8,8 @@
   ],
   "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
   "rules": {
+    // can not keep enabled because we need to allow return of null in react
+    "no-null-keyword": false,
     // warn but do not fail the build for TODO (until we stabilize the app)
     "no-suspicious-comment": {
       "severity": "warning"
