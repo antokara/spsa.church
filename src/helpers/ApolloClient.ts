@@ -4,6 +4,7 @@ import { ApolloLink, GraphQLRequest } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
 import { RetryLink } from 'apollo-link-retry';
+import { withClientState } from 'apollo-link-state';
 
 interface IContext {
   headers: {
@@ -11,6 +12,25 @@ interface IContext {
   };
 }
 
+/**
+ * our cache
+ */
+const cache: InMemoryCache = new InMemoryCache();
+
+/**
+ * handles local state
+ */
+const stateLink: ApolloLink = withClientState({
+  cache,
+  resolvers: {
+    Mutation: {}
+  },
+  defaults: {}
+});
+
+/**
+ * handles authentication
+ */
 const authLink: ApolloLink = setContext(
   (operation: GraphQLRequest, prevContext: IContext): IContext => ({
     headers: {
@@ -20,6 +40,9 @@ const authLink: ApolloLink = setContext(
   })
 );
 
+/**
+ * handles http requests
+ */
 const httpLink: ApolloLink = createHttpLink({
   uri: process.env.TAKESHAPE_API_URL
 });
@@ -31,8 +54,12 @@ const httpLink: ApolloLink = createHttpLink({
 const retryLink: RetryLink = new RetryLink();
 
 const ApolloClient: Client<{}> = new Client({
-  link: authLink.concat(retryLink).concat(httpLink),
-  cache: new InMemoryCache()
+  link: ApolloLink.from([authLink, retryLink, stateLink, httpLink]),
+  cache
 });
+
+// TODO: fix when bug is fixed
+// @see https://github.com/apollographql/apollo-link/issues/1200
+// ApolloClient.onResetStore(stateLink.writeDefaults);
 
 export { ApolloClient };
