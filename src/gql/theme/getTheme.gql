@@ -3,6 +3,7 @@ query getTheme {
     headerMenu {
       label
       menuEntries {
+        _id
         label
         url
       }
