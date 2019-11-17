@@ -18,7 +18,8 @@ const THEME: Theme = createMuiTheme({
       primary: '#ffffffc0'
     },
     background: {
-      default: '#c68567ff'
+      default: '#c68567ff',
+      paper: '#c68567ff'
     }
   }
 });
