@@ -1,9 +1,9 @@
 import { RouterState } from 'connected-react-router';
-import { Reducer } from 'redux';
-import { index } from './index';
+import { defaultState as layoutDefaultState } from 'src/reducers/layout/defaultState';
+import { index, TState } from './index';
 
 describe('index reducer', () => {
-  let store: Reducer;
+  let state: TState;
   const routerDefaultState: RouterState = {
     action: 'POP',
     location: {
@@ -15,12 +15,13 @@ describe('index reducer', () => {
   };
 
   beforeEach(() => {
-    store = index({}, { type: 'test' });
+    state = index({}, { type: 'test' });
   });
 
-  it('returns the store object', () => {
-    expect(store).toStrictEqual({
-      router: routerDefaultState
+  it('returns the state object', () => {
+    expect(state).toStrictEqual({
+      router: routerDefaultState,
+      layout: layoutDefaultState
     });
   });
 });
