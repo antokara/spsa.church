@@ -31,7 +31,7 @@ const httpLink: ApolloLink = createHttpLink({
 const retryLink: RetryLink = new RetryLink();
 
 const ApolloClient: Client<{}> = new Client({
-  link: authLink.concat(retryLink).concat(httpLink),
+  link: ApolloLink.from([authLink, retryLink, httpLink]),
   cache: new InMemoryCache()
 });
 
