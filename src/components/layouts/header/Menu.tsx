@@ -8,7 +8,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { menuOpen, TAction, TActionCreator } from 'src/actions/layout/menuOpen';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TData, TMenuEntry } from 'src/gql/theme/TData';
-import { TState } from 'src/reducers/index';
+import { TState } from 'src/reducers/defaultState';
 
 const Menu: () => JSX.Element | null = (): JSX.Element | null => {
   const dispatch: Dispatch = useDispatch();
