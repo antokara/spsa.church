@@ -38,7 +38,13 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
 
   return (
     <>
-      <Fab color="primary" aria-label="menu" size="small" onClick={onClick}>
+      <Fab
+        color="primary"
+        data-testid="menu-button"
+        aria-label="menu"
+        size="small"
+        onClick={onClick}
+      >
         <MenuIcon />
       </Fab>
       <Drawer open={menuOpenSt} onClose={onClick}>
