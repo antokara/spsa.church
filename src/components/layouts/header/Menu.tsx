@@ -17,10 +17,8 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
     (state: TState) => state.layout.menuOpen
   );
   const onClick: () => TAction = (): TAction => menuOpenAc(!menuOpenSt);
-  console.log('quering menu');
   const { loading, data } = useQuery<TData>(getTheme, {
-    fetchPolicy: 'cache-only',
-    errorPolicy: 'none'
+    fetchPolicy: 'cache-first'
   });
 
   if (loading || !data) {
