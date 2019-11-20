@@ -185,3 +185,34 @@ describe('Menu component', () => {
     });
   });
 });
+
+// it('renders the loaded component', () => {
+//   expect(rr.container.firstChild).toMatchInlineSnapshot(`
+//     <button
+//       aria-label="menu"
+//       class="MuiButtonBase-root MuiFab-root MuiFab-sizeSmall MuiFab-primary"
+//       data-testid="menu"
+//       tabindex="0"
+//       type="button"
+//     >
+//       <span
+//         class="MuiFab-label"
+//       >
+//         <svg
+//           aria-hidden="true"
+//           class="MuiSvgIcon-root"
+//           focusable="false"
+//           role="presentation"
+//           viewBox="0 0 24 24"
+//         >
+//           <path
+//             d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+//           />
+//         </svg>
+//       </span>
+//       <span
+//         class="MuiTouchRipple-root"
+//       />
+//     </button>
+//   `);
+// });
