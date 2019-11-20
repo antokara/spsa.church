@@ -3,7 +3,6 @@
  * the main container of the whole application
  */
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
-import { ApolloClient } from 'apollo-client';
 import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
@@ -11,7 +10,10 @@ import { Provider } from 'react-redux';
 import { hot } from 'ReactHotLoader';
 import { Layout1 } from 'src/components/layouts/Layout1';
 import { THEME } from 'src/constants/THEME';
-import { ApolloClientCreator } from 'src/helpers/ApolloClientCreator';
+import {
+  ApolloClientCreator,
+  TApolloClient
+} from 'src/helpers/ApolloClientCreator';
 import { history } from 'src/helpers/history';
 import { store } from 'src/helpers/store';
 import * as WebFont from 'webfontloader';
@@ -25,21 +27,18 @@ WebFont.load({
 const App: React.FunctionComponent | null = (): React.ReactElement<
   React.ReactNode
 > | null => {
-  // let apolloClient: ApolloClient<{}> | null = null;
+  // our apollo client
+  const [apolloClient, setApolloClient] = React.useState<TApolloClient>();
 
-  const [state, setState] = useState(() => {
-    const initialState: { apolloClient: ApolloClient<{}> | null } = {};
+  // if the apollo client hasn't been initialized yet,
+  // initialize it asynchronously and update the state...
+  if (!apolloClient) {
+    ApolloClientCreator().then((client: TApolloClient): void =>
+      setApolloClient(client)
+    );
+  }
 
-    return initialState;
-  });
-
-  // React.useLayoutEffect(() => {
-  //   ApolloClientCreator().then((client: ApolloClient<{}>) => {
-  //     apolloClient = client;
-  //   });
-  // });
-
-  if (props.apolloClient !== null) {
+  if (apolloClient) {
     return (
       <React.Fragment>
         <Provider store={store}>
