@@ -9,6 +9,9 @@ import { createHttpLink } from 'apollo-link-http';
 import { RetryLink } from 'apollo-link-retry';
 import * as localforage from 'localforage';
 
+// the type of our apollo client with the cache structure
+type TApolloClient = Client<{}>;
+
 interface IContext {
   headers: {
     authorization: string;
@@ -16,8 +19,9 @@ interface IContext {
 }
 
 const ApolloClientCreator: () => Promise<
-  Client<{}>
-> = async (): Promise<Client<{}>> => {
+  TApolloClient
+> = async (): Promise<TApolloClient> => {
+  // TODO: add test
   const cache: InMemoryCache = new InMemoryCache();
   const store: LocalForage = localforage.createInstance({
     name: 'apollo-cache',
@@ -34,7 +38,6 @@ const ApolloClientCreator: () => Promise<
     cache,
     storage: <PersistentStorage<NormalizedCacheObject>>store
   });
-  console.log('cache loaded');
 
   /**
    * handles authorization / headers
@@ -78,15 +81,13 @@ const ApolloClientCreator: () => Promise<
     cache,
     defaultOptions: {
       query: {
-        fetchPolicy: 'cache-first',
-        errorPolicy: 'none'
+        fetchPolicy: 'cache-first'
       },
       watchQuery: {
-        fetchPolicy: 'cache-and-network',
-        errorPolicy: 'none'
+        fetchPolicy: 'cache-and-network'
       }
     }
   });
 };
 
-export { ApolloClientCreator };
+export { ApolloClientCreator, TApolloClient };
