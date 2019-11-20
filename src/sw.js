@@ -4,16 +4,12 @@ workbox.core.skipWaiting();
 // @see https://developers.google.com/web/tools/workbox/reference-docs/latest/workbox.core#.clientsClaim
 workbox.core.clientsClaim();
 
-// cache CMS graphQL
-workbox.routing.registerRoute(
-  new RegExp('https://api.takeshape.io/project/.*/graphql'),
-  new workbox.strategies.StaleWhileRevalidate()
-);
-
 // cache CMS assets
 workbox.routing.registerRoute(
   new RegExp('https://images.takeshape.io/'),
-  new workbox.strategies.StaleWhileRevalidate()
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: 'takeshape-cms-assets'
+  })
 );
 
 // Cache the Google Fonts stylesheets with a stale while revalidate strategy.
