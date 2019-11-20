@@ -8,6 +8,9 @@
   ],
   "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
   "rules": {
+    // it produces too many false positives
+    // @see https://github.com/palantir/tslint/issues/2430
+    "no-unnecessary-callback-wrapper": false,
     // can not keep enabled because we need to allow return of null in react
     "no-null-keyword": false,
     // warn but do not fail the build for TODO (until we stabilize the app)
