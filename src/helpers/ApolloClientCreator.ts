@@ -1,9 +1,8 @@
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
-// tslint:disable-next-line:no-submodule-imports
 import { PersistentStorage } from 'apollo-cache-persist/types';
 import { ApolloClient as Client } from 'apollo-client';
-import { ApolloLink, GraphQLRequest, Operation } from 'apollo-link';
+import { ApolloLink, GraphQLRequest } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
 import { RetryLink } from 'apollo-link-retry';
@@ -12,12 +11,18 @@ import * as localforage from 'localforage';
 // the type of our apollo client with the cache structure
 type TApolloClient = Client<{}>;
 
+/**
+ * context of the auth link
+ */
 interface IContext {
   headers: {
     authorization: string;
   };
 }
 
+/**
+ * creates the apollo client asynchronously in the promise returned
+ */
 const ApolloClientCreator: () => Promise<
   TApolloClient
 > = async (): Promise<TApolloClient> => {
@@ -65,16 +70,6 @@ const ApolloClientCreator: () => Promise<
   const retryLink: RetryLink = new RetryLink({
     attempts: { max: Infinity }
   });
-  // .split(
-  //   // split based on operation type
-  //   (op: Operation): boolean => {
-  //     // const { kind, operation } = query as any;
-  //     op.operationName
-  //     // return kind === 'OperationDefinition' && operation === 'subscription';
-  //     return true;
-  //   },
-  //   httpLink
-  // );
 
   return new Client({
     link: ApolloLink.from([authLink, retryLink, httpLink]),
