@@ -8,6 +8,9 @@
   ],
   "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
   "rules": {
+    // we need to ignore function names that begin with "describe"
+    // because they are needed for dynamic jest tests
+    "mocha-no-side-effect-code": [true, { "ignore": "^describe.+" }],
     // it produces too many false positives
     // @see https://github.com/palantir/tslint/issues/2430
     "no-unnecessary-callback-wrapper": false,

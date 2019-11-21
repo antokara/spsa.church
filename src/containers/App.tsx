@@ -49,16 +49,16 @@ const App: React.FunctionComponent | null = (): React.ReactElement<
 
   // if the apollo client hasn't been initialized yet,
   // initialize it asynchronously and update the state...
-  if (!apolloClient) {
+  if (!apolloClient && !error) {
     ApolloClientCreator()
       .then((client: TApolloClient): void => setApolloClient(client))
-      .catch(() => {
+      .catch(() =>
         setError(
           new Error(
             'Failed to initialize GraphQL client. Please refresh/reopen the Application'
           )
-        );
-      });
+        )
+      );
   }
 
   // do not attempt to render the layout (which depends on apollo client)
@@ -77,6 +77,7 @@ const App: React.FunctionComponent | null = (): React.ReactElement<
   // if true, the loading indicator will be shown
   const loadingVisible: boolean = !apolloClient && !error;
 
+  // TODO: test StylesProvider and ThemeProvider
   return (
     <MuiThemeProvider theme={THEME}>
       <StylesProvider injectFirst={true}>
