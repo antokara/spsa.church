@@ -26,14 +26,12 @@ interface IContext {
 const ApolloClientCreator: () => Promise<
   TApolloClient
 > = async (): Promise<TApolloClient> => {
-  // TODO: add test
   const cache: InMemoryCache = new InMemoryCache();
   const store: LocalForage = localforage.createInstance({
     name: 'apollo-cache',
     version: 1
   });
 
-  // TODO: add test
   /**
    * instantiates the cache persistor
    *
@@ -63,10 +61,9 @@ const ApolloClientCreator: () => Promise<
     uri: process.env.TAKESHAPE_API_URL
   });
 
-  // TODO: consider replacing or using additional to this the "apollo-link-error"
-  //    for controlled retry by the user after the automatic failures
-  //    or for controlled retry of faster retries (instead of forced delay)
-  // TODO: add test for the retry in its final form
+  /**
+   * automatically retries in case of network/api failure
+   */
   const retryLink: RetryLink = new RetryLink({
     attempts: { max: Infinity }
   });
@@ -79,7 +76,7 @@ const ApolloClientCreator: () => Promise<
         fetchPolicy: 'cache-first'
       },
       watchQuery: {
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'cache-first'
       }
     }
   });
