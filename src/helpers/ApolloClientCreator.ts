@@ -26,7 +26,9 @@ interface IContext {
 const ApolloClientCreator: () => Promise<
   TApolloClient
 > = async (): Promise<TApolloClient> => {
+  // TODO test
   const cache: InMemoryCache = new InMemoryCache();
+  // TODO test
   const store: LocalForage = localforage.createInstance({
     name: 'apollo-cache',
     version: 1
@@ -64,14 +66,16 @@ const ApolloClientCreator: () => Promise<
   /**
    * automatically retries in case of network/api failure
    */
+  // TODO test
   const retryLink: RetryLink = new RetryLink({
-    attempts: { max: Infinity }
+    attempts: { max: 1 }
   });
 
   return new Client({
     link: ApolloLink.from([authLink, retryLink, httpLink]),
     cache,
     defaultOptions: {
+      // TODO test
       query: {
         fetchPolicy: 'cache-first'
       },
