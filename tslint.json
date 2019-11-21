@@ -35,7 +35,12 @@
     ],
     // @see https://github.com/palantir/tslint/issues/3364
     "no-implicit-dependencies": [true, "dev", ["src", "ReactHotLoader"]],
-    "no-submodule-imports": [true, "src"],
+    "no-submodule-imports": [
+      true,
+      "src",
+      "@material-ui/core",
+      "apollo-cache-persist/types"
+    ],
     // @see https://github.com/ajafff/tslint-consistent-codestyle/blob/master/docs/naming-convention.md
     "naming-convention": [
       true,
