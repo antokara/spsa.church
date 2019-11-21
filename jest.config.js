@@ -26,7 +26,7 @@ module.exports = {
       statements: 100
     }
   },
-  setupFiles: ['<rootDir>/jest.setup.ts'],
+  setupFiles: ['<rootDir>/jest.setup.ts', 'jest-localstorage-mock'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.afterEnv.ts'],
   clearMocks: true,
   errorOnDeprecated: true
