@@ -8,7 +8,7 @@ import { MockReduxContainer } from './MockReduxContainer';
  * mock consumers/containers for convenient testing in one go
  */
 const MockComponent: () => JSX.Element = (): JSX.Element => (
-  <div>
+  <div data-testid="mock-component">
     <MockApolloConsumer />
     <MockReduxContainer />
     <MockMUIThemeConsumer />
