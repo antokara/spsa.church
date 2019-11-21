@@ -27,9 +27,7 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
   const onClick: () => TAction = (): TAction => menuOpenAc(!menuOpenSt);
 
   // get the theme data
-  const { loading, data } = useQuery<TData>(getTheme, {
-    fetchPolicy: 'cache-first'
-  });
+  const { loading, data } = useQuery<TData>(getTheme);
 
   // in case the gql is loading or there is no data, do not show the menu
   if (loading || !data) {
