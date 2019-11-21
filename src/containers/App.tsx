@@ -1,13 +1,23 @@
 /**
- * Application Container
- * the main container of the whole application
+ * Application Container.
+ * The main container of the whole application.
+ *
+ * It handles the initial loading state/indicator and is responsible for
+ * passing to the rest of the app, all the context required such as:
+ * redux-store, apollo client, material ui theme, hot loader support, base css, etc.
  */
-import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
+import {
+  CssBaseline,
+  MuiThemeProvider,
+  StylesProvider
+} from '@material-ui/core';
 import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { hot } from 'ReactHotLoader';
+import { PageError } from 'src/components/app/PageError';
+import { PageLoading } from 'src/components/app/PageLoading';
 import { Layout1 } from 'src/components/layouts/Layout1';
 import { THEME } from 'src/constants/THEME';
 import {
@@ -16,6 +26,7 @@ import {
 } from 'src/helpers/ApolloClientCreator';
 import { history } from 'src/helpers/history';
 import { store } from 'src/helpers/store';
+import { ThemeProvider } from 'styled-components';
 import * as WebFont from 'webfontloader';
 
 WebFont.load({
@@ -27,35 +38,58 @@ WebFont.load({
 const App: React.FunctionComponent | null = (): React.ReactElement<
   React.ReactNode
 > | null => {
+  // initialization error
+  const [error, setError] = React.useState<Error>();
+
   // our apollo client
   const [apolloClient, setApolloClient] = React.useState<TApolloClient>();
+
+  // the children to render
+  let children: JSX.Element | null = null;
 
   // if the apollo client hasn't been initialized yet,
   // initialize it asynchronously and update the state...
   if (!apolloClient) {
-    ApolloClientCreator().then((client: TApolloClient): void =>
-      setApolloClient(client)
-    );
+    ApolloClientCreator()
+      .then((client: TApolloClient): void => setApolloClient(client))
+      .catch(() => {
+        setError(
+          new Error(
+            'Failed to initialize GraphQL client. Please refresh/reopen the Application'
+          )
+        );
+      });
   }
 
+  // do not attempt to render the layout (which depends on apollo client)
+  // until the apollo client is ready. In the mean time, show the PageLoading and
+  // in case of failure, show the PageError
   if (apolloClient) {
-    return (
-      <React.Fragment>
-        <Provider store={store}>
-          <ConnectedRouter history={history}>
-            <ApolloProvider client={apolloClient}>
-              <MuiThemeProvider theme={THEME}>
-                <CssBaseline />
-                <Layout1 />
-              </MuiThemeProvider>
-            </ApolloProvider>
-          </ConnectedRouter>
-        </Provider>
-      </React.Fragment>
+    children = (
+      <ApolloProvider client={apolloClient}>
+        <Layout1 />
+      </ApolloProvider>
     );
+  } else if (error) {
+    children = <PageError error={error} />;
   }
 
-  return null;
+  // if true, the loading indicator will be shown
+  const loadingVisible: boolean = !apolloClient && !error;
+
+  return (
+    <MuiThemeProvider theme={THEME}>
+      <StylesProvider injectFirst={true}>
+        <ThemeProvider theme={THEME}>
+          <CssBaseline />
+          <Provider store={store}>
+            <PageLoading visible={loadingVisible} />
+            <ConnectedRouter history={history}>{children}</ConnectedRouter>
+          </Provider>
+        </ThemeProvider>
+      </StylesProvider>
+    </MuiThemeProvider>
+  );
 };
 
 const containerApp: React.FunctionComponent = hot(module)(App);
