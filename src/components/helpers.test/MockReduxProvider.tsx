@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import {
   mockStoreCreator,
   TMockStore
-} from 'src/components/provider.test/mockStoreCreator';
+} from 'src/components/helpers.test/mockStoreCreator';
 
 type TProps = React.PropsWithChildren<{
   store?: TMockStore;

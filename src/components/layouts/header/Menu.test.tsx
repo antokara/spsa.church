@@ -13,12 +13,12 @@ import { menuOpen } from 'src/actions/layout/menuOpen';
 import {
   defaultStateCreator,
   TState
-} from 'src/components/provider.test/defaultStateCreator';
-import { MockReduxProvider } from 'src/components/provider.test/MockReduxProvider';
+} from 'src/components/helpers.test/defaultStateCreator';
+import { MockReduxProvider } from 'src/components/helpers.test/MockReduxProvider';
 import {
   mockStoreCreator,
   TMockStore
-} from 'src/components/provider.test/mockStoreCreator';
+} from 'src/components/helpers.test/mockStoreCreator';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { Menu } from './Menu';
 
@@ -102,7 +102,7 @@ describe('Menu component', () => {
     describe('while loading', () => {
       afterEach(waitForLoadingToEnd);
 
-      it('renders nothing', async () => {
+      it('renders nothing', () => {
         expect(rr.container.firstChild).toBeNull();
       });
     });
@@ -149,7 +149,7 @@ describe('Menu component', () => {
     describe('while loading', () => {
       afterEach(waitForLoadingToEnd);
 
-      it('renders nothing', async () => {
+      it('renders nothing', () => {
         expect(rr.container.firstChild).toBeNull();
       });
     });
@@ -186,6 +186,7 @@ describe('Menu component', () => {
   });
 });
 
+// TODO
 // it('renders the loaded component', () => {
 //   expect(rr.container.firstChild).toMatchInlineSnapshot(`
 //     <button
