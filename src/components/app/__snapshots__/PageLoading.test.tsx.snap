@@ -2,7 +2,7 @@
 
 exports[`PageLoading component with prop.visible:true change prop.visible:false renders the component 1`] = `
 <div
-  class="MuiBox-root MuiBox-root-58"
+  class="MuiBox-root MuiBox-root-114"
   data-testid="fade"
   style="opacity: 0; webkit-transition: opacity 195ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 195ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
 >
@@ -30,6 +30,35 @@ exports[`PageLoading component with prop.visible:true change prop.visible:false 
 `;
 
 exports[`PageLoading component with prop.visible:true renders the component 1`] = `
+<div
+  class="MuiBox-root MuiBox-root-58"
+  data-testid="fade"
+  style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+>
+  <div
+    class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+    data-testid="circular-progress"
+    role="progressbar"
+    style="width: 40px; height: 40px;"
+  >
+    <svg
+      class="MuiCircularProgress-svg"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+        cx="44"
+        cy="44"
+        fill="none"
+        r="20.2"
+        stroke-width="3.6"
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`PageLoading component with required props renders the component 1`] = `
 <div
   class="MuiBox-root MuiBox-root-2"
   data-testid="fade"
