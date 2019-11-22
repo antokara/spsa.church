@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageError component renders the component 1`] = `
+<div
+  class="MuiBox-root MuiBox-root-2"
+>
+  <div
+    class="MuiPaper-root MuiPaper-elevation1 MuiCard-root sc-bdVaJa eiEVOF MuiPaper-rounded"
+  >
+    <div
+      class="MuiCardContent-root"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root"
+            data-testid="warning-icon"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"
+            />
+          </svg>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11"
+        >
+          test error
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

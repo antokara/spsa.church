@@ -51,7 +51,7 @@ const PageError: (props: TProps) => JSX.Element = ({
       <CardContent>
         <Grid container={true} spacing={1}>
           <Grid item={true} xs={1}>
-            <Warning />
+            <Warning data-testid="warning-icon" />
           </Grid>
           <Grid item={true} xs={11}>
             {error.message}
