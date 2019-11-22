@@ -12,7 +12,7 @@ type TProps = {
 const PageLoading: (props: TProps) => JSX.Element = ({
   visible = true
 }: TProps): JSX.Element => (
-  <Fade in={visible}>
+  <Fade in={visible} data-testid="fade">
     <Box
       display="flex"
       justifyContent="center"
@@ -24,7 +24,7 @@ const PageLoading: (props: TProps) => JSX.Element = ({
       height="100%"
       bgcolor="background.paper"
     >
-      <CircularProgress />
+      <CircularProgress data-testid="circular-progress" />
     </Box>
   </Fade>
 );
