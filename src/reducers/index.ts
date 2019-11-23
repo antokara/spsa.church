@@ -1,4 +1,4 @@
-import { connectRouter, RouterState } from 'connected-react-router';
+import { connectRouter } from 'connected-react-router';
 import { setAutoFreeze } from 'immer';
 import { combineReducers, Reducer } from 'redux';
 import { history } from 'src/helpers/history';
