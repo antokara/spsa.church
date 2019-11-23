@@ -22,7 +22,7 @@
       "ReactHotLoader": ["node_modules/react-hot-loader"]
     },
     "typeRoots": ["types", "node_modules/@types"],
-    "types": ["gql"]
+    "types": ["gql", "jest"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"],
