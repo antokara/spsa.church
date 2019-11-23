@@ -1,21 +1,34 @@
-import { RouterState } from 'connected-react-router';
+// import { RouterState } from 'connected-react-router';
+import { Action, Location, LocationState } from 'history';
 import {
   defaultState as layoutDefaultState,
   TState as TLayoutState
 } from 'src/reducers/layout/defaultState';
 
+// TODO remove when bug is fixed and use the RouterState type commented out above
+// @see https://github.com/supasate/connected-react-router/issues/381
+interface ILocation<T = LocationState> extends Location {
+  query?: { [key: string]: string };
+}
+
+interface IRouterState<T = LocationState> {
+  location: ILocation<T>;
+  action: Action;
+}
+
 type TState = {
-  router: RouterState;
+  router: IRouterState;
   layout: TLayoutState;
 };
 
-const routerDefaultState: RouterState = {
+const routerDefaultState: IRouterState = {
   action: 'POP',
   location: {
     hash: '',
     pathname: '/',
     search: '',
-    state: undefined
+    state: undefined,
+    query: {}
   }
 };
 
