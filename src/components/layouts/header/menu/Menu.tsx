@@ -1,14 +1,15 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Drawer, Fab, List, ListItem, ListItemText } from '@material-ui/core';
+import { Drawer, Fab, List, ListItemText } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { bindActionCreators, Dispatch } from 'redux';
 import { menuOpen, TAction, TActionCreator } from 'src/actions/layout/menuOpen';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TData, TMenuEntry } from 'src/gql/theme/TData';
 import { TState } from 'src/reducers/defaultState';
+import { ListItem } from './ListItem';
 
 /**
  * Header menu component.
@@ -42,8 +43,9 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
       <ListItem
         button={true}
         key={menuEntry._id}
-        component={Link}
+        component={NavLink}
         to={menuEntry.url}
+        exact={true}
       >
         <ListItemText primary={menuEntry.label} />
       </ListItem>
