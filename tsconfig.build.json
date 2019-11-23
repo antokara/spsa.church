@@ -21,7 +21,8 @@
       "redux-devtools-extension": ["src/helpers/nop/composeWithDevTools"],
       "ReactHotLoader": ["src/helpers/nop/hot"]
     },
-    "typeRoots": ["types", "node_modules/@types"]
+    "typeRoots": ["types", "node_modules/@types"],
+    "types": ["gql"]
   },
   "include": ["src/**/*"],
   "exclude": [
