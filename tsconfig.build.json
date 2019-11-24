@@ -22,7 +22,7 @@
       "ReactHotLoader": ["src/helpers/nop/hot"]
     },
     "typeRoots": ["types", "node_modules/@types"],
-    "types": ["gql", "jest"]
+    "types": ["react", "react-dom", "node", "gql", "jest"]
   },
   "include": ["src/**/*"],
   "exclude": [
