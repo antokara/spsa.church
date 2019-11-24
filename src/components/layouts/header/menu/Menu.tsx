@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Drawer, Fab, List, ListItemText } from '@material-ui/core';
+import { Box, Drawer, Fab, List, ListItemText } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -54,15 +54,17 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
 
   return (
     <>
-      <Fab
-        color="primary"
-        data-testid="menu-button"
-        aria-label="menu"
-        size="small"
-        onClick={onClick}
-      >
-        <MenuIcon />
-      </Fab>
+      <Box position="fixed" top={0} left={0} padding={1}>
+        <Fab
+          color="primary"
+          data-testid="menu-button"
+          aria-label="menu"
+          size="small"
+          onClick={onClick}
+        >
+          <MenuIcon />
+        </Fab>
+      </Box>
       <Drawer open={menuOpenSt} onClose={onClick}>
         <div role="presentation" onClick={onClick} onKeyDown={onClick}>
           <List>{ListItems}</List>
