@@ -29,6 +29,7 @@ const ApolloClientCreator: () => Promise<
   // TODO test
   const cache: InMemoryCache = new InMemoryCache();
   // TODO test
+  // TODO implement cache invalidation on data update
   const store: LocalForage = localforage.createInstance({
     name: 'apollo-cache',
     version: 1
