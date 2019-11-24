@@ -1,0 +1,11 @@
+query getHome {
+  home {
+    photo {
+      description
+      path
+      title
+    }
+    content
+    overlay
+  }
+}
