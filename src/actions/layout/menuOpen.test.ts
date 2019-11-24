@@ -1,4 +1,4 @@
-import { EActionTypes } from 'src/constants/layout/EActionTypes';
+import { actionTypes } from 'src/constants/layout/actionTypes';
 import { menuOpen } from './menuOpen';
 
 describe('menuOpen action', () => {
@@ -8,7 +8,7 @@ describe('menuOpen action', () => {
 
   it('returns an action when called', () => {
     expect(menuOpen(true)).toStrictEqual({
-      type: EActionTypes.MENU_OPEN,
+      type: actionTypes.MENU_OPEN,
       payload: true
     });
   });

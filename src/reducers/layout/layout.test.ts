@@ -1,5 +1,5 @@
 import { TAction } from 'src/actions/layout/menuOpen';
-import { EActionTypes } from 'src/constants/layout/EActionTypes';
+import { actionTypes } from 'src/constants/layout/actionTypes';
 import { defaultState, TState } from './defaultState';
 import { layout } from './layout';
 
@@ -17,7 +17,7 @@ describe('layout reducer', () => {
   describe('with MENU_OPEN action', () => {
     let action: TAction;
     beforeEach(() => {
-      action = { type: EActionTypes.MENU_OPEN, payload: false };
+      action = { type: actionTypes.MENU_OPEN, payload: false };
     });
 
     describe('and payload:true', () => {
