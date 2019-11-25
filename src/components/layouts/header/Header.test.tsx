@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Header } from './Header';
 
 // mock the Menu Module
-jest.mock('src/components/layouts/header/Menu', () => ({
+jest.mock('src/components/layouts/header/menu/Menu', () => ({
   Menu: (): JSX.Element => <div data-testid="mocked-menu-component" />
 }));
 
