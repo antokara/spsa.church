@@ -1,7 +1,8 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, useMediaQuery } from '@material-ui/core';
 import * as React from 'react';
 import { Img, TSource } from 'src/components/shared/Img';
+import { maxWidth } from 'src/constants/layout/maxWidth';
 import * as getHome from 'src/gql/home/getHome.gql';
 import { TAsset, TData } from 'src/gql/home/TData';
 
@@ -26,14 +27,19 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
 
   const sources: TSource[] = [
     {
-      srcSet: `{url[0]}?${focalPointPortrait}&fit=crop&h=700&w=1024`,
+      srcSet: `{url[0]}?${focalPointPortrait}&fit=crop&h=700&w=${maxWidth.value}`,
       media: '(orientation: portrait)'
     },
     {
-      srcSet: `{url[1]}?${focalPointLandscape}&fit=crop&h=500&w=1024`,
+      srcSet: `{url[1]}?${focalPointLandscape}&fit=crop&h=500&w=${maxWidth.value}`,
       media: '(orientation: landscape)'
     }
   ];
+
+  // dynamically calculate the size for screens smaller than our max-width
+  const fontSize: string = useMediaQuery(`(max-width: ${maxWidth.property})`)
+    ? '3vw'
+    : '2rem';
 
   return (
     <Grid container={true}>
@@ -42,7 +48,7 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
           <Img assets={assets} sources={sources} />
           <Box
             position="absolute"
-            fontSize="2rem"
+            fontSize={fontSize}
             maxWidth="45%"
             bottom="5%"
             right={0}
