@@ -1,9 +1,19 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Drawer, Fab, List, ListItemText } from '@material-ui/core';
+import {
+  AppBar,
+  Box,
+  Drawer,
+  Fab,
+  List,
+  ListItemText,
+  Tab,
+  Tabs
+} from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
+import { Location } from 'history';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { bindActionCreators, Dispatch } from 'redux';
 import { menuOpen, TAction, TActionCreator } from 'src/actions/layout/menuOpen';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
@@ -35,8 +45,11 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
     return null;
   }
 
+  // get router location
+  const location: Location = useLocation();
+
   /**
-   * builds the list items for the menu
+   * builds the list items for the menu list
    */
   const ListItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
     (menuEntry: TMenuEntry) => (
@@ -52,18 +65,46 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
     )
   );
 
+  /**
+   * builds the list items for the menu tabs
+   */
+  const TabItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
+    (menuEntry: TMenuEntry) => (
+      <Tab
+        key={menuEntry._id}
+        label={menuEntry.label}
+        wrapped={true}
+        component={NavLink}
+        to={menuEntry.url}
+        value={menuEntry.url}
+      />
+    )
+  );
+
   return (
     <>
-      <Box position="absolute" top={0} left={0} padding={1} zIndex={2}>
-        <Fab
-          color="primary"
-          data-testid="menu-button"
-          aria-label="menu"
-          size="small"
-          onClick={onClick}
-        >
-          <MenuIcon />
-        </Fab>
+      <Box position="absolute" top={0} left={0} zIndex={2} maxWidth="100%">
+        <Box position="absolute" top={0} left={0} padding={1}>
+          <Fab
+            color="primary"
+            data-testid="menu-button"
+            aria-label="menu"
+            size="small"
+            onClick={onClick}
+          >
+            <MenuIcon />
+          </Fab>
+        </Box>
+        <AppBar position="static">
+          <Tabs
+            value={location.pathname}
+            aria-label="menu"
+            variant="fullWidth"
+            scrollButtons="off"
+          >
+            {TabItems}
+          </Tabs>
+        </AppBar>
       </Box>
       <Drawer open={menuOpenSt} onClose={onClick}>
         <div role="presentation" onClick={onClick} onKeyDown={onClick}>
