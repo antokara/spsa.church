@@ -7,7 +7,8 @@ import {
   List,
   ListItemText,
   Tab,
-  Tabs
+  Tabs,
+  useMediaQuery
 } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { Location } from 'history';
@@ -81,31 +82,40 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
     )
   );
 
+  // depending the device orientation/width, show the appropriate menu
+  let menu: JSX.Element;
+  if (useMediaQuery('(orientation: portrait)')) {
+    menu = (
+      <Box position="absolute" top={0} left={0} padding={1} zIndex={1}>
+        <Fab
+          color="primary"
+          data-testid="menu-button"
+          aria-label="menu"
+          size="small"
+          onClick={onClick}
+        >
+          <MenuIcon />
+        </Fab>
+      </Box>
+    );
+  } else {
+    menu = (
+      <AppBar position="static">
+        <Tabs
+          value={location.pathname}
+          aria-label="menu"
+          variant="fullWidth"
+          scrollButtons="off"
+        >
+          {TabItems}
+        </Tabs>
+      </AppBar>
+    );
+  }
+
   return (
     <>
-      <Box position="absolute" top={0} left={0} zIndex={2} maxWidth="100%">
-        <Box position="absolute" top={0} left={0} padding={1}>
-          <Fab
-            color="primary"
-            data-testid="menu-button"
-            aria-label="menu"
-            size="small"
-            onClick={onClick}
-          >
-            <MenuIcon />
-          </Fab>
-        </Box>
-        <AppBar position="static">
-          <Tabs
-            value={location.pathname}
-            aria-label="menu"
-            variant="fullWidth"
-            scrollButtons="off"
-          >
-            {TabItems}
-          </Tabs>
-        </AppBar>
-      </Box>
+      <Box maxWidth="100%">{menu}</Box>
       <Drawer open={menuOpenSt} onClose={onClick}>
         <div role="presentation" onClick={onClick} onKeyDown={onClick}>
           <List>{ListItems}</List>
