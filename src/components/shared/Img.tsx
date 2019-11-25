@@ -9,7 +9,7 @@ type TSource = {
 };
 
 type TProps = {
-  asset: TAsset;
+  assets: TAsset | TAsset[];
   className?: string;
   alt?: string;
   sources?: TSource[];
@@ -34,29 +34,53 @@ type TSourceElement = React.SourceHTMLAttributes<HTMLSourceElement>;
  * handles the URL generation for the src / srcset
  *
  * replaces the string "{url}" found in sources[].srcSet with the URL
+ * if a list of assets is provided, then, the {url[index]} will be replaced
  */
 const Img: (props: TProps) => JSX.Element | null = ({
-  asset,
+  assets,
   className,
   alt,
   sources
 }: TProps): JSX.Element | null => {
-  const iSrc: string = assetUrl(asset.path);
-  const iAlt: string = alt ?? asset.title;
+  let iAlt: string;
+  let iSrc: string | string[];
+  let sSrc: string;
+  if (Array.isArray(assets)) {
+    iSrc = assets.map((asset: TAsset) => assetUrl(asset.path));
+    sSrc = iSrc[0];
+    iAlt = alt ?? assets[0].title;
+  } else {
+    iSrc = assetUrl(assets.path);
+    sSrc = iSrc;
+    iAlt = alt ?? assets.title;
+  }
+
   const sourceElements: TSourceElement[] | undefined = sources?.map(
-    (se: TSource, index: number): TSourceElement => (
-      <source
-        key={`source-${index}`}
-        media={se.media}
-        srcSet={se.srcSet.replace('{url}', iSrc)}
-      />
-    )
+    (sourceEntry: TSource, si: number): TSourceElement => {
+      let srcSet: string = '';
+      if (Array.isArray(iSrc)) {
+        srcSet = sourceEntry.srcSet;
+        iSrc.forEach((src: string, srci: number) => {
+          srcSet = srcSet.replace(`{url[${srci}]}`, src);
+        });
+      } else {
+        srcSet = sourceEntry.srcSet.replace('{url}', iSrc);
+      }
+
+      return (
+        <source
+          key={`source-${si}`}
+          media={sourceEntry.media}
+          srcSet={srcSet}
+        />
+      );
+    }
   );
 
   return (
     <PictureMaxW>
       {sourceElements}
-      <img src={iSrc} alt={iAlt} className={className} />
+      <img src={sSrc} alt={iAlt} className={className} />
     </PictureMaxW>
   );
 };
