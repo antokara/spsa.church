@@ -6,7 +6,6 @@ import {
   Fab,
   List,
   ListItemText,
-  Tab,
   Tabs,
   useMediaQuery
 } from '@material-ui/core';
@@ -21,6 +20,7 @@ import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TData, TMenuEntry } from 'src/gql/theme/TData';
 import { TState } from 'src/reducers/defaultState';
 import { ListItem } from './ListItem';
+import { NavTab } from './NavTab';
 
 /**
  * Header menu component.
@@ -28,6 +28,7 @@ import { ListItem } from './ListItem';
  * Renders the Menu Icon FAB which toggles the menu open state.
  * It also renders the Menu in a Drawer
  */
+// tslint:disable-next-line:max-func-body-length
 const Menu: () => JSX.Element | null = (): JSX.Element | null => {
   const dispatch: Dispatch = useDispatch();
   const menuOpenAc: TActionCreator = bindActionCreators(menuOpen, dispatch);
@@ -71,11 +72,10 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
    */
   const TabItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
     (menuEntry: TMenuEntry) => (
-      <Tab
+      <NavTab
         key={menuEntry._id}
         label={menuEntry.label}
         wrapped={true}
-        component={NavLink}
         to={menuEntry.url}
         value={menuEntry.url}
       />
@@ -84,7 +84,8 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
 
   // depending the device orientation/width, show the appropriate menu
   let menu: JSX.Element;
-  if (useMediaQuery('(orientation: portrait)')) {
+  if (useMediaQuery('(max-width: 767px)')) {
+    // sandwitch menu
     menu = (
       <Box position="absolute" top={0} left={0} padding={1} zIndex={1}>
         <Fab
@@ -99,6 +100,7 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
       </Box>
     );
   } else {
+    // top menu
     menu = (
       <AppBar position="static">
         <Tabs
