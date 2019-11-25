@@ -3,7 +3,7 @@ import { Box, Grid } from '@material-ui/core';
 import * as React from 'react';
 import { Img, TSource } from 'src/components/shared/Img';
 import * as getHome from 'src/gql/home/getHome.gql';
-import { TData } from 'src/gql/home/TData';
+import { TAsset, TData } from 'src/gql/home/TData';
 
 /**
  * Home page component.
@@ -20,25 +20,41 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
     return null;
   }
 
+  const focalPointPortrait: string = 'fp-x=0.35&fp-y=0.35&fp-z=1';
+  const focalPointLandscape: string = 'fp-x=0.5&fp-y=0.5&fp-z=1';
+  const assets: TAsset[] = [data.home.photoPortrait, data.home.photoLandscape];
+
   const sources: TSource[] = [
     {
-      srcSet: '{url}?fp-x=0.35&fp-y=0.35&fp-z=1&fit=crop&h=700&max-w=800',
-      media: '(min-width: 401px)'
+      srcSet: `{url[0]}?${focalPointPortrait}&fit=crop&h=700&w=1024`,
+      media: '(orientation: portrait)'
     },
     {
-      srcSet: '{url}?fp-x=0.35&fp-y=0.35&fp-z=1&fit=crop&h=400&max-w=400',
-      media: '(max-width: 400px)'
+      srcSet: `{url[1]}?${focalPointLandscape}&fit=crop&h=500&w=1024`,
+      media: '(orientation: landscape)'
     }
   ];
 
   return (
     <Grid container={true}>
       <Grid item={true} xs={12}>
-        <Box maxWidth="100%">
-          <Img asset={data.home.photo} sources={sources} />
+        <Box maxWidth="100%" position="relative">
+          <Img assets={assets} sources={sources} />
+          <Box
+            position="absolute"
+            fontSize="2rem"
+            maxWidth="45%"
+            bottom="5%"
+            right={0}
+            p={1}
+            textAlign="right"
+            color="white"
+            bgcolor="rgba(0, 0, 0, 0.5)"
+          >
+            {data.home.overlay}
+          </Box>
         </Box>
       </Grid>
-      {data.home.overlay}
     </Grid>
   );
 };

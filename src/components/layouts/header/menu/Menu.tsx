@@ -54,7 +54,7 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
 
   return (
     <>
-      <Box position="fixed" top={0} left={0} padding={1}>
+      <Box position="absolute" top={0} left={0} padding={1} zIndex={2}>
         <Fab
           color="primary"
           data-testid="menu-button"

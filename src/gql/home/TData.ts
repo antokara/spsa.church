@@ -6,7 +6,8 @@ import { TAsset } from 'src/gql/shared/TAsset';
  */
 type TData = {
   home: {
-    photo: TAsset;
+    photoPortrait: TAsset;
+    photoLandscape: TAsset;
     content: string;
     overlay: string;
   };

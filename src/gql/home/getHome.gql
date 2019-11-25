@@ -1,6 +1,11 @@
 query getHome {
   home {
-    photo {
+    photoPortrait {
+      description
+      path
+      title
+    }
+    photoLandscape {
       description
       path
       title
