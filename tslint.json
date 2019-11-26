@@ -37,10 +37,15 @@
       "allow-pascal-case"
     ],
     // @see https://github.com/palantir/tslint/issues/3364
-    "no-implicit-dependencies": [true, "dev", ["src", "ReactHotLoader"]],
+    "no-implicit-dependencies": [
+      true,
+      "dev",
+      ["src", "assets", "ReactHotLoader"]
+    ],
     "no-submodule-imports": [
       true,
       "src",
+      "assets",
       "@material-ui/core",
       "apollo-cache-persist/types"
     ],

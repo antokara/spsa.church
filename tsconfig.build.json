@@ -17,12 +17,13 @@
     "baseUrl": ".",
     "paths": {
       "src/*": ["src/*"],
+      "assets/*": ["assets/*"],
       "redux-logger": ["src/helpers/nop/createLogger"],
       "redux-devtools-extension": ["src/helpers/nop/composeWithDevTools"],
       "ReactHotLoader": ["src/helpers/nop/hot"]
     },
     "typeRoots": ["types", "node_modules/@types"],
-    "types": ["react", "react-dom", "node", "gql", "jest"]
+    "types": ["react", "react-dom", "node", "gql", "jest", "svg"]
   },
   "include": ["src/**/*"],
   "exclude": [
