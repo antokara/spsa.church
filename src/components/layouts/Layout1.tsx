@@ -17,7 +17,9 @@ const Layout1: () => JSX.Element = (): JSX.Element => (
         <Header />
       </Grid>
       <Grid item={true} xs={12}>
-        <Routes />
+        <Box maxWidth="100%" position="relative">
+          <Routes />
+        </Box>
       </Grid>
     </Grid>
   </Box>

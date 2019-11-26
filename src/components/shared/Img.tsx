@@ -24,6 +24,7 @@ const PictureMaxW: React.FunctionComponent<React.HTMLProps<
   img,
   source {
     max-width: 100%;
+    display: block;
   }
 `;
 
