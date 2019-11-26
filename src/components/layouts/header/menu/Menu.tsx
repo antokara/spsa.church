@@ -29,7 +29,6 @@ import { NavTab } from './NavTab';
  * Renders the Menu Icon FAB which toggles the menu open state.
  * It also renders the Menu in a Drawer
  */
-// tslint:disable-next-line:max-func-body-length
 const Menu: () => JSX.Element | null = (): JSX.Element | null => {
   const dispatch: Dispatch = useDispatch();
   const menuOpenAc: TActionCreator = bindActionCreators(menuOpen, dispatch);
