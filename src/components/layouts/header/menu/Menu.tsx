@@ -85,7 +85,21 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
 
   // depending the device orientation/width, show the appropriate menu
   let menu: JSX.Element;
-  if (useMediaQuery(`(max-width: ${maxWidth.property})`)) {
+  if (useMediaQuery(`(min-width: ${maxWidth.property})`)) {
+    // top menu
+    menu = (
+      <AppBar position="static">
+        <Tabs
+          value={location.pathname}
+          aria-label="menu"
+          variant="fullWidth"
+          scrollButtons="off"
+        >
+          {TabItems}
+        </Tabs>
+      </AppBar>
+    );
+  } else {
     // sandwitch menu
     menu = (
       <Box position="absolute" top={0} left={0} padding={1} zIndex={1}>
@@ -99,20 +113,6 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
           <MenuIcon />
         </Fab>
       </Box>
-    );
-  } else {
-    // top menu
-    menu = (
-      <AppBar position="static">
-        <Tabs
-          value={location.pathname}
-          aria-label="menu"
-          variant="fullWidth"
-          scrollButtons="off"
-        >
-          {TabItems}
-        </Tabs>
-      </AppBar>
     );
   }
 
