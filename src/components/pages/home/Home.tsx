@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { Box, Grid, useMediaQuery } from '@material-ui/core';
 import * as React from 'react';
 import { Img, TSource } from 'src/components/shared/Img';
+import { Separator } from 'src/components/shared/Separator';
 import { maxWidth } from 'src/constants/layout/maxWidth';
 import * as getHome from 'src/gql/home/getHome.gql';
 import { TAsset, TData } from 'src/gql/home/TData';
@@ -44,7 +45,7 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
   return (
     <Grid container={true}>
       <Grid item={true} xs={12}>
-        <Box maxWidth="100%" position="relative">
+        <Box position="relative">
           <Img assets={assets} sources={sources} />
           <Box
             position="absolute"
@@ -60,6 +61,9 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
             {data.home.overlay}
           </Box>
         </Box>
+      </Grid>
+      <Grid item={true} xs={12}>
+        <Separator />
       </Grid>
     </Grid>
   );
