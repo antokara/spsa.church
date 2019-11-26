@@ -11,6 +11,7 @@ const Layout1: () => JSX.Element = (): JSX.Element => (
     maxWidth={maxWidth.property}
     mx="auto"
     position="relative"
+    boxShadow={1}
   >
     <Grid container={true}>
       <Grid item={true} xs={12}>
