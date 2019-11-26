@@ -6,6 +6,7 @@ import { Separator } from 'src/components/shared/Separator';
 import { maxWidth } from 'src/constants/layout/maxWidth';
 import * as getHome from 'src/gql/home/getHome.gql';
 import { TAsset, TData } from 'src/gql/home/TData';
+import { useCss } from 'src/helpers/useCss';
 
 /**
  * Home page component.
@@ -37,11 +38,6 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
     }
   ];
 
-  // dynamically calculate the size for screens smaller than our max-width
-  const fontSize: string = useMediaQuery(`(max-width: ${maxWidth.property})`)
-    ? '3vw'
-    : '2rem';
-
   return (
     <Grid container={true}>
       <Grid item={true} xs={12}>
@@ -49,7 +45,7 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
           <Img assets={assets} sources={sources} />
           <Box
             position="absolute"
-            fontSize={fontSize}
+            fontSize={useCss('3vw', '2rem')}
             maxWidth="45%"
             bottom="5%"
             right={0}
