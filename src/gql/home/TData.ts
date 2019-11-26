@@ -10,6 +10,7 @@ type TData = {
     photoLandscape: TAsset;
     content: string;
     overlay: string;
+    calendarUrl: string;
   };
 };
 

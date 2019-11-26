@@ -1,7 +1,9 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Grid, useMediaQuery } from '@material-ui/core';
+import { Box, Grid, Paper } from '@material-ui/core';
 import * as React from 'react';
+import * as ReactMarkdown from 'react-markdown';
 import { Img, TSource } from 'src/components/shared/Img';
+import { MarkdownWrapper } from 'src/components/shared/MarkdownWrapper';
 import { Separator } from 'src/components/shared/Separator';
 import { maxWidth } from 'src/constants/layout/maxWidth';
 import * as getHome from 'src/gql/home/getHome.gql';
@@ -56,10 +58,31 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
           >
             {data.home.overlay}
           </Box>
+          <Separator />
         </Box>
       </Grid>
       <Grid item={true} xs={12}>
-        <Separator />
+        <Box position="relative">
+          <Paper square={true}>
+            <Box p={2} overflow="hidden">
+              <MarkdownWrapper>
+                <ReactMarkdown source={data.home.content} />
+              </MarkdownWrapper>
+            </Box>
+          </Paper>
+          <Separator />
+        </Box>
+      </Grid>
+      <Grid item={true} xs={12}>
+        <Paper square={true}>
+          <iframe
+            src={data.home.calendarUrl}
+            width="100%"
+            height="400px"
+            // tslint:disable-next-line:react-iframe-missing-sandbox
+            sandbox="allow-same-origin allow-scripts"
+          />
+        </Paper>
       </Grid>
     </Grid>
   );
