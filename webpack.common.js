@@ -23,7 +23,8 @@ module.exports = env => {
     resolve: {
       extensions: ['.js', '.ts', '.tsx'],
       alias: {
-        src: path.resolve(__dirname, 'src')
+        src: path.resolve(__dirname, 'src'),
+        assets: path.resolve(__dirname, 'assets')
       }
     },
     output: {
@@ -59,7 +60,11 @@ module.exports = env => {
           loader: 'graphql-tag/loader'
         },
         {
-          test: /\.(png|jpg|gif|svg)$/,
+          test: /\.svg$/,
+          use: ['@svgr/webpack']
+        },
+        {
+          test: /\.(png|jpg|gif)$/,
           use: [
             {
               loader: 'file-loader',
