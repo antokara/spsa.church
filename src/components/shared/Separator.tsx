@@ -17,10 +17,11 @@ const StyledSeparator: typeof SeparatorSvg = styled(SeparatorSvg)`
   left: 0;
   height: ${(p: TStyledProps): string => p.height};
   bottom: calc(${(p: TStyledProps): string => p.height} / -2);
+  z-index: 1;
 `;
 
 const Separator: () => JSX.Element = (): JSX.Element => (
-  <StyledSeparator height={useCss('4vw', '40px')} />
+  <StyledSeparator data-testid="separator" height={useCss('4vw', '40px')} />
 );
 
 export { Separator };
