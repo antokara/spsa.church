@@ -1,3 +1,5 @@
+import { TIconLink } from 'src/gql/shared/TIconLink';
+
 type TMenuEntry = {
   _id: string;
   label: string;
@@ -14,6 +16,8 @@ type TData = {
       label: string;
       menuEntries: TMenuEntry[];
     };
+    footerIconLinks: TIconLink[];
+    footerInfo: string;
   };
 };
 

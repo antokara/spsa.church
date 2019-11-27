@@ -8,5 +8,14 @@ query getTheme {
         url
       }
     }
+    footerIconLinks {
+      icon {
+        description
+        path
+        title
+      }
+      link
+    }
+    footerInfo
   }
 }
