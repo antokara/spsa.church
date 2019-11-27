@@ -1,3 +1,4 @@
+import { Box } from '@material-ui/core';
 import * as React from 'react';
 
 /**
@@ -6,7 +7,9 @@ import * as React from 'react';
  * Renders the generic Page Not Found content
  */
 const NotFound: () => JSX.Element | null = (): JSX.Element | null => (
-  <div>We're sorry but this Page does not exist!</div>
+  <Box p={4} py={8}>
+    We're sorry but this Page does not exist!
+  </Box>
 );
 
 export { NotFound };
