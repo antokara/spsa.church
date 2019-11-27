@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Grid, IconButton, Paper, useMediaQuery } from '@material-ui/core';
+import { Box, Grid, IconButton, useMediaQuery } from '@material-ui/core';
 import { GridSpacing } from '@material-ui/core/Grid';
 import * as React from 'react';
 import { Markdown } from 'src/components/shared/Markdown';
@@ -49,20 +49,18 @@ const Footer: () => JSX.Element | null = (): JSX.Element | null => {
     : 2;
 
   return (
-    <Paper square={true}>
-      <Box p={spacing}>
-        <Grid container={true} spacing={2}>
-          <Grid item={true} container={true} spacing={spacing} xs={12} sm={6}>
-            {LinkIcons}
-          </Grid>
-          <Grid item={true} xs={12} sm={6}>
-            <Box textAlign="right">
-              <Markdown source={data.theme.footerInfo} />
-            </Box>
-          </Grid>
+    <Box p={spacing}>
+      <Grid container={true} spacing={2}>
+        <Grid item={true} container={true} spacing={spacing} xs={12} sm={6}>
+          {LinkIcons}
         </Grid>
-      </Box>
-    </Paper>
+        <Grid item={true} xs={12} sm={6}>
+          <Box textAlign="right">
+            <Markdown source={data.theme.footerInfo} />
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

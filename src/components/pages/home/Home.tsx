@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Grid, Paper } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import * as React from 'react';
 import { Markdown } from 'src/components/shared/Markdown';
 import { Picture, TSource } from 'src/components/shared/Picture';
@@ -63,18 +63,15 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
       </Grid>
       <Grid item={true} xs={12}>
         <Box position="relative">
-          <Paper square={true}>
-            <Box p={2} overflow="hidden">
-              <Markdown source={data.home.content} />
-            </Box>
-          </Paper>
+          <Box p={2} overflow="hidden">
+            <Markdown source={data.home.content} />
+          </Box>
+
           <Separator flipped={true} />
         </Box>
       </Grid>
       <Grid item={true} xs={12}>
-        <Paper square={true}>
-          <Calendar>Calendar is coming soon!</Calendar>
-        </Paper>
+        <Calendar>Calendar is coming soon!</Calendar>
       </Grid>
     </Grid>
   );
