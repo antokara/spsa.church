@@ -19,6 +19,9 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
   // get the home data
   const { loading, data } = useQuery<TData>(getHome);
 
+  // must be calculated every time
+  const overlayFontSize: string = useCss('3vw', '2rem');
+
   // in case the gql is loading or there is no data, do not show the page
   // TODO: add loader
   if (loading || !data) {
@@ -47,7 +50,7 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
           <Picture assets={assets} sources={sources} />
           <Box
             position="absolute"
-            fontSize={useCss('3vw', '2rem')}
+            fontSize={overlayFontSize}
             maxWidth="45%"
             bottom="5%"
             right={0}
