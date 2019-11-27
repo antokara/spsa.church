@@ -5,6 +5,7 @@ import { default as styled } from 'styled-components';
 
 type TStyledProps = {
   height: string;
+  flipped: boolean;
 };
 
 /**
@@ -18,10 +19,22 @@ const StyledSeparator: typeof SeparatorSvg = styled(SeparatorSvg)`
   height: ${(p: TStyledProps): string => p.height};
   bottom: calc(${(p: TStyledProps): string => p.height} / -2);
   z-index: 1;
+  transform: ${(p: TStyledProps): string =>
+    p.flipped ? 'scaleX(-1)' : 'none'};
 `;
 
-const Separator: () => JSX.Element = (): JSX.Element => (
-  <StyledSeparator data-testid="separator" height={useCss('4vw', '40px')} />
+type TProps = {
+  flipped?: boolean;
+};
+
+const Separator: (props: TProps) => JSX.Element = ({
+  flipped = false
+}: TProps): JSX.Element => (
+  <StyledSeparator
+    data-testid="separator"
+    height={useCss('4vw', '40px')}
+    flipped={flipped}
+  />
 );
 
 export { Separator };
