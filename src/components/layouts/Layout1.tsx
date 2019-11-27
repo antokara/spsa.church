@@ -14,6 +14,7 @@ const Layout1: () => JSX.Element = (): JSX.Element => (
     mx="auto"
     position="relative"
     boxShadow={1}
+    bgcolor="background.paper"
   >
     <Grid container={true}>
       <Grid item={true} xs={12}>
