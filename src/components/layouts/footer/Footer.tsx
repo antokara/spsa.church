@@ -1,8 +1,10 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Grid, IconButton, Paper } from '@material-ui/core';
+import { Box, Grid, IconButton, Paper, useMediaQuery } from '@material-ui/core';
+import { GridSpacing } from '@material-ui/core/Grid';
 import * as React from 'react';
 import { Markdown } from 'src/components/shared/Markdown';
 import { SVG } from 'src/components/shared/SVG';
+import { THEME } from 'src/constants/THEME';
 import { TIconLink } from 'src/gql/shared/TIconLink';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TData } from 'src/gql/theme/TData';
@@ -40,15 +42,23 @@ const Footer: () => JSX.Element | null = (): JSX.Element | null => {
     )
   );
 
+  const spacing: GridSpacing = useMediaQuery(
+    `(max-width: ${THEME.breakpoints.values.sm}px)`
+  )
+    ? 1
+    : 2;
+
   return (
     <Paper square={true}>
-      <Box p={2}>
+      <Box p={spacing}>
         <Grid container={true} spacing={2}>
-          <Grid item={true} container={true} spacing={2} xs={12} md={6}>
+          <Grid item={true} container={true} spacing={spacing} xs={12} sm={6}>
             {LinkIcons}
           </Grid>
-          <Grid item={true} xs={12} md={6}>
-            <Markdown source={data.theme.footerInfo} />
+          <Grid item={true} xs={12} sm={6}>
+            <Box textAlign="right">
+              <Markdown source={data.theme.footerInfo} />
+            </Box>
           </Grid>
         </Grid>
       </Box>
