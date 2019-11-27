@@ -42,50 +42,29 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
   // get the theme data
   const { loading, data } = useQuery<TData>(getTheme);
 
-  // in case the gql is loading or there is no data, do not show the menu
-  if (loading || !data) {
-    return null;
-  }
-
   // get router location
   const location: Location = useLocation();
 
-  /**
-   * builds the list items for the menu list
-   */
-  const ListItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
-    (menuEntry: TMenuEntry) => (
-      <ListItem
-        button={true}
-        key={menuEntry._id}
-        component={NavLink}
-        to={menuEntry.url}
-        exact={true}
-      >
-        <ListItemText primary={menuEntry.label} />
-      </ListItem>
-    )
-  );
-
-  /**
-   * builds the list items for the menu tabs
-   */
-  const TabItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
-    (menuEntry: TMenuEntry) => (
-      <NavTab
-        key={menuEntry._id}
-        label={menuEntry.label}
-        wrapped={true}
-        to={menuEntry.url}
-        value={menuEntry.url}
-      />
-    )
-  );
-
   // depending the device orientation/width, show the appropriate menu
   let menu: JSX.Element;
-  if (useMediaQuery(`(min-width: ${maxWidth.property})`)) {
+  if (useMediaQuery(`(min-width: ${maxWidth.property})`) && data) {
     // top menu
+
+    /**
+     * builds the list items for the menu tabs
+     */
+    const TabItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
+      (menuEntry: TMenuEntry) => (
+        <NavTab
+          key={menuEntry._id}
+          label={menuEntry.label}
+          wrapped={true}
+          to={menuEntry.url}
+          value={menuEntry.url}
+        />
+      )
+    );
+
     menu = (
       <AppBar position="static">
         <Tabs
@@ -114,6 +93,28 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
       </Box>
     );
   }
+
+  // in case the gql is loading or there is no data, do not show the menu
+  if (loading || !data) {
+    return null;
+  }
+
+  /**
+   * builds the list items for the menu list
+   */
+  const ListItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
+    (menuEntry: TMenuEntry) => (
+      <ListItem
+        button={true}
+        key={menuEntry._id}
+        component={NavLink}
+        to={menuEntry.url}
+        exact={true}
+      >
+        <ListItemText primary={menuEntry.label} />
+      </ListItem>
+    )
+  );
 
   return (
     <>

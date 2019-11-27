@@ -18,6 +18,13 @@ const Footer: () => JSX.Element | null = (): JSX.Element | null => {
   // get the theme data
   const { loading, data } = useQuery<TData>(getTheme);
 
+  // calculate media query dependent values
+  const { spacing, justify, textAlign }: TDynamicValues = useMediaQuery(
+    `(max-width: ${THEME.breakpoints.values.sm}px)`
+  )
+    ? { spacing: 1, justify: 'center', textAlign: 'center' }
+    : { spacing: 2, justify: 'flex-start', textAlign: 'right' };
+
   // in case the gql is loading or there is no data, do not show the menu
   if (loading || !data) {
     return null;
@@ -47,12 +54,6 @@ const Footer: () => JSX.Element | null = (): JSX.Element | null => {
     justify: GridJustification;
     textAlign: string;
   };
-
-  const { spacing, justify, textAlign }: TDynamicValues = useMediaQuery(
-    `(max-width: ${THEME.breakpoints.values.sm}px)`
-  )
-    ? { spacing: 1, justify: 'center', textAlign: 'center' }
-    : { spacing: 2, justify: 'flex-start', textAlign: 'right' };
 
   return (
     <Box p={spacing}>
