@@ -31,13 +31,13 @@ const PictureMaxW: React.FunctionComponent<React.HTMLProps<
 type TSourceElement = React.SourceHTMLAttributes<HTMLSourceElement>;
 
 /**
- * Image component that accepts a CMS asset as a prop and
+ * Picture component that accepts CMS asset(s) as a prop and
  * handles the URL generation for the src / srcset
  *
- * replaces the string "{url}" found in sources[].srcSet with the URL
- * if a list of assets is provided, then, the {url[index]} will be replaced
+ * Replaces the string "{url}" found in sources[].srcSet with the URL.
+ * If a list of assets is provided, then, the {url[index]} will be replaced
  */
-const Img: (props: TProps) => JSX.Element | null = ({
+const Picture: (props: TProps) => JSX.Element | null = ({
   assets,
   className,
   alt,
@@ -86,4 +86,4 @@ const Img: (props: TProps) => JSX.Element | null = ({
   );
 };
 
-export { Img, TSource };
+export { Picture, TSource };
