@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
 import { Box, Grid, IconButton, useMediaQuery } from '@material-ui/core';
-import { GridSpacing } from '@material-ui/core/Grid';
+import { GridJustification, GridSpacing } from '@material-ui/core/Grid';
 import * as React from 'react';
 import { Markdown } from 'src/components/shared/Markdown';
 import { SVG } from 'src/components/shared/SVG';
@@ -42,20 +42,33 @@ const Footer: () => JSX.Element | null = (): JSX.Element | null => {
     )
   );
 
-  const spacing: GridSpacing = useMediaQuery(
+  type TDynamicValues = {
+    spacing: GridSpacing;
+    justify: GridJustification;
+    textAlign: string;
+  };
+
+  const { spacing, justify, textAlign }: TDynamicValues = useMediaQuery(
     `(max-width: ${THEME.breakpoints.values.sm}px)`
   )
-    ? 1
-    : 2;
+    ? { spacing: 1, justify: 'center', textAlign: 'center' }
+    : { spacing: 2, justify: 'flex-start', textAlign: 'right' };
 
   return (
     <Box p={spacing}>
       <Grid container={true} spacing={2}>
-        <Grid item={true} container={true} spacing={spacing} xs={12} sm={6}>
+        <Grid
+          item={true}
+          container={true}
+          spacing={spacing}
+          xs={12}
+          sm={6}
+          justify={justify}
+        >
           {LinkIcons}
         </Grid>
         <Grid item={true} xs={12} sm={6}>
-          <Box textAlign="right">
+          <Box textAlign={textAlign}>
             <Markdown source={data.theme.footerInfo} />
           </Box>
         </Grid>
