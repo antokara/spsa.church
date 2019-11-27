@@ -1,7 +1,16 @@
 import * as React from 'react';
-import { default as InlineSVG } from 'react-inlinesvg';
+import { default as InlineSVG, IProps } from 'react-inlinesvg';
 import { TAsset } from 'src/gql/shared/TAsset';
 import { assetUrl } from 'src/helpers/assetUrl';
+import { default as styled } from 'styled-components';
+
+const StyledInlineSVG: React.FunctionComponent<IProps> = styled(InlineSVG)`
+  width: 1em;
+  height: 1em;
+  * {
+    fill: currentColor;
+  }
+`;
 
 type TProps = {
   asset: TAsset;
@@ -27,7 +36,7 @@ const SVG: (props: TProps) => JSX.Element | null = ({
   iAlt = alt ?? asset.title;
 
   return (
-    <InlineSVG
+    <StyledInlineSVG
       src={iSrc}
       alt={iAlt}
       className={className}
