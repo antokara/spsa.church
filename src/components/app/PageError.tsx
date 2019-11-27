@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Grid, WithTheme } from '@material-ui/core';
-import { PaperProps } from '@material-ui/core/Paper';
+import { CardProps } from '@material-ui/core/Card';
 import { Warning } from '@material-ui/icons';
 import * as React from 'react';
 import { default as styled } from 'styled-components';
@@ -7,18 +7,18 @@ import { default as styled } from 'styled-components';
 /**
  * a styled card component that is need to create and pass the className prop
  */
-const ClassedCard: React.ComponentType<PaperProps> = styled(Card)`
-  background: ${(p: PaperProps & WithTheme): string =>
+const ClassedCard: React.ComponentType<CardProps> = styled(Card)`
+  background: ${(p: CardProps & WithTheme): string =>
     p.theme.palette.error.dark};
 `;
 
 /**
  * the error card which uses the className provided by the "ClassedCard" styled component
  */
-const ErrorCard: React.ComponentType<PaperProps> = ({
+const ErrorCard: React.ComponentType<CardProps> = ({
   children,
   className
-}: React.PropsWithChildren<PaperProps>): JSX.Element => (
+}: React.PropsWithChildren<CardProps>): JSX.Element => (
   <ClassedCard classes={{ root: className }}>{children}</ClassedCard>
 );
 
