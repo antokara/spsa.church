@@ -66,8 +66,7 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
           <Box p={2} overflow="hidden">
             <Markdown source={data.home.content} />
           </Box>
-
-          <Separator flipped={true} />
+          <Separator flipped={true} absolute={false} />
         </Box>
       </Grid>
       <Grid item={true} xs={12}>
