@@ -32,6 +32,7 @@ const Footer: () => JSX.Element | null = (): JSX.Element | null => {
           href={iconLink.link}
           target="_blank"
           rel="noopener noreferrer nofollow"
+          color="secondary"
         >
           <SVG asset={iconLink.icon} />
         </IconButton>
