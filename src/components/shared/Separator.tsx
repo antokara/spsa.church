@@ -3,38 +3,57 @@ import * as React from 'react';
 import { useCss } from 'src/helpers/useCss';
 import { default as styled } from 'styled-components';
 
+// TODO: change when v5 is out
+// @see https://github.com/styled-components/styled-components/issues/135 is fixed
+// @see https://github.com/styled-components/styled-components/issues/1198
 type TStyledProps = {
   height: string;
-  flipped: boolean;
+  flipped: number;
+  absolute: number;
 };
 
-/**
- * a styled separator that sits at the bottom of its container
- * but aligned to look as if it's in the middel of its container and the next one.
- */
 const StyledSeparator: typeof SeparatorSvg = styled(SeparatorSvg)`
-  position: absolute;
+  position: ${(p: TStyledProps): string =>
+    p.absolute ? 'absolute' : 'static'};
   width: 100%;
-  left: 0;
+  left: ${(p: TStyledProps): string => (p.absolute ? '0' : 'auto')};
   height: ${(p: TStyledProps): string => p.height};
-  bottom: calc(${(p: TStyledProps): string => p.height} / -2);
-  z-index: 1;
+  bottom: ${(p: TStyledProps): string =>
+    p.absolute ? `calc(${p.height} / -2)` : 'auto'};
+  z-index: ${(p: TStyledProps): string => (p.absolute ? '1' : 'auto')};
   transform: ${(p: TStyledProps): string =>
     p.flipped ? 'scaleX(-1)' : 'none'};
 `;
 
 type TProps = {
   flipped?: boolean;
+  absolute?: boolean;
 };
 
+/**
+ * A styled separator component.
+ *
+ * It always takes the full width of its container.
+ * The height is dynamic depending the viewport's width.
+ *
+ * @param props.flipped optional. if true, the separator will be flipped horizontally facing RTL
+ * @param props.absolute optional. if false, the separator will be positioned absolute to the bottom
+ */
 const Separator: (props: TProps) => JSX.Element = ({
-  flipped = false
-}: TProps): JSX.Element => (
-  <StyledSeparator
-    data-testid="separator"
-    height={useCss('4vw', '40px')}
-    flipped={flipped}
-  />
-);
+  flipped = false,
+  absolute = true
+}: TProps): JSX.Element => {
+  const iFlipped: number = flipped ? 1 : 0;
+  const iAbsolute: number = absolute ? 1 : 0;
+
+  return (
+    <StyledSeparator
+      data-testid="separator"
+      height={useCss('4vw', '40px')}
+      flipped={iFlipped}
+      absolute={iAbsolute}
+    />
+  );
+};
 
 export { Separator };
