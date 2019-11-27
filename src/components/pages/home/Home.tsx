@@ -68,7 +68,7 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
               <Markdown source={data.home.content} />
             </Box>
           </Paper>
-          <Separator />
+          <Separator flipped={true} />
         </Box>
       </Grid>
       <Grid item={true} xs={12}>
