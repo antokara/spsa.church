@@ -3,12 +3,9 @@
  */
 import { default as styled } from 'styled-components';
 
-type TProps = {
-  src: string;
-};
-
-const Calendar: React.FunctionComponent = styled.iframe`
-  border: none;
+const Calendar: React.FunctionComponent = styled.div`
+  height: 10em;
+  padding: 2em;
 `;
 
 export { Calendar };
