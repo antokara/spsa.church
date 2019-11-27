@@ -72,7 +72,9 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
         </Box>
       </Grid>
       <Grid item={true} xs={12}>
-        <Paper square={true}>calendar</Paper>
+        <Paper square={true}>
+          <Calendar>Calendar is coming soon!</Calendar>
+        </Paper>
       </Grid>
     </Grid>
   );
