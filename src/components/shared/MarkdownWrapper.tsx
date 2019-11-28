@@ -30,8 +30,13 @@ const StyledMarkdownWrapper: StyledComponent<
     text-decoration: none;
   }
 
+  h1,
   h2 {
     font-size: ${(p: TProps & WithTheme): string => p.h2FontSize};
+  }
+
+  em {
+    font-weight: bold;
   }
 `;
 

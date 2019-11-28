@@ -10,6 +10,7 @@ interface IRoute {
  */
 interface IRoutes {
   readonly home: IRoute;
+  readonly donate: IRoute;
 }
 
 /**
@@ -18,5 +19,8 @@ interface IRoutes {
 export const routes: IRoutes = {
   home: {
     path: '/'
+  },
+  donate: {
+    path: '/donate'
   }
 };

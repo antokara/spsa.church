@@ -23,15 +23,18 @@ const linkTarget: ReactMarkdown.LinkTargetResolver = (
  * makes sure its wrapped with the MarkdownWrapper.
  */
 const Markdown: ({
-  source
+  source,
+  escapeHtml
 }: ReactMarkdown.ReactMarkdownProps) => JSX.Element | null = ({
-  source
+  source,
+  escapeHtml
 }: ReactMarkdown.ReactMarkdownProps): JSX.Element | null => (
   <MarkdownWrapper>
     <ReactMarkdown
       source={source}
       transformLinkUri={transformLinkUri}
       linkTarget={linkTarget}
+      escapeHtml={escapeHtml}
     />
   </MarkdownWrapper>
 );

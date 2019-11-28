@@ -1,3 +1,4 @@
+import { TAsset } from 'src/gql/shared/TAsset';
 import { TIconLink } from 'src/gql/shared/TIconLink';
 
 type TMenuEntry = {
@@ -16,9 +17,12 @@ type TData = {
       label: string;
       menuEntries: TMenuEntry[];
     };
+    photoPortrait: TAsset;
+    photoLandscape: TAsset;
+    overlay: string;
     footerIconLinks: TIconLink[];
     footerInfo: string;
   };
 };
 
-export { TData, TMenuEntry };
+export { TData, TMenuEntry, TAsset };
