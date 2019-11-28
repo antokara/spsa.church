@@ -1,0 +1,7 @@
+query getGeneric($url: String!) {
+  getGenericPageList(filter: { match: { url: $url } }) {
+    items {
+      content
+    }
+  }
+}

@@ -8,6 +8,17 @@ query getTheme {
         url
       }
     }
+    photoPortrait {
+      description
+      path
+      title
+    }
+    photoLandscape {
+      description
+      path
+      title
+    }
+    overlay
     footerIconLinks {
       icon {
         description

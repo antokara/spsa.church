@@ -1,17 +1,6 @@
 query getHome {
   home {
-    photoPortrait {
-      description
-      path
-      title
-    }
-    photoLandscape {
-      description
-      path
-      title
-    }
     content
-    overlay
     calendarUrl
   }
 }
