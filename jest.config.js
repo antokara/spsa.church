@@ -8,9 +8,12 @@ require('dotenv').config();
 
 module.exports = {
   preset: 'ts-jest',
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: '<rootDir>/'
-  }),
+  moduleNameMapper: {
+    '\\.svg$': '<rootDir>/__mocks__/svgrMock.js',
+    ...pathsToModuleNameMapper(compilerOptions.paths, {
+      prefix: '<rootDir>/'
+    })
+  },
   transform: {
     '\\.gql$': 'jest-transform-graphql'
   },
