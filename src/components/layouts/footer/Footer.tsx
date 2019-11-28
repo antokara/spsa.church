@@ -4,7 +4,7 @@ import { GridJustification, GridSpacing } from '@material-ui/core/Grid';
 import * as React from 'react';
 import { Markdown } from 'src/components/shared/Markdown';
 import { SVG } from 'src/components/shared/SVG';
-import { THEME } from 'src/constants/THEME';
+import { theme } from 'src/constants/theme';
 import { TIconLink } from 'src/gql/shared/TIconLink';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TData } from 'src/gql/theme/TData';
@@ -20,7 +20,7 @@ const Footer: () => JSX.Element | null = (): JSX.Element | null => {
 
   // calculate media query dependent values
   const { spacing, justify, textAlign }: TDynamicValues = useMediaQuery(
-    `(max-width: ${THEME.breakpoints.values.sm}px)`
+    `(max-width: ${theme.breakpoints.values.sm}px)`
   )
     ? { spacing: 1, justify: 'center', textAlign: 'center' }
     : { spacing: 2, justify: 'flex-start', textAlign: 'right' };

@@ -1,5 +1,5 @@
 import { getByTestId } from '@testing-library/react';
-import { THEME } from 'src/constants/THEME';
+import { theme } from 'src/constants/theme';
 import { TShared } from 'src/containers/app.test/describe/shared';
 import { TDescribe } from 'src/containers/app.test/describe/TDescribe';
 
@@ -18,21 +18,21 @@ const describeMUIProvider: TDescribe = (
   it('provides access to the "theme.palette.primary.main"', () => {
     expect(node).toHaveAttribute(
       'data-palette-primary-main',
-      THEME.palette.primary.main
+      theme.palette.primary.main
     );
   });
 
   it('provides access to the "theme.palette.secondary.main"', () => {
     expect(node).toHaveAttribute(
       'data-palette-secondary-main',
-      THEME.palette.secondary.main
+      theme.palette.secondary.main
     );
   });
 
   it('provides access to the "theme.palette.text.primary"', () => {
     expect(node).toHaveAttribute(
       'data-palette-text-primary',
-      THEME.palette.text.primary
+      theme.palette.text.primary
     );
   });
 };

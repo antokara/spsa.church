@@ -17,7 +17,7 @@ describe('layout reducer', () => {
   describe('with MENU_OPEN action', () => {
     let action: TAction;
     beforeEach(() => {
-      action = { type: actionTypes.MENU_OPEN, payload: false };
+      action = { type: actionTypes.menuOpen, payload: false };
     });
 
     describe('and payload:true', () => {

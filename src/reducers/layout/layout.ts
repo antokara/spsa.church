@@ -6,7 +6,7 @@ import { defaultState, TState } from 'src/reducers/layout/defaultState';
 
 const layout: Reducer = produce((draft: TState, action: TAction) => {
   switch (action.type) {
-    case actionTypes.MENU_OPEN:
+    case actionTypes.menuOpen:
       draft.menuOpen = action.payload;
     default:
   }

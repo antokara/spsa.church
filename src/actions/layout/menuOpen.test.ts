@@ -8,7 +8,7 @@ describe('menuOpen action', () => {
 
   it('returns an action when called', () => {
     expect(menuOpen(true)).toStrictEqual({
-      type: actionTypes.MENU_OPEN,
+      type: actionTypes.menuOpen,
       payload: true
     });
   });
