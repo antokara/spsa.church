@@ -19,7 +19,7 @@ import { hot } from 'ReactHotLoader';
 import { PageError } from 'src/components/app/PageError';
 import { PageLoading } from 'src/components/app/PageLoading';
 import { Layout1 } from 'src/components/layouts/Layout1';
-import { THEME } from 'src/constants/THEME';
+import { theme } from 'src/constants/theme';
 import {
   ApolloClientCreator,
   TApolloClient
@@ -79,9 +79,9 @@ const App: React.FunctionComponent | null = (): React.ReactElement<
 
   // TODO: test StylesProvider and ThemeProvider
   return (
-    <MuiThemeProvider theme={THEME}>
+    <MuiThemeProvider theme={theme}>
       <StylesProvider injectFirst={true}>
-        <ThemeProvider theme={THEME}>
+        <ThemeProvider theme={theme}>
           <CssBaseline />
           <Provider store={store}>
             <PageLoading visible={loadingVisible} />

@@ -1,6 +1,6 @@
 import { MuiThemeProvider, Theme } from '@material-ui/core';
 import * as React from 'react';
-import { THEME } from 'src/constants/THEME';
+import { theme as THEME } from 'src/constants/theme';
 import { ThemeProvider } from 'styled-components';
 
 type TProps = React.PropsWithChildren<{

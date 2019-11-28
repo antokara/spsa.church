@@ -1,9 +1,9 @@
 interface IActionTypes {
-  readonly MENU_OPEN: string;
+  readonly menuOpen: string;
 }
 
 const actionTypes: IActionTypes = {
-  MENU_OPEN: 'LAYOUT.MENU_OPEN'
+  menuOpen: 'LAYOUT.MENU_OPEN'
 };
 
 export { actionTypes };

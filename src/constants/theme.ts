@@ -3,7 +3,7 @@ import { createMuiTheme, Theme } from '@material-ui/core';
 // style components Theme Object with Material UI theme combined
 // @see https://www.styled-components.com/docs/advanced#theming
 // @see https://material-ui.com/customization/default-theme/#default-theme
-const THEME: Theme = createMuiTheme({
+const theme: Theme = createMuiTheme({
   typography: {
     fontFamily: 'Noto Serif JP, sans-serif'
   },
@@ -24,4 +24,4 @@ const THEME: Theme = createMuiTheme({
   }
 });
 
-export { THEME };
+export { theme };
