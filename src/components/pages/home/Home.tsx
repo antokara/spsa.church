@@ -1,20 +1,28 @@
 import { useQuery } from '@apollo/react-hooks';
 import { Box, Grid } from '@material-ui/core';
 import * as React from 'react';
-import { Markdown } from 'src/components/shared/Markdown';
+import { RichText } from 'src/components/shared/RichText';
 import { Separator } from 'src/components/shared/Separator';
 import * as getHome from 'src/gql/home/getHome.gql';
 import { TData } from 'src/gql/home/TData';
 import { Calendar } from './Calendar';
+
+type TProps = {
+  id: string;
+};
 
 /**
  * Home page component.
  *
  * Renders the home page with its content, Calendar, etc.
  */
-const Home: () => JSX.Element | null = (): JSX.Element | null => {
+const Home: (props: TProps) => JSX.Element | null = ({
+  id
+}: TProps): JSX.Element | null => {
   // get the home data
-  const { loading, data } = useQuery<TData>(getHome);
+  const { loading, data } = useQuery<TData>(getHome, {
+    variables: { id }
+  });
 
   // in case the gql is loading or there is no data, do not show the page
   // TODO: add loader
@@ -27,7 +35,7 @@ const Home: () => JSX.Element | null = (): JSX.Element | null => {
       <Grid item={true} xs={12}>
         <Box position="relative">
           <Box p={2} overflow="hidden">
-            <Markdown source={data.home.content} />
+            <RichText html={data.getHomePage.contentHtml} />
           </Box>
           <Separator flipped={true} absolute={false} />
         </Box>

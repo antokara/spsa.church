@@ -1,6 +1,6 @@
-query getHome {
-  home {
-    content
+query getHome($id: ID!) {
+  getHomePage(_id: $id) {
+    contentHtml
     calendarUrl
   }
 }

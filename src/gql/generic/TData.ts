@@ -4,7 +4,7 @@ type TGenericPage = {
 
 /**
  * data structure for the "generic" graphql.
- * should be used like so useQuery<TData>(getGeneric)
+ * should be used like so useQuery<TData>(getGeneric, {variables: { url: '/donate' } });
  */
 type TData = {
   getGenericPageList: {
