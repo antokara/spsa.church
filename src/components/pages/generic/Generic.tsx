@@ -1,9 +1,7 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Grid } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import * as React from 'react';
 import { Markdown } from 'src/components/shared/Markdown';
-import { Separator } from 'src/components/shared/Separator';
-import { maxWidth } from 'src/constants/layout/maxWidth';
 import * as getGeneric from 'src/gql/generic/getGeneric.gql';
 import { TData } from 'src/gql/generic/TData';
 
