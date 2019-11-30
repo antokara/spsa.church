@@ -5,6 +5,7 @@ import { Home } from 'src/components/pages/home/Home';
 import { NotFound } from 'src/components/pages/notFound/NotFound';
 import { routes } from 'src/constants/routes';
 
+// TODO: @see src/constants/routes.ts
 const Routes: () => JSX.Element = (): JSX.Element => (
   <Switch>
     <Route exact={true} path={routes.home.path} component={Home} />

@@ -13,6 +13,9 @@ interface IRoutes {
   readonly donate: IRoute;
 }
 
+// TODO: consider moving this to the CMS and create a getURL function instead by the "key/path"
+//       refactor Routes component to use it then and all links as well
+
 /**
  * the application's routes
  */
