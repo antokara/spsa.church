@@ -19,9 +19,42 @@ import { menuOpen, TAction, TActionCreator } from 'src/actions/layout/menuOpen';
 import { maxWidth } from 'src/constants/layout/maxWidth';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TData, TMenuEntry } from 'src/gql/theme/TData';
+import { getMenuUrl } from 'src/helpers/getMenuUrl';
 import { TState } from 'src/reducers/defaultState';
 import { ListItem } from './ListItem';
 import { NavTab } from './NavTab';
+
+/**
+ * builds the menu tabs using the data and location provided
+ */
+const buildMenuTabs: (data: TData, location: Location) => JSX.Element = (
+  data: TData
+): JSX.Element => {
+  const TabItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
+    (menuEntry: TMenuEntry) => (
+      <NavTab
+        key={menuEntry._id}
+        label={menuEntry.label}
+        wrapped={true}
+        to={getMenuUrl(menuEntry)}
+        value={getMenuUrl(menuEntry)}
+      />
+    )
+  );
+
+  return (
+    <AppBar position="static">
+      <Tabs
+        value={location.pathname}
+        aria-label="menu"
+        variant="fullWidth"
+        scrollButtons="off"
+      >
+        {TabItems}
+      </Tabs>
+    </AppBar>
+  );
+};
 
 /**
  * Header menu component.
@@ -49,34 +82,7 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
   let menu: JSX.Element;
   if (useMediaQuery(`(min-width: ${maxWidth.property})`) && data) {
     // top menu
-
-    /**
-     * builds the list items for the menu tabs
-     */
-    const TabItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
-      (menuEntry: TMenuEntry) => (
-        <NavTab
-          key={menuEntry._id}
-          label={menuEntry.label}
-          wrapped={true}
-          to={menuEntry.url}
-          value={menuEntry.url}
-        />
-      )
-    );
-
-    menu = (
-      <AppBar position="static">
-        <Tabs
-          value={location.pathname}
-          aria-label="menu"
-          variant="fullWidth"
-          scrollButtons="off"
-        >
-          {TabItems}
-        </Tabs>
-      </AppBar>
-    );
+    menu = buildMenuTabs(data, location);
   } else {
     // sandwitch menu
     menu = (
@@ -108,7 +114,7 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
         button={true}
         key={menuEntry._id}
         component={NavLink}
-        to={menuEntry.url}
+        to={getMenuUrl(menuEntry)}
         exact={true}
       >
         <ListItemText primary={menuEntry.label} />

@@ -1,10 +1,18 @@
 import { TAsset } from 'src/gql/shared/TAsset';
 import { TIconLink } from 'src/gql/shared/TIconLink';
 
+type TMenuPage = {
+  _id: string;
+  _contentTypeName: string;
+  url?: string;
+};
+
 type TMenuEntry = {
   _id: string;
   label: string;
-  url: string;
+  url?: string;
+  page: TMenuPage;
+  subMenuEntries?: TMenuEntry[];
 };
 
 /**

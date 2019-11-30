@@ -7,14 +7,14 @@ import * as React from 'react';
 import { useCss } from 'src/helpers/useCss';
 import { default as styled, StyledComponent } from 'styled-components';
 
-type TProps = {
+type TStyledProps = {
   h2FontSize: string;
 };
 
 const StyledMarkdownWrapper: StyledComponent<
   'div',
   HTMLDivElement,
-  TProps,
+  TStyledProps,
   never
 > = styled.div`
   p img {
@@ -32,7 +32,7 @@ const StyledMarkdownWrapper: StyledComponent<
 
   h1,
   h2 {
-    font-size: ${(p: TProps & WithTheme): string => p.h2FontSize};
+    font-size: ${(p: TStyledProps & WithTheme): string => p.h2FontSize};
   }
 
   em {
@@ -40,16 +40,12 @@ const StyledMarkdownWrapper: StyledComponent<
   }
 `;
 
-const MarkdownWrapper: React.FunctionComponent = ({
-  children
-}: React.PropsWithChildren<HTMLDivElement>): JSX.Element => {
+type TProps = React.ComponentProps<'div'>;
+
+const MarkdownWrapper: React.FunctionComponent<TProps> = (): JSX.Element => {
   const h2FontSize: string = useCss('5vw', '1.5em', '425px');
 
-  return (
-    <StyledMarkdownWrapper h2FontSize={h2FontSize}>
-      {children}
-    </StyledMarkdownWrapper>
-  );
+  return <StyledMarkdownWrapper h2FontSize={h2FontSize} />;
 };
 
 export { MarkdownWrapper };

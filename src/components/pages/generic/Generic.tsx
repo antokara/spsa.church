@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core';
 import * as React from 'react';
 import { Markdown } from 'src/components/shared/Markdown';
 import * as getGeneric from 'src/gql/generic/getGeneric.gql';
-import { TData } from 'src/gql/generic/TData';
+import { TData, TGenericPage } from 'src/gql/generic/TData';
 
 /**
  * Generic page component.
@@ -21,13 +21,11 @@ const Generic: () => JSX.Element | null = (): JSX.Element | null => {
   if (loading || !data) {
     return null;
   }
+  const pageData: TGenericPage = data.getGenericPageList.items[0];
 
   return (
     <Box p={2}>
-      <Markdown
-        source={data.getGenericPageList.items[0].content}
-        escapeHtml={false}
-      />
+      <Markdown source={pageData.content} escapeHtml={false} />
     </Box>
   );
 };
