@@ -23,7 +23,7 @@ const Layout1: () => JSX.Element = (): JSX.Element => (
       <Grid item={true} xs={12}>
         <Box maxWidth="100%" position="relative">
           <Routes />
-          <Separator />
+          <Separator absolute={false} />
         </Box>
       </Grid>
       <Grid item={true} xs={12}>
