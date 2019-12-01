@@ -56,6 +56,6 @@ query getTheme {
       }
       link
     }
-    footerInfo
+    footerInfoHtml
   }
 }

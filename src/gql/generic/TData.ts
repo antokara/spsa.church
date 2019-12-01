@@ -1,15 +1,11 @@
-type TGenericPage = {
-  content: string;
-};
-
 /**
  * data structure for the "generic" graphql.
- * should be used like so useQuery<TData>(getGeneric, {variables: { url: '/donate' } });
+ * should be used like so useQuery<TData>(getGeneric, {variables: { id: _id } });
  */
 type TData = {
-  getGenericPageList: {
-    items: TGenericPage[];
+  getGenericPage: {
+    contentHtml: string;
   };
 };
 
-export { TData, TGenericPage };
+export { TData };

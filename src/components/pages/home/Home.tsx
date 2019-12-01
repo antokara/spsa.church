@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/react-hooks';
 import { Box, Grid } from '@material-ui/core';
 import * as React from 'react';
-import { RichText } from 'src/components/shared/RichText';
+import { RichText } from 'src/components/shared/richText/RichText';
 import { Separator } from 'src/components/shared/Separator';
 import * as getHome from 'src/gql/home/getHome.gql';
 import { TData } from 'src/gql/home/TData';

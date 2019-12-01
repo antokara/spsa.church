@@ -51,20 +51,18 @@ const Routes: () => JSX.Element | null = (): JSX.Element | null => {
     data.theme.headerMenu.menuEntries
   );
 
-  switch (activeMenu?.page._contentTypeName) {
-    case 'homePage':
-      return <Home id={activeMenu?.page._id} />;
-    case 'genericPage':
-      return <Generic />;
-    default:
-      return <NotFound />;
+  if (activeMenu?.page) {
+    const id: string = activeMenu?.page._id;
+    switch (activeMenu?.page._contentTypeName) {
+      case 'homePage':
+        return <Home id={id} />;
+      case 'genericPage':
+        return <Generic id={id} />;
+      default:
+    }
   }
 
-  // <Switch>
-  //   <Route exact={true} path={routes.home.path} component={Home} />
-  //   <Route exact={true} path={routes.donate.path} component={Generic} />
-  //   <Route component={NotFound} />
-  // </Switch>
+  return <NotFound />;
 };
 
 export { Routes };

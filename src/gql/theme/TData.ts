@@ -29,7 +29,7 @@ type TData = {
     photoLandscape: TAsset;
     overlay: string;
     footerIconLinks: TIconLink[];
-    footerInfo: string;
+    footerInfoHtml: string;
   };
 };
 
