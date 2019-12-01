@@ -33,4 +33,4 @@ type TData = {
   };
 };
 
-export { TData, TMenuEntry, TAsset };
+export { TData, TMenuEntry, TAsset, TMenuPage };
