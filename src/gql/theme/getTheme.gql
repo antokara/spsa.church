@@ -1,4 +1,4 @@
-query getTheme {
+query getTheme($images: TSImagesConfig) {
   theme {
     headerMenu {
       label
@@ -56,6 +56,6 @@ query getTheme {
       }
       link
     }
-    footerInfoHtml
+    footerInfoHtml(images: $images)
   }
 }

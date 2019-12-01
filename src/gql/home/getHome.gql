@@ -1,6 +1,6 @@
-query getHome($id: ID!) {
+query getHome($id: ID!, $images: TSImagesConfig) {
   getHomePage(_id: $id) {
-    contentHtml
+    contentHtml(images: $images)
     calendarUrl
   }
 }
