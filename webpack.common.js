@@ -94,7 +94,8 @@ module.exports = env => {
         template: HtmlWebpackTemplatePlugin,
         mobile: true,
         lang: 'en-US',
-        appMountId: 'root'
+        appMountId: 'root',
+        baseHref: '/'
       }),
       new FaviconsWebpackPlugin({
         logo: path.resolve(__dirname, 'assets/churchLogo.png'),
