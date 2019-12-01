@@ -18,7 +18,8 @@ const StyledRichText: StyledComponent<
   never
 > = styled.div`
   figure {
-    margin: 0 ${(p: TProps): string => p.margin} 0 0;
+    margin: 0 ${(p: TProps): string => p.margin}
+      ${(p: TProps): string => p.margin} 0;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 1px;
     width: 24vw;
     max-width: 250px;

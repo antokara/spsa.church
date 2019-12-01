@@ -1,37 +1,13 @@
 import { useQuery } from '@apollo/react-hooks';
 import { Location } from 'history';
 import * as React from 'react';
-import { matchPath, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Generic } from 'src/components/pages/generic/Generic';
 import { Home } from 'src/components/pages/home/Home';
 import { NotFound } from 'src/components/pages/notFound/NotFound';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
-import { TData, TMenuEntry } from 'src/gql/theme/TData';
-import { getMenuUrl } from 'src/helpers/getMenuUrl';
-
-/**
- * finds the active menu entry and returns it by comparing the current URL
- * with the URL of each menu entry / sub menu entry / page
- */
-const findActiveMenuEntry: (
-  location: Location,
-  menuEntries: TMenuEntry[]
-) => TMenuEntry | undefined = (
-  location: Location,
-  menuEntries: TMenuEntry[]
-): TMenuEntry | undefined =>
-  menuEntries.find((menuEntry: TMenuEntry) => {
-    if (
-      matchPath(location.pathname, { path: getMenuUrl(menuEntry), exact: true })
-    ) {
-      return true;
-    }
-    if (menuEntry.subMenuEntries) {
-      return findActiveMenuEntry(location, menuEntry.subMenuEntries);
-    }
-
-    return false;
-  });
+import { TData, TMenuEntry, TMenuPage } from 'src/gql/theme/TData';
+import { findActiveMenuEntries } from 'src/helpers/routes/findActiveMenuEntries';
 
 const Routes: () => JSX.Element | null = (): JSX.Element | null => {
   // get the theme data
@@ -45,14 +21,15 @@ const Routes: () => JSX.Element | null = (): JSX.Element | null => {
     return null;
   }
 
-  const activeMenu: TMenuEntry | undefined = findActiveMenuEntry(
+  const activeMenus: TMenuEntry[] = findActiveMenuEntries(
     location,
     data.theme.headerMenu.menuEntries
   );
 
-  if (activeMenu?.page) {
-    const id: string = activeMenu?.page._id;
-    switch (activeMenu?.page._contentTypeName) {
+  if (activeMenus.length && activeMenus[activeMenus.length - 1]?.page) {
+    const page: TMenuPage = activeMenus[activeMenus.length - 1].page;
+    const id: string = page._id;
+    switch (page._contentTypeName) {
       case 'homePage':
         return <Home id={id} />;
       case 'genericPage':

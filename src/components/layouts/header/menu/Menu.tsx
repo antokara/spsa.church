@@ -13,13 +13,14 @@ import { Menu as MenuIcon } from '@material-ui/icons';
 import { Location } from 'history';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { bindActionCreators, Dispatch } from 'redux';
 import { menuOpen, TAction, TActionCreator } from 'src/actions/layout/menuOpen';
 import { maxWidth } from 'src/constants/layout/maxWidth';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TData, TMenuEntry } from 'src/gql/theme/TData';
 import { getMenuUrl } from 'src/helpers/getMenuUrl';
+import { findActiveMenuEntries } from 'src/helpers/routes/findActiveMenuEntries';
 import { TState } from 'src/reducers/defaultState';
 import { ListItem } from './ListItem';
 import { NavTab } from './NavTab';
@@ -27,25 +28,33 @@ import { NavTab } from './NavTab';
 /**
  * builds the menu tabs using the data and location provided
  */
-const buildMenuTabs: (data: TData, location: Location) => JSX.Element = (
-  data: TData
+const buildMenuTabs: (
+  data: TData,
+  activeRootMenuUrl: string | boolean
+) => JSX.Element = (
+  data: TData,
+  activeRootMenuUrl: string | boolean
 ): JSX.Element => {
   const TabItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
-    (menuEntry: TMenuEntry) => (
-      <NavTab
-        key={menuEntry._id}
-        label={menuEntry.label}
-        wrapped={true}
-        to={getMenuUrl(menuEntry)}
-        value={getMenuUrl(menuEntry)}
-      />
-    )
+    (menuEntry: TMenuEntry) => {
+      const menuUrl: string = getMenuUrl(menuEntry);
+
+      return (
+        <NavTab
+          key={menuEntry._id}
+          label={menuEntry.label}
+          wrapped={true}
+          to={menuUrl}
+          value={menuUrl}
+        />
+      );
+    }
   );
 
   return (
     <AppBar position="static">
       <Tabs
-        value={location.pathname}
+        value={activeRootMenuUrl}
         aria-label="menu"
         variant="fullWidth"
         scrollButtons="off"
@@ -78,11 +87,24 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
   // get router location
   const location: Location = useLocation();
 
+  // when we get the data, try to find the active menu(s)
+  let activeMenus: TMenuEntry[] = [];
+  let activeRootMenuUrl: string | boolean = false;
+  if (data) {
+    activeMenus = findActiveMenuEntries(
+      location,
+      data.theme.headerMenu.menuEntries
+    );
+    if (activeMenus.length) {
+      activeRootMenuUrl = getMenuUrl(activeMenus[0]);
+    }
+  }
+
   // depending the device orientation/width, show the appropriate menu
   let menu: JSX.Element;
   if (useMediaQuery(`(min-width: ${maxWidth.property})`) && data) {
     // top menu
-    menu = buildMenuTabs(data, location);
+    menu = buildMenuTabs(data, activeRootMenuUrl);
   } else {
     // sandwitch menu
     menu = (
@@ -109,17 +131,22 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
    * builds the list items for the menu list
    */
   const ListItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
-    (menuEntry: TMenuEntry) => (
-      <ListItem
-        button={true}
-        key={menuEntry._id}
-        component={NavLink}
-        to={getMenuUrl(menuEntry)}
-        exact={true}
-      >
-        <ListItemText primary={menuEntry.label} />
-      </ListItem>
-    )
+    (menuEntry: TMenuEntry) => {
+      const menuUrl: string = getMenuUrl(menuEntry);
+      const selected: boolean = activeRootMenuUrl === menuUrl;
+
+      return (
+        <ListItem
+          button={true}
+          key={menuEntry._id}
+          component={Link}
+          to={menuUrl}
+          selected={selected}
+        >
+          <ListItemText primary={menuEntry.label} />
+        </ListItem>
+      );
+    }
   );
 
   return (
