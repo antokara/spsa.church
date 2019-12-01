@@ -1,0 +1,8 @@
+query {
+  getHtmlTagList {
+    items {
+      tag
+      html
+    }
+  }
+}
