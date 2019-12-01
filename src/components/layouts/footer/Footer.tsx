@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { Box, Grid, IconButton, useMediaQuery } from '@material-ui/core';
 import { GridJustification, GridSpacing } from '@material-ui/core/Grid';
 import * as React from 'react';
-import { Markdown } from 'src/components/shared/Markdown';
+import { RichText } from 'src/components/shared/richText/RichText';
 import { SVG } from 'src/components/shared/SVG';
 import { theme } from 'src/constants/theme';
 import { TIconLink } from 'src/gql/shared/TIconLink';
@@ -70,7 +70,7 @@ const Footer: () => JSX.Element | null = (): JSX.Element | null => {
         </Grid>
         <Grid item={true} xs={12} sm={6}>
           <Box textAlign={textAlign}>
-            <Markdown source={data.theme.footerInfo} />
+            <RichText html={data.theme.footerInfoHtml} />
           </Box>
         </Grid>
       </Grid>
