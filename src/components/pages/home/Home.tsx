@@ -3,6 +3,7 @@ import { Box, Grid } from '@material-ui/core';
 import * as React from 'react';
 import { RichText } from 'src/components/shared/richText/RichText';
 import { Separator } from 'src/components/shared/Separator';
+import { imageSizes } from 'src/constants/layout/imageSizes';
 import * as getHome from 'src/gql/home/getHome.gql';
 import { TData } from 'src/gql/home/TData';
 import { Calendar } from './Calendar';
@@ -21,7 +22,7 @@ const Home: (props: TProps) => JSX.Element | null = ({
 }: TProps): JSX.Element | null => {
   // get the home data
   const { loading, data } = useQuery<TData>(getHome, {
-    variables: { id }
+    variables: { id, images: imageSizes }
   });
 
   // in case the gql is loading or there is no data, do not show the page

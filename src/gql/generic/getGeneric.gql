@@ -1,5 +1,5 @@
-query getGeneric($id: ID!) {
+query getGeneric($id: ID!, $images: TSImagesConfig) {
   getGenericPage(_id: $id) {
-    contentHtml
+    contentHtml(images: $images)
   }
 }
