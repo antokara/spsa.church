@@ -5,7 +5,6 @@ import { matchPath, useLocation } from 'react-router-dom';
 import { Generic } from 'src/components/pages/generic/Generic';
 import { Home } from 'src/components/pages/home/Home';
 import { NotFound } from 'src/components/pages/notFound/NotFound';
-import { routes } from 'src/constants/routes';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TData, TMenuEntry } from 'src/gql/theme/TData';
 import { getMenuUrl } from 'src/helpers/getMenuUrl';
