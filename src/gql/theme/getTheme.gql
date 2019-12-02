@@ -34,6 +34,23 @@ query getTheme($images: TSImagesConfig) {
               url
             }
           }
+          subMenuEntries {
+            _id
+            label
+            url
+            page {
+              ... on GenericPage {
+                _id
+                _contentTypeName
+                url
+              }
+              ... on HomePage {
+                _id
+                _contentTypeName
+                url
+              }
+            }
+          }
         }
       }
     }
