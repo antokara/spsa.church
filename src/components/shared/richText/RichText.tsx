@@ -1,5 +1,12 @@
 import { useQuery } from '@apollo/react-hooks';
+import {
+  INode,
+  Parser,
+  ProcessNodeDefinitions,
+  TProcessingInstruction
+} from 'html-to-react';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import * as sanitizeHtml from 'sanitize-html';
 import { allowedAttributes } from 'src/constants/sanitizeHtml/allowedAttributes';
 import { allowedSchemes } from 'src/constants/sanitizeHtml/allowedSchemes';
@@ -11,16 +18,6 @@ import { useCss } from 'src/helpers/useCss';
 import { StyledRichText } from './StyledRichText';
 
 /**
- * creates the markup after sanitizing the unsafe html provided
- */
-type TMarkup = {
-  __html: string;
-};
-const createMarkup: (html: string) => TMarkup = (html: string): TMarkup => ({
-  __html: html
-});
-
-/**
  * RichText component.
  *
  * Renders the RichText HTML provided after it has been sanitized and
@@ -30,6 +27,7 @@ type TProps = {
   html: string;
   replaceHtmlTags?: boolean;
 };
+// tslint:disable-next-line:max-func-body-length
 const RichText: (props: TProps) => JSX.Element | null = ({
   html,
   replaceHtmlTags = true
@@ -46,23 +44,57 @@ const RichText: (props: TProps) => JSX.Element | null = ({
     return null;
   }
 
+  // remove unsafe html/js/attributes from the html string
   let safeHtml: string = sanitizeHtml(html, {
     allowedTags,
     allowedAttributes,
     allowedSchemes
   });
 
+  // replace custom tags
   if (replaceHtmlTags && data?.getHtmlTagList.items) {
     safeHtml = replaceTags(safeHtml, data?.getHtmlTagList.items);
   }
 
+  // convert html string to JSX while at the same time, replacing
+  // internal links with react-router-dom Link components
+  const isValidNode: () => boolean = (): boolean => true;
+  const htmlToReactParser: Parser = new Parser();
+  const processNodeDefinitions: ProcessNodeDefinitions = new ProcessNodeDefinitions();
+  const processingInstructions: TProcessingInstruction[] = [
+    // Order matters. Instructions are processed in the order they're defined
+    {
+      // replace A tags that start with / with a React Router Dom Link component
+      shouldProcessNode: (node: INode): boolean =>
+        node.name === 'a' && node.attribs.href.startsWith('/'),
+      processNode: (
+        node: INode,
+        children: JSX.Element,
+        index: string
+      ): JSX.Element => (
+        <Link key={index} to={node.attribs.href}>
+          {children}
+        </Link>
+      )
+    },
+    {
+      // Anything else, just use the default processor
+      shouldProcessNode: isValidNode,
+      processNode: processNodeDefinitions.processDefaultNode
+    }
+  ];
+
+  // const reactElement: JSX.Element = htmlToReactParser.parse(safeHtml);
+  const reactElement: JSX.Element = htmlToReactParser.parseWithInstructions(
+    safeHtml,
+    isValidNode,
+    processingInstructions
+  );
+
   return (
-    // tslint:disable-next-line:react-no-dangerous-html
-    <StyledRichText
-      dangerouslySetInnerHTML={createMarkup(safeHtml)}
-      h2FontSize={h2FontSize}
-      margin={margin}
-    />
+    <StyledRichText h2FontSize={h2FontSize} margin={margin}>
+      {reactElement}
+    </StyledRichText>
   );
 };
 

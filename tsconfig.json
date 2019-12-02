@@ -23,7 +23,15 @@
       "ReactHotLoader": ["node_modules/react-hot-loader"]
     },
     "typeRoots": ["types", "node_modules/@types"],
-    "types": ["react", "react-dom", "node", "gql", "jest", "svg"]
+    "types": [
+      "react",
+      "react-dom",
+      "node",
+      "gql",
+      "jest",
+      "svg",
+      "html-to-react"
+    ]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"],

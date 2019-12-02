@@ -23,7 +23,15 @@
       "ReactHotLoader": ["src/helpers/nop/hot"]
     },
     "typeRoots": ["types", "node_modules/@types"],
-    "types": ["react", "react-dom", "node", "gql", "jest", "svg"]
+    "types": [
+      "react",
+      "react-dom",
+      "node",
+      "gql",
+      "jest",
+      "svg",
+      "html-to-react"
+    ]
   },
   "include": ["src/**/*"],
   "exclude": [

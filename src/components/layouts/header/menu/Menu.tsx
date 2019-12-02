@@ -5,6 +5,7 @@ import {
   Drawer,
   Fab,
   List,
+  ListItem,
   ListItemText,
   Tabs,
   useMediaQuery
@@ -22,7 +23,6 @@ import { TData, TMenuEntry } from 'src/gql/theme/TData';
 import { getMenuUrl } from 'src/helpers/getMenuUrl';
 import { findActiveMenuEntries } from 'src/helpers/routes/findActiveMenuEntries';
 import { TState } from 'src/reducers/defaultState';
-import { ListItem } from './ListItem';
 import { NavTab } from './NavTab';
 
 /**
