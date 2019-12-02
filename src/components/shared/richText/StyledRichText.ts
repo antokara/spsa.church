@@ -54,7 +54,8 @@ const StyledRichText: StyledComponent<
   }
 
   ul {
-    list-style-position: inside;
+    overflow: hidden;
+    padding-left: 2em;
 
     li {
       margin-bottom: 1em;
