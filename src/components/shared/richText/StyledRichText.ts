@@ -55,6 +55,10 @@ const StyledRichText: StyledComponent<
 
   ul {
     list-style-position: inside;
+
+    li {
+      margin-bottom: 1em;
+    }
   }
 `;
 
