@@ -1,0 +1,10 @@
+overwrite: true
+schema:
+  - ${TAKESHAPE_API_URL}:
+      headers:
+        Authorization: Bearer ${TAKESHAPE_API_KEY}
+documents: 'src/gql/**/*.gql'
+generates:
+  src/gql/introspection/introspectionResult.ts:
+    plugins:
+      - 'fragment-matcher'
