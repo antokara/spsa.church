@@ -16,9 +16,9 @@ import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { hot } from 'ReactHotLoader';
-import { PageError } from 'src/components/app/PageError';
-import { PageLoading } from 'src/components/app/PageLoading';
 import { Layout1 } from 'src/components/layouts/Layout1';
+import { PageError } from 'src/components/shared/pageError/PageError';
+import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';
 import { theme } from 'src/constants/theme';
 import {
   ApolloClientCreator,
