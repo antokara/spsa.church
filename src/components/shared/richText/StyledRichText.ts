@@ -35,6 +35,7 @@ const StyledRichText: StyledComponent<
     img {
       display: block;
       max-width: 100%;
+      background: ${(p: TProps): string => p.theme.palette.common.white};
     }
   }
 
@@ -50,6 +51,10 @@ const StyledRichText: StyledComponent<
 
   em {
     font-weight: bold;
+  }
+
+  ul {
+    list-style-position: inside;
   }
 `;
 
