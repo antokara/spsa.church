@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { Box } from '@material-ui/core';
 import * as React from 'react';
 import { NoInternet } from 'src/components/pages/noInternet/NoInternet';
+import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';
 import { RichText } from 'src/components/shared/richText/RichText';
 import { imageSizes } from 'src/constants/layout/imageSizes';
 import * as getGeneric from 'src/gql/generic/getGeneric.gql';
@@ -29,17 +30,17 @@ const Generic: (props: TProps) => JSX.Element | null = ({
     return <NoInternet />;
   }
 
+  const contents: JSX.Element[] = [
+    <PageLoading key="loading" visible={loading} position="relative" />
+  ];
   // in case the gql is loading or there is no data, do not show the page
-  // TODO: add loader
-  if (loading || !data) {
-    return null;
+  if (!loading && data) {
+    contents.push(
+      <RichText key="main" html={data.getGenericPage.contentHtml} />
+    );
   }
 
-  return (
-    <Box p={2}>
-      <RichText html={data.getGenericPage.contentHtml} />
-    </Box>
-  );
+  return <Box px={2}>{contents}</Box>;
 };
 
 export { Generic };

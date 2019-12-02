@@ -13,14 +13,11 @@ type TStyledProps = {
 };
 
 const StyledSeparator: typeof SeparatorSvg = styled(SeparatorSvg)`
-  position: ${(p: TStyledProps): string =>
-    p.absolute ? 'absolute' : 'static'};
+  position: relative;
   width: 100%;
-  left: ${(p: TStyledProps): string => (p.absolute ? '0' : 'auto')};
   height: ${(p: TStyledProps): string => p.height};
-  bottom: ${(p: TStyledProps): string =>
+  margin-top: ${(p: TStyledProps): string =>
     p.absolute ? `calc(${p.height} / -2)` : 'auto'};
-  z-index: ${(p: TStyledProps): string => (p.absolute ? '1' : 'auto')};
   transform: ${(p: TStyledProps): string =>
     p.flipped ? 'scaleX(-1)' : 'none'};
 `;
@@ -45,11 +42,12 @@ const Separator: (props: TProps) => JSX.Element = ({
 }: TProps): JSX.Element => {
   const iFlipped: number = flipped ? 1 : 0;
   const iAbsolute: number = absolute ? 1 : 0;
+  const height: string = useCss('4vw', '40px');
 
   return (
     <StyledSeparator
       data-testid="separator"
-      height={useCss('4vw', '40px')}
+      height={height}
       flipped={iFlipped}
       absolute={iAbsolute}
     />
