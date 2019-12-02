@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/react-hooks';
 import { Box, Grid } from '@material-ui/core';
 import * as React from 'react';
+import { NoInternet } from 'src/components/pages/noInternet/NoInternet';
 import { RichText } from 'src/components/shared/richText/RichText';
 import { Separator } from 'src/components/shared/Separator';
 import { imageSizes } from 'src/constants/layout/imageSizes';
@@ -21,9 +22,14 @@ const Home: (props: TProps) => JSX.Element | null = ({
   id
 }: TProps): JSX.Element | null => {
   // get the home data
-  const { loading, data } = useQuery<TData>(getHome, {
+  const { loading, data, error } = useQuery<TData>(getHome, {
     variables: { id, images: imageSizes }
   });
+
+  // in case there is no internet, show the relative page
+  if (error?.networkError) {
+    return <NoInternet />;
+  }
 
   // in case the gql is loading or there is no data, do not show the page
   // TODO: add loader
