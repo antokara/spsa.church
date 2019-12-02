@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/react-hooks';
 import { Box } from '@material-ui/core';
 import * as React from 'react';
 import { Picture, TSource } from 'src/components/shared/Picture';
-import { Separator } from 'src/components/shared/Separator';
 import { maxWidth } from 'src/constants/layout/maxWidth';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TAsset, TData } from 'src/gql/theme/TData';
@@ -60,7 +59,6 @@ const WideImage: () => JSX.Element | null = (): JSX.Element | null => {
       >
         {data.theme.overlay}
       </Box>
-      <Separator />
     </Box>
   );
 };

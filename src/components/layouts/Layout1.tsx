@@ -19,6 +19,7 @@ const Layout1: () => JSX.Element = (): JSX.Element => (
     <Grid container={true}>
       <Grid item={true} xs={12}>
         <Header />
+        <Separator />
       </Grid>
       <Grid item={true} xs={12}>
         <Box maxWidth="100%" position="relative">
