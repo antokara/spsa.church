@@ -1,3 +1,15 @@
+fragment GenericPage on GenericPage {
+  _id
+  _contentTypeName
+  url
+}
+
+fragment HomePage on HomePage {
+  _id
+  _contentTypeName
+  url
+}
+
 query getTheme($images: TSImagesConfig) {
   theme {
     headerMenu {
@@ -7,48 +19,24 @@ query getTheme($images: TSImagesConfig) {
         label
         url
         page {
-          ... on GenericPage {
-            _id
-            _contentTypeName
-            url
-          }
-          ... on HomePage {
-            _id
-            _contentTypeName
-            url
-          }
+          ...GenericPage
+          ...HomePage
         }
         subMenuEntries {
           _id
           label
           url
           page {
-            ... on GenericPage {
-              _id
-              _contentTypeName
-              url
-            }
-            ... on HomePage {
-              _id
-              _contentTypeName
-              url
-            }
+            ...GenericPage
+            ...HomePage
           }
           subMenuEntries {
             _id
             label
             url
             page {
-              ... on GenericPage {
-                _id
-                _contentTypeName
-                url
-              }
-              ... on HomePage {
-                _id
-                _contentTypeName
-                url
-              }
+              ...GenericPage
+              ...HomePage
             }
           }
         }
