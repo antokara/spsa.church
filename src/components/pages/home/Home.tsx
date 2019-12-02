@@ -32,14 +32,14 @@ const Home: (props: TProps) => JSX.Element | null = ({
     return <NoInternet />;
   }
 
-  if (loading) {
-    return <PageLoading />;
-  }
+  // always show the loading so that it can fade away...
+  const contents: JSX.Element[] = [
+    <PageLoading key="loading" visible={loading} position="relative" />
+  ];
 
-  // in case the gql is loading or there is no data, do not show the page
-  // TODO: add loader
-  if (loading || !data) {
-    return null;
+  // in case the gql is loading or there is no data, do not show the page contents
+  if (!loading && data) {
+    contents.push(<RichText key="main" html={data.getHomePage.contentHtml} />);
   }
 
   return (
@@ -47,7 +47,7 @@ const Home: (props: TProps) => JSX.Element | null = ({
       <Grid item={true} xs={12}>
         <Box position="relative">
           <Box px={2} overflow="hidden">
-            <RichText html={data.getHomePage.contentHtml} />
+            {contents}
           </Box>
           <Separator flipped={true} absolute={false} />
         </Box>

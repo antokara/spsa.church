@@ -30,10 +30,12 @@ const Generic: (props: TProps) => JSX.Element | null = ({
     return <NoInternet />;
   }
 
+  // always show the loading so that it can fade away...
   const contents: JSX.Element[] = [
     <PageLoading key="loading" visible={loading} position="relative" />
   ];
-  // in case the gql is loading or there is no data, do not show the page
+
+  // in case the gql is loading or there is no data, do not show the page contents
   if (!loading && data) {
     contents.push(
       <RichText key="main" html={data.getGenericPage.contentHtml} />
