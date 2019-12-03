@@ -18,6 +18,8 @@ const StyledSeparator: typeof SeparatorSvg = styled(SeparatorSvg)`
   height: ${(p: TStyledProps): string => p.height};
   margin-top: ${(p: TStyledProps): string =>
     p.absolute ? `calc(${p.height} / -2)` : 'auto'};
+  bottom: ${(p: TStyledProps): string =>
+    p.absolute ? `calc(${p.height} / 2)` : 'auto'};
   transform: ${(p: TStyledProps): string =>
     p.flipped ? 'scaleX(-1)' : 'none'};
 `;
