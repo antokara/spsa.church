@@ -6,6 +6,7 @@ import { Routes } from 'src/components/layouts/Routes';
 import { Separator } from 'src/components/shared/Separator';
 import { maxWidth } from 'src/constants/layout/maxWidth';
 
+// TODO: use render hook to flip the separator components
 const Layout1: () => JSX.Element = (): JSX.Element => (
   <Box
     display="flex"

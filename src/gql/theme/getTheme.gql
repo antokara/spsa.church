@@ -1,10 +1,16 @@
+fragment HomePage on HomePage {
+  _id
+  _contentTypeName
+  url
+}
+
 fragment GenericPage on GenericPage {
   _id
   _contentTypeName
   url
 }
 
-fragment HomePage on HomePage {
+fragment InstallAppPage on InstallAppPage {
   _id
   _contentTypeName
   url
@@ -19,24 +25,27 @@ query getTheme($images: TSImagesConfig) {
         label
         url
         page {
-          ...GenericPage
           ...HomePage
+          ...GenericPage
+          ...InstallAppPage
         }
         subMenuEntries {
           _id
           label
           url
           page {
-            ...GenericPage
             ...HomePage
+            ...GenericPage
+            ...InstallAppPage
           }
           subMenuEntries {
             _id
             label
             url
             page {
-              ...GenericPage
               ...HomePage
+              ...GenericPage
+              ...InstallAppPage
             }
           }
         }

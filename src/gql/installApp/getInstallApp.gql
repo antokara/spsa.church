@@ -1,0 +1,5 @@
+query getInstallApp($id: ID!, $images: TSImagesConfig) {
+  getInstallAppPage(_id: $id) {
+    contentHtml(images: $images)
+  }
+}

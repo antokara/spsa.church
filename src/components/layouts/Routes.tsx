@@ -4,6 +4,7 @@ import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Generic } from 'src/components/pages/generic/Generic';
 import { Home } from 'src/components/pages/home/Home';
+import { InstallApp } from 'src/components/pages/installApp/InstallApp';
 import { NotFound } from 'src/components/pages/notFound/NotFound';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TData, TMenuEntry, TMenuPage } from 'src/gql/theme/TData';
@@ -34,6 +35,8 @@ const Routes: () => JSX.Element | null = (): JSX.Element | null => {
         return <Home id={id} />;
       case 'genericPage':
         return <Generic id={id} />;
+      case 'installAppPage':
+        return <InstallApp id={id} />;
       default:
     }
   }

@@ -25,6 +25,7 @@ const Generic: (props: TProps) => JSX.Element | null = ({
     variables: { id, images: imageSizes }
   });
 
+  // TODO: refactor other components that use the same logic to remove repeatitive code
   // in case there is no internet, show the relative page
   if (error?.networkError) {
     return <NoInternet />;
