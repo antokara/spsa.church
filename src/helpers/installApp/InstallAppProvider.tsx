@@ -52,7 +52,8 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
   // detect if this app is running in standalone mode
   if (
     !context.standalone &&
-    window.matchMedia('(display-mode: standalone)').matches
+    (window.matchMedia('(display-mode: standalone)').matches ||
+      window?.navigator.standalone === true)
   ) {
     // mark as standalone but also as already installed...
     setContext({

@@ -30,3 +30,11 @@ interface BeforeInstallPromptEvent extends Event {
    */
   prompt(): Promise<void>;
 }
+
+/**
+ * expiramental feature so we need to add support for it (augment the global Navigator interface)
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Navigator
+ */
+interface Navigator {
+  standalone?: boolean;
+}
