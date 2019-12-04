@@ -17,6 +17,7 @@ import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { hot } from 'ReactHotLoader';
 import { Layout1 } from 'src/components/layouts/Layout1';
+import { InstallAppProvider } from 'src/helpers/installApp/InstallAppProvider';
 import { PageError } from 'src/components/shared/pageError/PageError';
 import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';
 import { theme } from 'src/constants/theme';
@@ -84,8 +85,10 @@ const App: React.FunctionComponent | null = (): React.ReactElement<
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Provider store={store}>
-            <PageLoading visible={loadingVisible} />
-            <ConnectedRouter history={history}>{children}</ConnectedRouter>
+            <InstallAppProvider>
+              <PageLoading visible={loadingVisible} />
+              <ConnectedRouter history={history}>{children}</ConnectedRouter>
+            </InstallAppProvider>
           </Provider>
         </ThemeProvider>
       </StylesProvider>

@@ -42,6 +42,9 @@
             "name": "HomePage"
           },
           {
+            "name": "InstallAppPage"
+          },
+          {
             "name": "TsStaticSite"
           },
           {
@@ -70,6 +73,9 @@
           },
           {
             "name": "HomePage"
+          },
+          {
+            "name": "InstallAppPage"
           }
         ]
       }

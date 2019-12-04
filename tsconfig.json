@@ -30,7 +30,8 @@
       "gql",
       "jest",
       "svg",
-      "html-to-react"
+      "html-to-react",
+      "other"
     ]
   },
   "include": ["src/**/*"],

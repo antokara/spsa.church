@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
+const fs = require('fs');
 
 module.exports = env =>
   merge(common(env), {
@@ -11,7 +12,11 @@ module.exports = env =>
       contentBase: path.join(__dirname, './'),
       compress: true,
       port: 9000,
-      https: true,
+      https: {
+        key: fs.readFileSync('assets/archive/ssl/server.key'),
+        cert: fs.readFileSync('assets/archive/ssl/server.crt'),
+        ca: fs.readFileSync('assets/archive/ssl/server_rootCA.pem')
+      },
       open: false,
       historyApiFallback: true,
       hot: true,
