@@ -11,6 +11,36 @@ let beforeInstallPromptEventListener:
 let appInstalledEventListener: EventListenerOrEventListenerObject | undefined;
 
 /**
+ * handles the cleanup of the useEffect
+ */
+const cleanUp: (
+  setContext: React.Dispatch<React.SetStateAction<IContext>>
+) => () => void = (
+  setContext: React.Dispatch<React.SetStateAction<IContext>>
+): (() => void) => (): void => {
+  // cleanup the event listeners
+  if (beforeInstallPromptEventListener) {
+    window.removeEventListener(
+      'beforeinstallprompt',
+      beforeInstallPromptEventListener
+    );
+    beforeInstallPromptEventListener = undefined;
+  }
+  if (appInstalledEventListener) {
+    window.removeEventListener('appinstalled', appInstalledEventListener);
+    appInstalledEventListener = undefined;
+  }
+
+  // reset
+  setContext(
+    (oldContext: IContext): IContext => ({
+      ...oldContext,
+      deferredPrompt: undefined
+    })
+  );
+};
+
+/**
  * a Provider which must be used once per application,
  * to provide the Install App context
  */
@@ -18,6 +48,19 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
   children
 }: TProps): JSX.Element => {
   const [context, setContext] = React.useState(defaultState);
+
+  // detect if this app is running in standalone mode
+  if (
+    !context.standalone &&
+    window.matchMedia('(display-mode: standalone)').matches
+  ) {
+    // mark as standalone but also as already installed...
+    setContext({
+      ...context,
+      standalone: true,
+      alreadyInstalled: true
+    });
+  }
 
   /**
    * run only once on mount and once on unmount
@@ -87,28 +130,7 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
       window.addEventListener('appinstalled', appInstalledEventListener);
     }
 
-    return (): void => {
-      // cleanup the event listeners
-      if (beforeInstallPromptEventListener) {
-        window.removeEventListener(
-          'beforeinstallprompt',
-          beforeInstallPromptEventListener
-        );
-        beforeInstallPromptEventListener = undefined;
-      }
-      if (appInstalledEventListener) {
-        window.removeEventListener('appinstalled', appInstalledEventListener);
-        appInstalledEventListener = undefined;
-      }
-
-      // reset
-      setContext(
-        (oldContext: IContext): IContext => ({
-          ...oldContext,
-          deferredPrompt: undefined
-        })
-      );
-    };
+    return cleanUp(setContext);
   }, []);
 
   return <Context.Provider value={context}>{children}</Context.Provider>;
