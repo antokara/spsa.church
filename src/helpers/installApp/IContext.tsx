@@ -40,13 +40,20 @@ interface IContext {
    * just show installation instructions (ie. iOS)
    */
   platform: EPlatform | undefined;
+  /**
+   * where supported. If true, the application is running in standalone mode (not through the browser)
+   * False, it is running through the browser and undefined if we are not sure yet.
+   * @see https://developers.google.com/web/fundamentals/app-install-banners#detect-mode
+   */
+  standalone: boolean | undefined;
 }
 
 const defaultState: IContext = {
   deferredPrompt: undefined,
   alreadyInstalled: undefined,
   outcome: undefined,
-  platform: undefined
+  platform: undefined,
+  standalone: undefined
 };
 
 export { IContext, defaultState, EOutcome, EPlatform };

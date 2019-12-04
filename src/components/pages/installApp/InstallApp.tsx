@@ -2,13 +2,13 @@ import { useQuery } from '@apollo/react-hooks';
 import { Box } from '@material-ui/core';
 import * as React from 'react';
 import { NoInternet } from 'src/components/pages/noInternet/NoInternet';
-import { Context } from 'src/helpers/installApp/Context';
-import { IContext } from 'src/helpers/installApp/IContext';
 import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';
 import { RichText } from 'src/components/shared/richText/RichText';
 import { imageSizes } from 'src/constants/layout/imageSizes';
 import * as getInstallApp from 'src/gql/installApp/getInstallApp.gql';
 import { TData } from 'src/gql/installApp/TData';
+import { Context } from 'src/helpers/installApp/Context';
+import { IContext } from 'src/helpers/installApp/IContext';
 type TProps = {
   id: string;
 };
@@ -62,6 +62,10 @@ const InstallApp: (props: TProps) => JSX.Element | null = ({
       {contents}
       can install: {context.deferredPrompt ? 'yes' : 'no'}
       <button onClick={triggerInstallation}>install!</button>
+      <br />
+      standalone:
+      {context.standalone ? 'yes' : 'no'}
+      <br />
       already installed:
       {context.alreadyInstalled ? 'yes' : 'no'}
       <br /> outcome: {context.outcome}
