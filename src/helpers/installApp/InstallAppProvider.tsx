@@ -1,6 +1,13 @@
 import * as React from 'react';
 import { Context } from './Context';
-import { defaultState, EOutcome, EPlatform, IContext } from './IContext';
+import {
+  defaultState,
+  EInstalled,
+  EOutcome,
+  EPlatform,
+  IContext
+} from './IContext';
+import { localStorageKey } from './localStorageKey';
 
 type TProps = React.PropsWithChildren<{}>;
 // @see https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent
@@ -41,6 +48,46 @@ const cleanUp: (
 };
 
 /**
+ * handles the detection of the standalone mode or maybeInstalled
+ */
+const checkStandaloneInstalled: (
+  context: IContext,
+  setContext: React.Dispatch<React.SetStateAction<IContext>>
+) => void = (
+  context: IContext,
+  setContext: React.Dispatch<React.SetStateAction<IContext>>
+): void => {
+  // do not proceed if we already have set it
+  if (context.standalone !== undefined) {
+    return;
+  }
+
+  // detect if this app is running in standalone mode
+  if (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window?.navigator.standalone === true
+  ) {
+    // mark as standalone but also as already installed...
+    setContext({
+      ...context,
+      standalone: true,
+      installed: EInstalled.alreadyInstalled
+    });
+  } else if (localStorage.getItem(localStorageKey)) {
+    setContext({
+      ...context,
+      standalone: false,
+      installed: EInstalled.maybeInstalled
+    });
+  } else {
+    setContext({
+      ...context,
+      standalone: false
+    });
+  }
+};
+
+/**
  * a Provider which must be used once per application,
  * to provide the Install App context
  */
@@ -49,19 +96,8 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
 }: TProps): JSX.Element => {
   const [context, setContext] = React.useState(defaultState);
 
-  // detect if this app is running in standalone mode
-  if (
-    !context.standalone &&
-    (window.matchMedia('(display-mode: standalone)').matches ||
-      window?.navigator.standalone === true)
-  ) {
-    // mark as standalone but also as already installed...
-    setContext({
-      ...context,
-      standalone: true,
-      alreadyInstalled: true
-    });
-  }
+  // check if we're running in standalone and/or installed
+  checkStandaloneInstalled(context, setContext);
 
   /**
    * run only once on mount and once on unmount
@@ -81,13 +117,16 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
         // Prevent Chrome 76 and later from showing the mini-infobar
         e.preventDefault();
 
-        // Stash the event so it can be triggered later and reset
+        // Stash the event so it can be triggered later and
+        // mark the app as not installed since it can't be installed if we get the install prompt...
         setContext(
           (oldContext: IContext): IContext => ({
             ...oldContext,
-            deferredPrompt: e
+            deferredPrompt: e,
+            installed: EInstalled.no
           })
         );
+        localStorage.removeItem(localStorageKey);
 
         // Wait for the user to respond to the prompt
         e.userChoice.then(
@@ -115,10 +154,13 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
 
       // handle the application installed event
       appInstalledEventListener = (): void => {
+        // store the maybe installed
+        localStorage.setItem(localStorageKey, '1');
+        // update context
         setContext(
           (oldContext: IContext): IContext => ({
             ...oldContext,
-            alreadyInstalled: true
+            installed: EInstalled.justInstalled
           })
         );
       };

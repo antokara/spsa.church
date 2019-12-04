@@ -16,6 +16,34 @@ enum EOutcome {
   dismissed = 'dismissed'
 }
 
+enum EInstalled {
+  /**
+   * we know that when the user gets prompted to install the app using the "BeforeInstallPromptEvent"
+   * @see @see https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent
+   * @see https://developers.google.com/web/fundamentals/app-install-banners#preventing_the_mini-infobar_from_appearing
+   */
+  no = 'no',
+  /**
+   * we detect that using the "appinstalled" event
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/appinstalled_event
+   */
+  justInstalled = 'justInstalled',
+  /**
+   * if it was installed at least once in the past.
+   *
+   * we cannot guarantee that is still installed since
+   * the uninstall process does not trigger an event.
+   *
+   * it uses local storage to keep track of the information.
+   */
+  maybeInstalled = 'maybeInstalled',
+  /**
+   * we know that when the app is running in standalone mode
+   * since it must be installed for that to happen
+   */
+  alreadyInstalled = 'alreadyInstalled'
+}
+
 /**
  * Provider's Context Interface
  */
@@ -26,10 +54,10 @@ interface IContext {
    */
   deferredPrompt?: BeforeInstallPromptEvent;
   /**
-   * true, if we know that it is already installed, so we do not prompt for no reason
-   * false, if we know it is not installed and undefined if we are not sure yet.
+   * the current installation status.
+   * undefined if we are not sure yet.
    */
-  alreadyInstalled?: boolean;
+  installed?: EInstalled;
   /**
    * where supported. Describes the outcome of the Install Prompt.
    * So that if it just got installed, we can hide or change our content (ie. show thank you)
@@ -50,10 +78,10 @@ interface IContext {
 
 const defaultState: IContext = {
   deferredPrompt: undefined,
-  alreadyInstalled: undefined,
+  installed: undefined,
   outcome: undefined,
   platform: undefined,
   standalone: undefined
 };
 
-export { IContext, defaultState, EOutcome, EPlatform };
+export { IContext, defaultState, EOutcome, EPlatform, EInstalled };

@@ -66,8 +66,8 @@ const InstallApp: (props: TProps) => JSX.Element | null = ({
       standalone:
       {context.standalone ? 'yes' : 'no'}
       <br />
-      already installed:
-      {context.alreadyInstalled ? 'yes' : 'no'}
+      installed:
+      {context.installed}
       <br /> outcome: {context.outcome}
     </Box>
   );
