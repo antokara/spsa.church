@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, SvgIcon } from '@material-ui/core';
 import { default as IOsA2HS } from 'assets/iOsA2HS.svg';
 import { default as IOsShareSvg } from 'assets/iOsShare.svg';
 import * as React from 'react';
@@ -15,9 +15,16 @@ import {
   EPlatform,
   IContext
 } from 'src/helpers/installApp/IContext';
+import { default as styled } from 'styled-components';
+
 type TProps = {
   id: string;
 };
+
+const ValignSvgIcon: typeof SvgIcon = styled(SvgIcon)`
+  vertical-align: middle;
+  margin-left: 0.25em;
+`;
 
 // TODO: remove when dynamic
 // tslint:disable-next-line:max-func-body-length
@@ -42,10 +49,14 @@ const selectContent: (context: IContext) => JSX.Element = (
           <p>To install the Application you need to</p>
           <ol>
             <li>
-              tap on the share <IOsShareSvg /> button
+              tap on the share
+              <ValignSvgIcon component={IOsShareSvg} color="primary" />
+              button
             </li>
             <li>
-              tap on the Add to Home Screen <IOsA2HS /> button
+              tap on the Add to Home Screen
+              <ValignSvgIcon component={IOsA2HS} color="primary" />
+              button
             </li>
           </ol>
           <p>
