@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { UAParser } from 'ua-parser-js';
 import { Context } from './Context';
 import {
   defaultState,
@@ -8,6 +9,9 @@ import {
   IContext
 } from './IContext';
 import { localStorageKey } from './localStorageKey';
+
+// initialize once, the user agent cannot really change...
+const upParser: UAParser = new UAParser();
 
 type TProps = React.PropsWithChildren<{}>;
 // @see https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent
@@ -71,18 +75,54 @@ const checkStandaloneInstalled: (
     setContext({
       ...context,
       standalone: true,
-      installed: EInstalled.alreadyInstalled
+      installed: EInstalled.alreadyInstalled,
+      platform: EPlatform.supported
     });
   } else if (localStorage.getItem(localStorageKey)) {
     setContext({
       ...context,
       standalone: false,
-      installed: EInstalled.maybeInstalled
+      installed: EInstalled.maybeInstalled,
+      platform: EPlatform.supported
     });
   } else {
     setContext({
       ...context,
       standalone: false
+    });
+  }
+};
+
+/**
+ * handles the detection of the platform iOS/chrome
+ */
+const checkPlatform: (
+  context: IContext,
+  setContext: React.Dispatch<React.SetStateAction<IContext>>
+) => void = (
+  context: IContext,
+  setContext: React.Dispatch<React.SetStateAction<IContext>>
+): void => {
+  // do not proceed if we already have set it
+  if (context.platform !== undefined) {
+    return;
+  }
+
+  if (window.onbeforeinstallprompt !== undefined) {
+    // if this event exists, it is probably supported...
+    setContext({
+      ...context,
+      platform: EPlatform.supported
+    });
+  } else if (
+    upParser.getDevice().type === UAParser.DEVICE.MOBILE &&
+    upParser.getOS().name === 'iOS' &&
+    upParser.getBrowser().name === 'Safari'
+  ) {
+    // in case of Safari on iOS and mobile...
+    setContext({
+      ...context,
+      platform: EPlatform.iOS
     });
   }
 };
@@ -98,6 +138,9 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
 
   // check if we're running in standalone and/or installed
   checkStandaloneInstalled(context, setContext);
+
+  // check the platform support
+  checkPlatform(context, setContext);
 
   /**
    * run only once on mount and once on unmount
@@ -117,13 +160,15 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
         // Prevent Chrome 76 and later from showing the mini-infobar
         e.preventDefault();
 
-        // Stash the event so it can be triggered later and
-        // mark the app as not installed since it can't be installed if we get the install prompt...
+        // Stash the event so it can be triggered later,
+        // mark the app as not installed since it can't be installed if we get the install prompt and
+        // set the platform as supported...
         setContext(
           (oldContext: IContext): IContext => ({
             ...oldContext,
             deferredPrompt: e,
-            installed: EInstalled.no
+            installed: EInstalled.no,
+            platform: EPlatform.supported
           })
         );
         localStorage.removeItem(localStorageKey);

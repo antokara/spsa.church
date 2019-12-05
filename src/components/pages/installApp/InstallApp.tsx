@@ -69,6 +69,8 @@ const InstallApp: (props: TProps) => JSX.Element | null = ({
       installed:
       {context.installed}
       <br /> outcome: {context.outcome}
+      platform:
+      {context.platform}
     </Box>
   );
 };

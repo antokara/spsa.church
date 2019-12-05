@@ -7,8 +7,14 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Add_to_home_screen
  */
 enum EPlatform {
+  /**
+   * we need to show instructions for the installation
+   */
   iOS = 'iOS',
-  chrome = 'chrome'
+  /**
+   * install prompt is supported on this platform
+   */
+  supported = 'supported'
 }
 
 enum EOutcome {
