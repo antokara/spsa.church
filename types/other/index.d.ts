@@ -38,3 +38,11 @@ interface BeforeInstallPromptEvent extends Event {
 interface Navigator {
   standalone?: boolean;
 }
+
+/**
+ * expiramental feature so we need to add support for it (augment the global Window interface)
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/onbeforeinstallprompt
+ */
+interface Window {
+  onbeforeinstallprompt?: EventListenerOrEventListenerObject;
+}
