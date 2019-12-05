@@ -51,16 +51,26 @@ enum EInstalled {
 }
 
 type TPromptToInstall = () => void;
+type TSetPromptVisiblity = (visible: boolean) => void;
 
 /**
  * Provider's Context Interface
  */
 interface IContext {
   /**
-   * where supported. A function to call which will prompt the user to install the application.
+   * where supported. A function to call which will navitely prompt the user to install the application.
    * note: it must be invoked by a user's gesture event handler (ie. onClick)
    */
-  promptToInstall?: TPromptToInstall;
+  nativePromptToInstall?: TPromptToInstall;
+  /**
+   * true, if the prompt to install modal is visible.
+   * note: this is the custom prompt, not the native one
+   */
+  isPromptVisible: boolean;
+  /**
+   * function to call and set the visibility of the prompt
+   */
+  setPromptVisibility?: TSetPromptVisiblity;
   /**
    * the current installation status.
    * undefined if we are not sure yet.
@@ -85,7 +95,9 @@ interface IContext {
 }
 
 const defaultState: IContext = {
-  promptToInstall: undefined,
+  nativePromptToInstall: undefined,
+  isPromptVisible: false,
+  setPromptVisibility: undefined,
   installed: undefined,
   outcome: undefined,
   platform: undefined,
