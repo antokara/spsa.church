@@ -46,6 +46,10 @@ const selectContent: (context: IContext) => JSX.Element = (
       // show installation instructions for iOS
       return (
         <div>
+          <p>
+            This website can be installed as an Application, for quick access
+            and offline usage.
+          </p>
           <p>To install the Application you need to</p>
           <ol>
             <li>
@@ -83,8 +87,8 @@ const selectContent: (context: IContext) => JSX.Element = (
         return (
           <div>
             <p>
-              You may install the Application, for quick access and offline
-              usage!
+              This website can be installed as an Application, for quick access
+              and offline usage.
             </p>
             <Button
               color="primary"
@@ -149,6 +153,10 @@ const selectContent: (context: IContext) => JSX.Element = (
 
   return (
     <div>
+      <p>
+        This website can be installed as an Application, for quick access and
+        offline usage.
+      </p>
       <p>To install the Application you need to</p>
       <ol>
         <li>open your browser's menu</li>
