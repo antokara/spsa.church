@@ -14,12 +14,20 @@ import { localStorageKey } from './localStorageKey';
 const upParser: UAParser = new UAParser();
 
 type TProps = React.PropsWithChildren<{}>;
+
 // @see https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent
 let beforeInstallPromptEventListener:
   | EventListenerOrEventListenerObject
   | undefined;
+
 // @see https://developer.mozilla.org/en-US/docs/Web/API/Window/appinstalled_event
 let appInstalledEventListener: EventListenerOrEventListenerObject | undefined;
+
+/**
+ * where supported. holds the deferred prompt event object
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent
+ */
+let deferredPrompt: BeforeInstallPromptEvent | undefined;
 
 /**
  * handles the cleanup of the useEffect
@@ -36,6 +44,7 @@ const cleanUp: (
       beforeInstallPromptEventListener
     );
     beforeInstallPromptEventListener = undefined;
+    deferredPrompt = undefined;
   }
   if (appInstalledEventListener) {
     window.removeEventListener('appinstalled', appInstalledEventListener);
@@ -46,7 +55,7 @@ const cleanUp: (
   setContext(
     (oldContext: IContext): IContext => ({
       ...oldContext,
-      deferredPrompt: undefined
+      promptToInstall: undefined
     })
   );
 };
@@ -166,11 +175,16 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
         setContext(
           (oldContext: IContext): IContext => ({
             ...oldContext,
-            deferredPrompt: e,
+            promptToInstall: (): void => {
+              e.prompt()
+                .then()
+                .catch();
+            },
             installed: EInstalled.no,
             platform: EPlatform.supported
           })
         );
+        deferredPrompt = e;
         localStorage.removeItem(localStorageKey);
 
         // Wait for the user to respond to the prompt
@@ -190,9 +204,10 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
               (oldContext: IContext): IContext => ({
                 ...oldContext,
                 outcome,
-                deferredPrompt: undefined
+                promptToInstall: undefined
               })
             );
+            deferredPrompt = undefined;
           }
         );
       };

@@ -50,15 +50,17 @@ enum EInstalled {
   alreadyInstalled = 'alreadyInstalled'
 }
 
+type TPromptToInstall = () => void;
+
 /**
  * Provider's Context Interface
  */
 interface IContext {
   /**
-   * where supported. holds the deferred prompt event object
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent
+   * where supported. A function to call which will prompt the user to install the application.
+   * note: it must be invoked by a user's gesture event handler (ie. onClick)
    */
-  deferredPrompt?: BeforeInstallPromptEvent;
+  promptToInstall?: TPromptToInstall;
   /**
    * the current installation status.
    * undefined if we are not sure yet.
@@ -83,11 +85,18 @@ interface IContext {
 }
 
 const defaultState: IContext = {
-  deferredPrompt: undefined,
+  promptToInstall: undefined,
   installed: undefined,
   outcome: undefined,
   platform: undefined,
   standalone: undefined
 };
 
-export { IContext, defaultState, EOutcome, EPlatform, EInstalled };
+export {
+  IContext,
+  defaultState,
+  EOutcome,
+  EPlatform,
+  EInstalled,
+  TPromptToInstall
+};
