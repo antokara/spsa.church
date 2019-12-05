@@ -135,6 +135,7 @@ const checkPlatform: (
  * a Provider which must be used once per application,
  * to provide the Install App context
  */
+// TODO: remove & break down into smaller files
 // tslint:disable-next-line:max-func-body-length
 const InstallAppProvider: (props: TProps) => JSX.Element = ({
   children
@@ -169,15 +170,19 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
 
   // TODO: make it configurable
   // in case this is a mobile device,
-  // the prompt interval is not already set and
-  // the prompt not been dismissed before, show it with a delay
+  // it has not be installed or we do not know,
+  // the prompt interval is not already set,
+  // the prompt not been dismissed before,
+  // we are not in standalone mode
+  // show it with a delay
   if (
     (context.platform === EPlatform.iOS ||
       (context.platform === EPlatform.supported &&
         (!context.installed || context.installed === EInstalled.no))) &&
     !showPromptInterval &&
     uaParser.getDevice().type === UAParser.DEVICE.MOBILE &&
-    !localStorage.getItem(localStorageKeys.prompt)
+    !localStorage.getItem(localStorageKeys.prompt) &&
+    context.standalone === false
   ) {
     showPromptInterval = setTimeout(() => {
       setContext(
@@ -256,7 +261,8 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
         setContext(
           (oldContext: IContext): IContext => ({
             ...oldContext,
-            installed: EInstalled.justInstalled
+            installed: EInstalled.justInstalled,
+            isPromptVisible: false
           })
         );
       };
