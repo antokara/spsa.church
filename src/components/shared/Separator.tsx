@@ -1,3 +1,4 @@
+import { Box } from '@material-ui/core';
 import { default as SeparatorSvg } from 'assets/separator.svg';
 import * as React from 'react';
 import { useCss } from 'src/helpers/useCss';
@@ -13,13 +14,13 @@ type TStyledProps = {
 };
 
 const StyledSeparator: typeof SeparatorSvg = styled(SeparatorSvg)`
-  position: relative;
+  position: ${(p: TStyledProps): string =>
+    p.absolute ? `absolute` : 'relative'};
   width: 100%;
   height: ${(p: TStyledProps): string => p.height};
-  margin-top: ${(p: TStyledProps): string =>
-    p.absolute ? `calc(${p.height} / -2)` : 'auto'};
-  bottom: ${(p: TStyledProps): string =>
-    p.absolute ? `calc(${p.height} / 2)` : 'auto'};
+  /* margin-bottom: ${(p: TStyledProps): string =>
+    p.absolute ? `calc(${p.height} / -2)` : 'auto'}; */
+  bottom: ${(p: TStyledProps): string => (p.absolute ? `0` : 'auto')};
   transform: ${(p: TStyledProps): string =>
     p.flipped ? 'scaleX(-1)' : 'none'};
 `;
@@ -47,12 +48,15 @@ const Separator: (props: TProps) => JSX.Element = ({
   const height: string = useCss('4vw', '40px');
 
   return (
-    <StyledSeparator
-      data-testid="separator"
-      height={height}
-      flipped={iFlipped}
-      absolute={iAbsolute}
-    />
+    <div>
+      <StyledSeparator
+        data-testid="separator"
+        height={height}
+        flipped={iFlipped}
+        absolute={iAbsolute}
+      />
+      {absolute && <Box height={`calc(${height} / 2)`} />}
+    </div>
   );
 };
 
