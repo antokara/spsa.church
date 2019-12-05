@@ -2,9 +2,9 @@ import { Box, Button, Grid, Slide } from '@material-ui/core';
 import { push } from 'connected-react-router';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { ActionCreator, bindActionCreators, Dispatch } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { Context } from 'src/helpers/installApp/Context';
-import { IContext } from 'src/helpers/installApp/IContext';
+import { EInstalled, IContext } from 'src/helpers/installApp/IContext';
 
 /**
  * Install Application prompt component.
@@ -25,6 +25,11 @@ const InstallAppPrompt: () => JSX.Element | null = (): JSX.Element | null => {
     return null;
   }
 
+  // when it is just installed, take the user to the app page to show the thank you...
+  if (context.installed === EInstalled.justInstalled) {
+    routerPushAc('/app');
+  }
+
   // default to navigate to the "Install App" page
   let onInstallClick: () => void = (): void => {
     routerPushAc('/app');
@@ -34,6 +39,7 @@ const InstallAppPrompt: () => JSX.Element | null = (): JSX.Element | null => {
     onInstallClick = context.nativePromptToInstall;
   }
 
+  // handle the "later" button
   const onLaterClick: () => void = (): void => {
     if (context.setPromptVisibility) {
       context.setPromptVisibility(false);

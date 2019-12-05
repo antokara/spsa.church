@@ -196,7 +196,11 @@ const InstallApp: (props: TProps) => JSX.Element | null = ({
     React.cloneElement(selectContent(context), { key: 'installApp' })
   );
 
-  return <Box px={2}>{contents}</Box>;
+  return (
+    <Box px={2} pb={2}>
+      {contents}
+    </Box>
+  );
 };
 
 export { InstallApp };
