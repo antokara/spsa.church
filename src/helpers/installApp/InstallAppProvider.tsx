@@ -8,7 +8,7 @@ import {
   EPlatform,
   IContext
 } from './IContext';
-import { localStorageKey } from './localStorageKey';
+import { localStorageKeys } from './localStorageKeys';
 
 // initialize once, the user agent cannot really change...
 const upParser: UAParser = new UAParser();
@@ -23,11 +23,7 @@ let beforeInstallPromptEventListener:
 // @see https://developer.mozilla.org/en-US/docs/Web/API/Window/appinstalled_event
 let appInstalledEventListener: EventListenerOrEventListenerObject | undefined;
 
-/**
- * where supported. holds the deferred prompt event object
- * @see https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent
- */
-let deferredPrompt: BeforeInstallPromptEvent | undefined;
+let showPromptInterval: NodeJS.Timeout;
 
 /**
  * handles the cleanup of the useEffect
@@ -44,7 +40,6 @@ const cleanUp: (
       beforeInstallPromptEventListener
     );
     beforeInstallPromptEventListener = undefined;
-    deferredPrompt = undefined;
   }
   if (appInstalledEventListener) {
     window.removeEventListener('appinstalled', appInstalledEventListener);
@@ -55,7 +50,7 @@ const cleanUp: (
   setContext(
     (oldContext: IContext): IContext => ({
       ...oldContext,
-      promptToInstall: undefined
+      nativePromptToInstall: undefined
     })
   );
 };
@@ -87,7 +82,7 @@ const checkStandaloneInstalled: (
       installed: EInstalled.alreadyInstalled,
       platform: EPlatform.supported
     });
-  } else if (localStorage.getItem(localStorageKey)) {
+  } else if (localStorage.getItem(localStorageKeys.installed)) {
     setContext({
       ...context,
       standalone: false,
@@ -140,6 +135,7 @@ const checkPlatform: (
  * a Provider which must be used once per application,
  * to provide the Install App context
  */
+// tslint:disable-next-line:max-func-body-length
 const InstallAppProvider: (props: TProps) => JSX.Element = ({
   children
 }: TProps): JSX.Element => {
@@ -150,6 +146,39 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
 
   // check the platform support
   checkPlatform(context, setContext);
+
+  // TODO: refactor to a hook
+  if (!context.setPromptVisibility) {
+    setContext({
+      ...context,
+      setPromptVisibility: (visible: boolean): void => {
+        // persist the hide action
+        if (!visible) {
+          localStorage.setItem(localStorageKeys.prompt, '1');
+        }
+        // update context
+        setContext(
+          (oldContext: IContext): IContext => ({
+            ...oldContext,
+            isPromptVisible: visible
+          })
+        );
+      }
+    });
+  }
+
+  // TODO: make it configurable
+  // if the prompt interval is not set and the prompt not been dismissed before, show it with a delay
+  if (!showPromptInterval && !localStorage.getItem(localStorageKeys.prompt)) {
+    showPromptInterval = setTimeout(() => {
+      setContext(
+        (oldContext: IContext): IContext => ({
+          ...oldContext,
+          isPromptVisible: true
+        })
+      );
+    }, 1000);
+  }
 
   /**
    * run only once on mount and once on unmount
@@ -175,7 +204,7 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
         setContext(
           (oldContext: IContext): IContext => ({
             ...oldContext,
-            promptToInstall: (): void => {
+            nativePromptToInstall: (): void => {
               e.prompt()
                 .then()
                 .catch();
@@ -184,8 +213,7 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
             platform: EPlatform.supported
           })
         );
-        deferredPrompt = e;
-        localStorage.removeItem(localStorageKey);
+        localStorage.removeItem(localStorageKeys.installed);
 
         // Wait for the user to respond to the prompt
         e.userChoice.then(
@@ -204,10 +232,9 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
               (oldContext: IContext): IContext => ({
                 ...oldContext,
                 outcome,
-                promptToInstall: undefined
+                nativePromptToInstall: undefined
               })
             );
-            deferredPrompt = undefined;
           }
         );
       };
@@ -215,7 +242,7 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
       // handle the application installed event
       appInstalledEventListener = (): void => {
         // store the maybe installed
-        localStorage.setItem(localStorageKey, '1');
+        localStorage.setItem(localStorageKeys.installed, '1');
         // update context
         setContext(
           (oldContext: IContext): IContext => ({

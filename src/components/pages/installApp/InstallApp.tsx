@@ -71,7 +71,7 @@ const selectContent: (context: IContext) => JSX.Element = (
       );
     } else if (context.platform === EPlatform.supported) {
       // installation prompt is supported but may not be available at this moment
-      if (context.promptToInstall) {
+      if (context.nativePromptToInstall) {
         // show the install button -> prompt
         return (
           <div>
@@ -82,7 +82,7 @@ const selectContent: (context: IContext) => JSX.Element = (
             <Button
               color="primary"
               variant="contained"
-              onClick={context.promptToInstall}
+              onClick={context.nativePromptToInstall}
             >
               Install
             </Button>
