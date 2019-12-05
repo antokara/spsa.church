@@ -1,5 +1,8 @@
 import { Box, Button, Grid, Slide } from '@material-ui/core';
+import { push } from 'connected-react-router';
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { ActionCreator, bindActionCreators, Dispatch } from 'redux';
 import { Context } from 'src/helpers/installApp/Context';
 import { IContext } from 'src/helpers/installApp/IContext';
 
@@ -12,16 +15,21 @@ const InstallAppPrompt: () => JSX.Element | null = (): JSX.Element | null => {
   // get the context
   const context: IContext = React.useContext(Context);
 
+  // prepate the router push action
+  const dispatch: Dispatch = useDispatch();
+  const routerPushAc: typeof push = bindActionCreators(push, dispatch);
+
   // already inside the standalone PWA
   // show nothing
   if (context.standalone) {
     return null;
   }
 
-  // accessed through a browser
+  // default to navigate to the "Install App" page
   let onInstallClick: () => void = (): void => {
-    return;
+    routerPushAc('/app');
   };
+  // when the native install function is available, use it
   if (context.nativePromptToInstall) {
     onInstallClick = context.nativePromptToInstall;
   }
