@@ -53,7 +53,8 @@ const StyledRichText: StyledComponent<
     font-weight: bold;
   }
 
-  ul {
+  ul,
+  ol {
     overflow: hidden;
     padding-left: 2em;
 
