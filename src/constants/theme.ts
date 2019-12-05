@@ -15,11 +15,11 @@ const theme: Theme = createMuiTheme({
       main: '#9a5d40'
     },
     text: {
-      primary: '#ffffffc0'
+      primary: 'rgba(255,255,255,0.75)'
     },
     background: {
-      default: '#9a5d4059',
-      paper: '#c68567ff'
+      default: 'rgba(155,92,63,0.35)',
+      paper: '#c68567'
     }
   }
 });
