@@ -11,7 +11,7 @@ import {
 import { localStorageKeys } from './localStorageKeys';
 
 // initialize once, the user agent cannot really change...
-const upParser: UAParser = new UAParser();
+const uaParser: UAParser = new UAParser();
 
 type TProps = React.PropsWithChildren<{}>;
 
@@ -119,9 +119,9 @@ const checkPlatform: (
       platform: EPlatform.supported
     });
   } else if (
-    upParser.getDevice().type === UAParser.DEVICE.MOBILE &&
-    upParser.getOS().name === 'iOS' &&
-    upParser.getBrowser().name === 'Safari'
+    uaParser.getDevice().type === UAParser.DEVICE.MOBILE &&
+    uaParser.getOS().name === 'iOS' &&
+    uaParser.getBrowser().name === 'Safari'
   ) {
     // in case of Safari on iOS and mobile...
     setContext({
@@ -168,8 +168,17 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
   }
 
   // TODO: make it configurable
-  // if the prompt interval is not set and the prompt not been dismissed before, show it with a delay
-  if (!showPromptInterval && !localStorage.getItem(localStorageKeys.prompt)) {
+  // in case this is a mobile device,
+  // the prompt interval is not already set and
+  // the prompt not been dismissed before, show it with a delay
+  if (
+    (context.platform === EPlatform.iOS ||
+      (context.platform === EPlatform.supported &&
+        (!context.installed || context.installed === EInstalled.no))) &&
+    !showPromptInterval &&
+    uaParser.getDevice().type === UAParser.DEVICE.MOBILE &&
+    !localStorage.getItem(localStorageKeys.prompt)
+  ) {
     showPromptInterval = setTimeout(() => {
       setContext(
         (oldContext: IContext): IContext => ({
