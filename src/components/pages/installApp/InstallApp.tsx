@@ -71,19 +71,8 @@ const selectContent: (context: IContext) => JSX.Element = (
       );
     } else if (context.platform === EPlatform.supported) {
       // installation prompt is supported but may not be available at this moment
-      if (context.deferredPrompt) {
+      if (context.promptToInstall) {
         // show the install button -> prompt
-        type TInstallResult = () => void;
-        let triggerInstallation: undefined | TInstallResult;
-        triggerInstallation = (): void => {
-          if (context.deferredPrompt) {
-            context.deferredPrompt
-              .prompt()
-              .then()
-              .catch();
-          }
-        };
-
         return (
           <div>
             <p>
@@ -93,7 +82,7 @@ const selectContent: (context: IContext) => JSX.Element = (
             <Button
               color="primary"
               variant="contained"
-              onClick={triggerInstallation}
+              onClick={context.promptToInstall}
             >
               Install
             </Button>
