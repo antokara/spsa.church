@@ -1,0 +1,53 @@
+fragment HomePage on HomePage {
+  _id
+  _contentTypeName
+}
+
+fragment GenericPage on GenericPage {
+  _id
+  _contentTypeName
+}
+
+fragment InstallAppPage on InstallAppPage {
+  _id
+  _contentTypeName
+}
+
+query getTheme($images: TSImagesConfig) {
+  theme {
+    headerMenu {
+      menuEntries {
+        page {
+          ...HomePage
+          ...GenericPage
+          ...InstallAppPage
+        }
+        subMenuEntries {
+          page {
+            ...HomePage
+            ...GenericPage
+            ...InstallAppPage
+          }
+          subMenuEntries {
+            page {
+              ...HomePage
+              ...GenericPage
+              ...InstallAppPage
+            }
+          }
+        }
+      }
+    }
+    photoPortrait {
+      description
+      path
+      title
+    }
+    photoLandscape {
+      description
+      path
+      title
+    }
+    footerInfoHtml(images: $images)
+  }
+}
