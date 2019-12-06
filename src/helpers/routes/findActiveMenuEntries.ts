@@ -20,10 +20,6 @@ const findActiveMenuEntries: (
   menuEntries: TMenuEntry[]
 ): TMenuEntry[] => {
   let matches: TMenuEntry[] = [];
-
-  // create a new array so that we do not modify with our .push the argument
-  // matches = matches.concat(activeMenuEntries);
-
   menuEntries.forEach((menuEntry: TMenuEntry) => {
     if (
       matchPath(location.pathname, { path: getMenuUrl(menuEntry), exact: true })
