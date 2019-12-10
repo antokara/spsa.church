@@ -1,14 +1,14 @@
-fragment HomePage on HomePage {
+fragment preloadHomePage on HomePage {
   _id
   _contentTypeName
 }
 
-fragment GenericPage on GenericPage {
+fragment preloadGenericPage on GenericPage {
   _id
   _contentTypeName
 }
 
-fragment InstallAppPage on InstallAppPage {
+fragment preloadInstallAppPage on InstallAppPage {
   _id
   _contentTypeName
 }
@@ -17,22 +17,23 @@ query getTheme($images: TSImagesConfig) {
   theme {
     headerMenu {
       menuEntries {
+        _id
         page {
-          ...HomePage
-          ...GenericPage
-          ...InstallAppPage
+          ...preloadHomePage
+          ...preloadGenericPage
+          ...preloadInstallAppPage
         }
         subMenuEntries {
           page {
-            ...HomePage
-            ...GenericPage
-            ...InstallAppPage
+            ...preloadHomePage
+            ...preloadGenericPage
+            ...preloadInstallAppPage
           }
           subMenuEntries {
             page {
-              ...HomePage
-              ...GenericPage
-              ...InstallAppPage
+              ...preloadHomePage
+              ...preloadGenericPage
+              ...preloadInstallAppPage
             }
           }
         }
