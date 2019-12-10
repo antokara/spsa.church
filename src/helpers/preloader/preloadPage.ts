@@ -6,6 +6,7 @@ import { installApp } from 'src/helpers/preloader/pageTypes/installApp';
 
 /**
  *  preloads the contents/assets of page provided
+ * TODO: fix hooks error on stale
  */
 const preloadPage: (page: TMenuPage) => void = (page: TMenuPage): void => {
   const id: string = page._id;
