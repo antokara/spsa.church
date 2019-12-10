@@ -7,6 +7,7 @@ type TMenuPage = {
 };
 
 type TMenuEntry = {
+  _id: string;
   page: TMenuPage;
   subMenuEntries?: TMenuEntry[];
 };
