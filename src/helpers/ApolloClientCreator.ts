@@ -94,7 +94,7 @@ const ApolloClientCreator: () => Promise<
         fetchPolicy: 'cache-first'
       },
       watchQuery: {
-        fetchPolicy: 'cache-first'
+        fetchPolicy: 'cache-and-network'
       }
     }
   });
