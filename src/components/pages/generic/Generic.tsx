@@ -26,18 +26,22 @@ const Generic: (props: TProps) => JSX.Element | null = ({
   });
 
   // TODO: refactor other components that use the same logic to remove repeatitive code
-  // in case there is no internet, show the relative page
-  if (error?.networkError) {
+  // loading is also true when while we are fetching to refresh the cache
+  // so to know when the first load is taking place, we need to check the data as well
+  const firstLoading: boolean = loading && !data;
+
+  // in case there is no internet and we don't have the data cached, show the relative page
+  if (error?.networkError && !data) {
     return <NoInternet />;
   }
 
   // always show the loading so that it can fade away...
   const contents: JSX.Element[] = [
-    <PageLoading key="loading" visible={loading} position="relative" />
+    <PageLoading key="loading" visible={firstLoading} position="relative" />
   ];
 
-  // in case the gql is loading or there is no data, do not show the page contents
-  if (!loading && data) {
+  // show only when we have data but ignore the loading...
+  if (data) {
     contents.push(
       <RichText key="main" html={data.getGenericPage.contentHtml} />
     );

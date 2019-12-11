@@ -7,11 +7,11 @@ import { TPage, TProps } from './TPage';
 
 const InstallApp: TPage = ({ id }: TProps): null => {
   // get the data
-  const { loading, data, error } = useQuery<TData>(getInstallApp, {
+  const { data } = useQuery<TData>(getInstallApp, {
     variables: { id, images: imageSizes }
   });
 
-  if (!loading && !error && data) {
+  if (data) {
     // parse the html and preload assets (images, etc.)
     parseHtml(data.getInstallAppPage.contentHtml);
   }

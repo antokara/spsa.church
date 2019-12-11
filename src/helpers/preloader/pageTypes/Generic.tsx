@@ -7,11 +7,11 @@ import { TPage, TProps } from './TPage';
 
 const Generic: TPage = ({ id }: TProps): null => {
   // get the data
-  const { loading, data, error } = useQuery<TData>(getGeneric, {
+  const { data } = useQuery<TData>(getGeneric, {
     variables: { id, images: imageSizes }
   });
 
-  if (!loading && !error && data) {
+  if (data) {
     // parse the html and preload assets (images, etc.)
     parseHtml(data.getGenericPage.contentHtml);
   }

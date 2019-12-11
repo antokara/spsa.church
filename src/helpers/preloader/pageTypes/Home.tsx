@@ -7,11 +7,11 @@ import { TPage, TProps } from './TPage';
 
 const Home: TPage = ({ id }: TProps): null => {
   // get the home data
-  const { loading, data, error } = useQuery<TData>(getHome, {
+  const { data } = useQuery<TData>(getHome, {
     variables: { id, images: imageSizes }
   });
 
-  if (!loading && !error && data) {
+  if (data) {
     // parse the html and preload assets (images, etc.)
     parseHtml(data.getHomePage.contentHtml);
   }
