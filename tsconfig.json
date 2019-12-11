@@ -20,7 +20,9 @@
       "assets/*": ["assets/*"],
       "redux-logger": ["node_modules/redux-logger"],
       "redux-devtools-extension": ["node_modules/redux-devtools-extension"],
-      "ReactHotLoader": ["node_modules/react-hot-loader"]
+      "ReactHotLoader": ["node_modules/react-hot-loader"],
+      "htmlparser2": ["types/htmlparser2/index.d.ts"],
+      "domutils": ["types/domutils/index.d.ts"]
     },
     "typeRoots": ["types", "node_modules/@types"],
     "types": [
@@ -31,7 +33,9 @@
       "jest",
       "svg",
       "html-to-react",
-      "other"
+      "other",
+      "htmlparser2",
+      "domutils"
     ]
   },
   "include": ["src/**/*"],

@@ -1,0 +1,59 @@
+{
+  "_args": [
+    [
+      "@types/domutils@1.7.2",
+      "/home/user/Projects/spsa.church"
+    ]
+  ],
+  "_development": true,
+  "_from": "@types/domutils@1.7.2",
+  "_id": "@types/domutils@1.7.2",
+  "_inBundle": false,
+  "_integrity": "sha512-Nnwy1Ztwq42SSNSZSh9EXBJGrOZPR+PQ2sRT4VZy8hnsFXfCil7YlKO2hd2360HyrtFz2qwnKQ13ENrgXNxJbw==",
+  "_location": "/@types/domutils",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@types/domutils@1.7.2",
+    "name": "@types/domutils",
+    "escapedName": "@types%2fdomutils",
+    "scope": "@types",
+    "rawSpec": "1.7.2",
+    "saveSpec": null,
+    "fetchSpec": "1.7.2"
+  },
+  "_requiredBy": [
+    "/@types/htmlparser2"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/domutils/-/domutils-1.7.2.tgz",
+  "_spec": "1.7.2",
+  "_where": "/home/user/Projects/spsa.church",
+  "bugs": {
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
+  },
+  "contributors": [
+    {
+      "name": "Johan Davidsson",
+      "url": "https://github.com/johandavidson"
+    }
+  ],
+  "dependencies": {
+    "@types/domhandler": "*"
+  },
+  "description": "TypeScript definitions for domutils",
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped#readme",
+  "license": "MIT",
+  "main": "",
+  "name": "@types/domutils",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+    "directory": "types/domutils"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.0",
+  "types": "index",
+  "typesPublisherContentHash": "335f15f1674bda569598bfc476f340d1de2cfed77ff612784c4eece069634db6",
+  "version": "1.7.2"
+}
