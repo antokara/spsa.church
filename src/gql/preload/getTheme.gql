@@ -24,12 +24,14 @@ query getTheme($images: TSImagesConfig) {
           ...preloadInstallAppPage
         }
         subMenuEntries {
+          _id
           page {
             ...preloadHomePage
             ...preloadGenericPage
             ...preloadInstallAppPage
           }
           subMenuEntries {
+            _id
             page {
               ...preloadHomePage
               ...preloadGenericPage

@@ -14,7 +14,12 @@ const preloadFromMenuEntries: (menuEntries: TMenuEntry[]) => JSX.Element[] = (
   menuEntries.forEach((menuEntry: TMenuEntry) => {
     // in case this menu entry has a page, add it to the list of pages
     if (menuEntry.page) {
-      pages.push(<PreloadPage key={menuEntry._id} page={menuEntry.page} />);
+      const page: JSX.Element | null = (
+        <PreloadPage key={menuEntry._id} page={menuEntry.page} />
+      );
+      if (page) {
+        pages.push(page);
+      }
     }
 
     // traverse to sub entries and add potential entries
