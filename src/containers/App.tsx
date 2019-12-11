@@ -17,7 +17,6 @@ import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { hot } from 'ReactHotLoader';
 import { Layout1 } from 'src/components/layouts/Layout1';
-import { InstallAppProvider } from 'src/helpers/installApp/InstallAppProvider';
 import { PageError } from 'src/components/shared/pageError/PageError';
 import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';
 import { theme } from 'src/constants/theme';
@@ -26,6 +25,7 @@ import {
   TApolloClient
 } from 'src/helpers/ApolloClientCreator';
 import { history } from 'src/helpers/history';
+import { InstallAppProvider } from 'src/helpers/installApp/InstallAppProvider';
 import { store } from 'src/helpers/store';
 import { ThemeProvider } from 'styled-components';
 import * as WebFont from 'webfontloader';

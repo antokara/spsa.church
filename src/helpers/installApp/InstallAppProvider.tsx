@@ -281,4 +281,6 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
   return <Context.Provider value={context}>{children}</Context.Provider>;
 };
 
+// TODO: fix & remove
+// tslint:disable-next-line:max-file-line-count
 export { InstallAppProvider };
