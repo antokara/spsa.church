@@ -78,5 +78,8 @@
     // lints interface names, where we also define exclusions,
     // there is no need for redundancy. hence, disabling this rule
     "interface-name": [false]
+  },
+  "linterOptions": {
+    "exclude": ["src/gql/introspection/*"]
   }
 }
