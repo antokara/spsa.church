@@ -5,7 +5,7 @@ import { TData } from 'src/gql/installApp/TData';
 import { parseHtml } from 'src/helpers/preloader/parseHtml';
 import { TPage, TProps } from './TPage';
 
-const InstallApp: TPage = ({ id }: TProps): null => {
+const InstallApp: TPage = ({ id, htmlTags = [] }: TProps): null => {
   // get the data
   const { data } = useQuery<TData>(getInstallApp, {
     variables: { id, images: imageSizes }
@@ -13,7 +13,7 @@ const InstallApp: TPage = ({ id }: TProps): null => {
 
   if (data) {
     // parse the html and preload assets (images, etc.)
-    parseHtml(data.getInstallAppPage.contentHtml);
+    parseHtml(data.getInstallAppPage.contentHtml, htmlTags);
   }
 
   return null;

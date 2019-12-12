@@ -5,7 +5,7 @@ import { TData } from 'src/gql/generic/TData';
 import { parseHtml } from 'src/helpers/preloader/parseHtml';
 import { TPage, TProps } from './TPage';
 
-const Generic: TPage = ({ id }: TProps): null => {
+const Generic: TPage = ({ id, htmlTags = [] }: TProps): null => {
   // get the data
   const { data } = useQuery<TData>(getGeneric, {
     variables: { id, images: imageSizes }
@@ -13,7 +13,7 @@ const Generic: TPage = ({ id }: TProps): null => {
 
   if (data) {
     // parse the html and preload assets (images, etc.)
-    parseHtml(data.getGenericPage.contentHtml);
+    parseHtml(data.getGenericPage.contentHtml, htmlTags);
   }
 
   return null;
