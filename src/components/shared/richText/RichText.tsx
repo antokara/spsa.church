@@ -37,10 +37,10 @@ const RichText: (props: TProps) => JSX.Element | null = ({
   const margin: string = useCss('3vw', '2em');
 
   // get the html tag list
-  const { loading, data } = useQuery<TData>(getHtmlTagList);
+  const { data } = useQuery<TData>(getHtmlTagList);
 
-  // in case the gql is loading, do not show the content yet
-  if (loading) {
+  // in case we have no data, do not show the content yet
+  if (!data) {
     return null;
   }
 

@@ -5,7 +5,7 @@ import { TData } from 'src/gql/home/TData';
 import { parseHtml } from 'src/helpers/preloader/parseHtml';
 import { TPage, TProps } from './TPage';
 
-const Home: TPage = ({ id }: TProps): null => {
+const Home: TPage = ({ id, htmlTags = [] }: TProps): null => {
   // get the home data
   const { data } = useQuery<TData>(getHome, {
     variables: { id, images: imageSizes }
@@ -13,7 +13,7 @@ const Home: TPage = ({ id }: TProps): null => {
 
   if (data) {
     // parse the html and preload assets (images, etc.)
-    parseHtml(data.getHomePage.contentHtml);
+    parseHtml(data.getHomePage.contentHtml, htmlTags);
   }
 
   return null;

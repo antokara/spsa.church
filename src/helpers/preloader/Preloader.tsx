@@ -5,7 +5,7 @@ import { TData } from 'src/gql/preload/TData';
 import { preloadFromMenuEntries } from 'src/helpers/preloader/preloadFromMenuEntries';
 
 /**
- * preloads the contents/assets
+ * functional component that preloads the contents/assets
  */
 const Preloader: () => JSX.Element | null = (): JSX.Element | null => {
   // get the theme data
