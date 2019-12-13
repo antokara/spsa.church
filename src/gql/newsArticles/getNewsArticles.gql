@@ -1,0 +1,15 @@
+query getNewsArticleList($images: TSImagesConfig) {
+  getNewsArticleList(sort: { field: "date", order: "desc" }) {
+    items {
+      _id
+      contentHtml(images: $images)
+      date
+      photo {
+        description
+        path
+        title
+      }
+      title
+    }
+  }
+}

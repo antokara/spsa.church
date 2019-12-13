@@ -5,8 +5,14 @@ import { NoInternet } from 'src/components/pages/noInternet/NoInternet';
 import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';
 import { RichText } from 'src/components/shared/richText/RichText';
 import { imageSizes } from 'src/constants/layout/imageSizes';
+import * as getNewsArticles from 'src/gql/newsArticles/getNewsArticles.gql';
+import {
+  TData as TNewsArticles,
+  TNewsArticle
+} from 'src/gql/newsArticles/TData';
 import * as getNewsPage from 'src/gql/newsPage/getNewsPage.gql';
 import { TData } from 'src/gql/newsPage/TData';
+import { NewsArticle } from './newsArticle/NewsArticle';
 
 type TProps = {
   id: string;
@@ -22,6 +28,13 @@ const News: (props: TProps) => JSX.Element | null = ({
 }: TProps): JSX.Element | null => {
   // get the news page data
   const { loading, data, error } = useQuery<TData>(getNewsPage, {
+    variables: { id, images: imageSizes }
+  });
+
+  // get the news articles
+  const { data: newsArticlesData, error: newsArticlesError } = useQuery<
+    TNewsArticles
+  >(getNewsArticles, {
     variables: { id, images: imageSizes }
   });
 
@@ -45,7 +58,18 @@ const News: (props: TProps) => JSX.Element | null = ({
     contents.push(<RichText key="main" html={data.getNewsPage.contentHtml} />);
   }
 
-  // TODO: add news articles
+  // if we have the news articles, show them
+  if (newsArticlesData) {
+    newsArticlesData.getNewsArticleList.items.forEach(
+      (newsArticle: TNewsArticle): void => {
+        contents.push(
+          <NewsArticle key={newsArticle._id} newsArticle={newsArticle} />
+        );
+      }
+    );
+  } else if (newsArticlesError?.networkError) {
+    contents.push(<NoInternet />);
+  }
 
   return <Box px={2}>{contents}</Box>;
 };
