@@ -16,6 +16,12 @@ fragment InstallAppPage on InstallAppPage {
   url
 }
 
+fragment NewsPage on NewsPage {
+  _id
+  _contentTypeName
+  url
+}
+
 query getTheme($images: TSImagesConfig) {
   theme {
     headerMenu {
@@ -28,6 +34,7 @@ query getTheme($images: TSImagesConfig) {
           ...HomePage
           ...GenericPage
           ...InstallAppPage
+          ...NewsPage
         }
         subMenuEntries {
           _id
@@ -37,6 +44,7 @@ query getTheme($images: TSImagesConfig) {
             ...HomePage
             ...GenericPage
             ...InstallAppPage
+            ...NewsPage
           }
           subMenuEntries {
             _id
@@ -46,6 +54,7 @@ query getTheme($images: TSImagesConfig) {
               ...HomePage
               ...GenericPage
               ...InstallAppPage
+              ...NewsPage
             }
           }
         }

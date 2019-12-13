@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { Generic } from 'src/components/pages/generic/Generic';
 import { Home } from 'src/components/pages/home/Home';
 import { InstallApp } from 'src/components/pages/installApp/InstallApp';
+import { News } from 'src/components/pages/news/News';
 import { NotFound } from 'src/components/pages/notFound/NotFound';
 import { pageTypes } from 'src/constants/layout/pageTypes';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
@@ -41,6 +42,8 @@ const Routes: () => JSX.Element | null = (): JSX.Element | null => {
         return <Generic id={id} />;
       case pageTypes.installAppPage:
         return <InstallApp id={id} />;
+      case pageTypes.newsPage:
+        return <News id={id} />;
       default:
     }
   }
