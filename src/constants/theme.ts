@@ -1,9 +1,17 @@
 import { createMuiTheme, Theme } from '@material-ui/core';
 
+type TTheme = Theme & {
+  palette: {
+    background: {
+      layout?: string;
+    };
+  };
+};
+
 // style components Theme Object with Material UI theme combined
 // @see https://www.styled-components.com/docs/advanced#theming
 // @see https://material-ui.com/customization/default-theme/#default-theme
-const theme: Theme = createMuiTheme({
+const theme: TTheme = createMuiTheme({
   typography: {
     fontFamily: 'Noto Serif JP, sans-serif'
   },
@@ -19,9 +27,12 @@ const theme: Theme = createMuiTheme({
     },
     background: {
       default: 'rgba(155,92,63,0.35)',
-      paper: '#c68567'
+      paper: '#9a5d40'
     }
   }
 });
+
+// set the custom theme props
+theme.palette.background.layout = '#c68567';
 
 export { theme };
