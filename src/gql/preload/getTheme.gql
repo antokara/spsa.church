@@ -13,6 +13,11 @@ fragment preloadInstallAppPage on InstallAppPage {
   _contentTypeName
 }
 
+fragment preloadNewsPage on NewsPage {
+  _id
+  _contentTypeName
+}
+
 query getTheme($images: TSImagesConfig) {
   theme {
     headerMenu {
@@ -22,6 +27,7 @@ query getTheme($images: TSImagesConfig) {
           ...preloadHomePage
           ...preloadGenericPage
           ...preloadInstallAppPage
+          ...preloadNewsPage
         }
         subMenuEntries {
           _id
@@ -29,6 +35,7 @@ query getTheme($images: TSImagesConfig) {
             ...preloadHomePage
             ...preloadGenericPage
             ...preloadInstallAppPage
+            ...preloadNewsPage
           }
           subMenuEntries {
             _id
@@ -36,6 +43,7 @@ query getTheme($images: TSImagesConfig) {
               ...preloadHomePage
               ...preloadGenericPage
               ...preloadInstallAppPage
+              ...preloadNewsPage
             }
           }
         }

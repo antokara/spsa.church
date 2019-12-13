@@ -1,0 +1,5 @@
+query getNewsPage($id: ID!, $images: TSImagesConfig) {
+  getNewsPage(_id: $id) {
+    contentHtml(images: $images)
+  }
+}

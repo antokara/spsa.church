@@ -7,6 +7,7 @@ import { TMenuPage } from 'src/gql/preload/TData';
 import { Generic } from 'src/helpers/preloader/pageTypes/Generic';
 import { Home } from 'src/helpers/preloader/pageTypes/Home';
 import { InstallApp } from 'src/helpers/preloader/pageTypes/InstallApp';
+import { News } from 'src/helpers/preloader/pageTypes/News';
 
 type TProps = {
   page: TMenuPage;
@@ -32,6 +33,9 @@ const PreloadPage: (props: TProps) => JSX.Element | null = ({
 
     case pageTypes.installAppPage:
       return <InstallApp id={id} htmlTags={data?.getHtmlTagList.items} />;
+
+    case pageTypes.newsPage:
+      return <News id={id} htmlTags={data?.getHtmlTagList.items} />;
 
     default:
       return null;
