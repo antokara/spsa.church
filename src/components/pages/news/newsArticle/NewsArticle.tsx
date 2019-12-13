@@ -1,4 +1,5 @@
 import { Box, Typography } from '@material-ui/core';
+import * as moment from 'moment';
 import * as React from 'react';
 import { RichText } from 'src/components/shared/richText/RichText';
 import { TNewsArticle } from 'src/gql/newsArticles/TData';
@@ -24,6 +25,7 @@ const NewsArticle: (props: TProps) => JSX.Element | null = ({
     h: '250',
     w: '250'
   });
+  const date: string = moment(newsArticle.date).format('MMMM Do YYYY');
 
   return (
     <Box pb={2}>
@@ -34,6 +36,7 @@ const NewsArticle: (props: TProps) => JSX.Element | null = ({
             {newsArticle.title}
           </Typography>
           <RichText html={newsArticle.contentHtml} />
+          <Typography variant="overline">{date}</Typography>
         </CardContent>
       </Card>
     </Box>
