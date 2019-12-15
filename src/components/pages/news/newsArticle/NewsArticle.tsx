@@ -30,7 +30,7 @@ const NewsArticle: (props: TProps) => JSX.Element | null = ({
 
   let date: string = '';
   if (newsArticle.date) {
-    date = format(new Date(newsArticle.date), 'MMMM Do yyy', { locale });
+    date = format(new Date(newsArticle.date), 'MMMM do yyy', { locale });
   }
 
   return (
