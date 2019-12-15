@@ -1,16 +1,14 @@
 import { useQuery } from '@apollo/react-hooks';
-import {
-  AppBar,
-  Box,
-  Drawer,
-  Fab,
-  List,
-  ListItem,
-  ListItemText,
-  Tabs,
-  useMediaQuery
-} from '@material-ui/core';
-import { Menu as MenuIcon } from '@material-ui/icons';
+import { default as AppBar } from '@material-ui/core/AppBar';
+import { default as Box } from '@material-ui/core/Box';
+import { default as Drawer } from '@material-ui/core/Drawer';
+import { default as Fab } from '@material-ui/core/Fab';
+import { default as List } from '@material-ui/core/List';
+import { default as ListItem } from '@material-ui/core/ListItem';
+import { default as ListItemText } from '@material-ui/core/ListItemText';
+import { default as Tabs } from '@material-ui/core/Tabs';
+import { default as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import { default as MenuIcon } from '@material-ui/icons/Menu';
 import { Location } from 'history';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';

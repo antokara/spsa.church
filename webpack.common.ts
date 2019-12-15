@@ -1,23 +1,34 @@
-const path = require('path');
-const webpack = require('webpack');
-const Dotenv = require('dotenv-webpack');
-const WorkboxPlugin = require('workbox-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-require('dotenv').config();
+import { config } from 'dotenv';
+import * as Dotenv from 'dotenv-webpack';
+import * as FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+import * as path from 'path';
+import {
+  Configuration,
+  ContextReplacementPlugin,
+  EnvironmentPlugin,
+  NamedModulesPlugin
+} from 'webpack';
+import { InjectManifest } from 'workbox-webpack-plugin';
+import { supportedLocales } from './src/constants/dateFns/supportedLocales';
+config();
 
 // plugins
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackTemplatePlugin = require('html-webpack-template');
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as HtmlWebpackTemplatePlugin from 'html-webpack-template';
 
 // constants
-const title = 'St. Peter & St. Andrew Coptic Orthodox Church';
-const shortName = 'spsa.church';
-const description =
+const title: string = 'St. Peter & St. Andrew Coptic Orthodox Church';
+// const shortName: string = 'spsa.church';
+const description: string =
   'Web Application of St. Peter & St. Andrew Coptic Orthodox Church';
 
-module.exports = env => {
-  const environment =
+// tslint:disable-next-line:max-func-body-length
+const common: (env: NodeJS.ProcessEnv) => Configuration = (
+  env: NodeJS.ProcessEnv
+): Configuration => {
+  const environment: string =
     env && env.NODE_ENV ? env.NODE_ENV.toLocaleLowerCase() : 'development';
+
   return {
     entry: [path.resolve(__dirname, 'src/index.tsx')],
     resolve: {
@@ -33,9 +44,8 @@ module.exports = env => {
       path: path.resolve(__dirname, 'dist')
     },
     performance: {
-      assetFilter: function(assetFilename) {
-        return assetFilename.endsWith('.js');
-      }
+      assetFilter: (assetFilename: string): boolean =>
+        assetFilename.endsWith('.js')
     },
     module: {
       rules: [
@@ -77,7 +87,12 @@ module.exports = env => {
       ]
     },
     plugins: [
-      new webpack.EnvironmentPlugin({
+      // @see https://date-fns.org/v2.8.1/docs/webpack
+      new ContextReplacementPlugin(
+        /date\-fns[\/\\]/,
+        new RegExp(`[/\\\\\](${supportedLocales.join('|')})[/\\\\\]`)
+      ),
+      new EnvironmentPlugin({
         NODE_ENV: environment,
         DEBUG: false
       }),
@@ -100,15 +115,15 @@ module.exports = env => {
       new FaviconsWebpackPlugin({
         logo: path.resolve(__dirname, 'assets/churchLogo.png'),
         cache: true,
-        inject: 'force',
+        inject: true,
         prefix: 'assets/',
         mode: 'webapp',
         devMode: 'webapp',
         // @see https://github.com/haydenbleasel/favicons#usage
         favicons: {
-          mode: 'webapp',
+          // mode: 'webapp',
           appName: title,
-          appShortName: shortName,
+          // appShortName: shortName,
           appDescription: description,
           developerName: 'Antonios Karagiannis',
           developerURL: 'https://antokara.me',
@@ -116,15 +131,15 @@ module.exports = env => {
           theme_color: '#82171d',
           dir: 'auto',
           lang: 'en-US',
-          appleStatusBarStyle: 'default',
+          // appleStatusBarStyle: 'default',
           display: 'standalone',
           orientation: 'portrait',
-          scope: '/',
+          // scope: '/',
           start_url: '/',
           version: '1.0',
           logging: false,
           pixel_art: false,
-          loadManifestWithCredentials: false,
+          // loadManifestWithCredentials: false,
           icons: {
             android: true,
             appleIcon: true,
@@ -132,18 +147,21 @@ module.exports = env => {
             coast: false,
             favicons: true,
             firefox: true,
-            opengraph: true,
-            twitter: true,
+            // opengraph: true,
+            // twitter: true,
             yandex: false,
             windows: true
           }
         }
       }),
-      new WorkboxPlugin.InjectManifest({
+      new InjectManifest({
         swSrc: path.resolve(__dirname, 'src/sw.js'),
         swDest: 'sw.js'
       }),
-      new webpack.NamedModulesPlugin()
+      new NamedModulesPlugin()
     ]
   };
 };
+
+// tslint:disable-next-line:no-default-export export-name
+export default common;

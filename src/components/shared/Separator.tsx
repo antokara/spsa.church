@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { default as Box } from '@material-ui/core/Box';
 import { default as SeparatorSvg } from 'assets/separator.svg';
 import * as React from 'react';
 import { useCss } from 'src/helpers/useCss';

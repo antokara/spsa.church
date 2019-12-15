@@ -1,5 +1,4 @@
-import { Tab as MuiTab } from '@material-ui/core';
-import { TabProps } from '@material-ui/core/Tab';
+import { default as MuiTab, TabProps } from '@material-ui/core/Tab';
 import * as React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import { default as styled } from 'styled-components';

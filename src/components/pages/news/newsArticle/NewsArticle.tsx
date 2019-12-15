@@ -1,5 +1,7 @@
-import { Box, Typography } from '@material-ui/core';
-import * as moment from 'moment';
+import { default as Box } from '@material-ui/core/Box';
+import { default as Typography } from '@material-ui/core/Typography';
+import { default as format } from 'date-fns/format';
+import { default as locale } from 'date-fns/locale/en-US/index';
 import * as React from 'react';
 import { RichText } from 'src/components/shared/richText/RichText';
 import { TNewsArticle } from 'src/gql/newsArticles/TData';
@@ -25,7 +27,11 @@ const NewsArticle: (props: TProps) => JSX.Element | null = ({
     h: '250',
     w: '250'
   });
-  const date: string = moment(newsArticle.date).format('MMMM Do YYYY');
+
+  let date: string = '';
+  if (newsArticle.date) {
+    date = format(new Date(newsArticle.date), 'MMMM Do yyy', { locale });
+  }
 
   return (
     <Box pb={2}>

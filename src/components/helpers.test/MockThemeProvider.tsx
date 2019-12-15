@@ -1,4 +1,4 @@
-import { MuiThemeProvider, Theme } from '@material-ui/core';
+import { MuiThemeProvider, Theme } from '@material-ui/core/styles';
 import * as React from 'react';
 import { theme as THEME } from 'src/constants/theme';
 import { ThemeProvider } from 'styled-components';

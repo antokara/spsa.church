@@ -9,7 +9,11 @@ import { preloadFromMenuEntries } from 'src/helpers/preloader/preloadFromMenuEnt
  */
 const Preloader: () => JSX.Element | null = (): JSX.Element | null => {
   // get the theme data
-  const { loading, data } = useQuery<TData>(getTheme);
+  const { loading, data } = useQuery<TData>(getTheme, {
+    context: {
+      debounceKey: 'preloadTheme'
+    }
+  });
 
   // once loaded and we have data
   if (!loading && data?.theme.headerMenu.menuEntries.length) {

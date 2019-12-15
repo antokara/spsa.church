@@ -1,6 +1,9 @@
-import { Box, Card, CardContent, Grid, WithTheme } from '@material-ui/core';
-import { CardProps } from '@material-ui/core/Card';
-import { Warning } from '@material-ui/icons';
+import { default as Box } from '@material-ui/core/Box';
+import { CardProps, default as Card } from '@material-ui/core/Card';
+import { default as CardContent } from '@material-ui/core/CardContent';
+import { default as Grid } from '@material-ui/core/Grid';
+import { WithTheme } from '@material-ui/core/styles';
+import { default as Warning } from '@material-ui/icons/Warning';
 import * as React from 'react';
 import { default as styled } from 'styled-components';
 

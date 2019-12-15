@@ -8,7 +8,10 @@ import { TPage, TProps } from './TPage';
 const Generic: TPage = ({ id, htmlTags = [] }: TProps): null => {
   // get the data
   const { data } = useQuery<TData>(getGeneric, {
-    variables: { id, images: imageSizes }
+    variables: { id, images: imageSizes },
+    context: {
+      debounceKey: `preloadGeneric-${id}`
+    }
   });
 
   if (data) {

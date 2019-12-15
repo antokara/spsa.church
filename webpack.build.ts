@@ -1,11 +1,11 @@
-const path = require('path');
-const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import * as path from 'path';
+import { Configuration } from 'webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import * as merge from 'webpack-merge';
+import { default as common } from './webpack.common';
 
-module.exports = env =>
+module.exports = (env: NodeJS.ProcessEnv): Configuration =>
   merge(common(env), {
     mode: 'production',
     devtool: false,

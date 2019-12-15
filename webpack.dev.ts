@@ -1,10 +1,11 @@
-const path = require('path');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
-const fs = require('fs');
+import * as fs from 'fs';
+import * as path from 'path';
+import { HotModuleReplacementPlugin } from 'webpack';
+import { Configuration } from 'webpack-dev-server';
+import * as merge from 'webpack-merge';
+import { default as common } from './webpack.common';
 
-module.exports = env =>
+module.exports = (env: NodeJS.ProcessEnv): Configuration =>
   merge(common(env), {
     mode: 'development',
     devtool: 'eval',
@@ -41,5 +42,5 @@ module.exports = env =>
         ReactHotLoader$: 'react-hot-loader'
       }
     },
-    plugins: [new webpack.HotModuleReplacementPlugin()]
+    plugins: [new HotModuleReplacementPlugin()]
   });

@@ -1,5 +1,7 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Button, SvgIcon } from '@material-ui/core';
+import { default as Box } from '@material-ui/core/Box';
+import { default as Button } from '@material-ui/core/Button';
+import { default as SvgIcon } from '@material-ui/core/SvgIcon';
 import { default as IOsA2HS } from 'assets/iOsA2HS.svg';
 import { default as IOsShareSvg } from 'assets/iOsShare.svg';
 import * as React from 'react';

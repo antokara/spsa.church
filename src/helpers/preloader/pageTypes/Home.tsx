@@ -8,7 +8,10 @@ import { TPage, TProps } from './TPage';
 const Home: TPage = ({ id, htmlTags = [] }: TProps): null => {
   // get the home data
   const { data } = useQuery<TData>(getHome, {
-    variables: { id, images: imageSizes }
+    variables: { id, images: imageSizes },
+    context: {
+      debounceKey: `preloadHome-${id}`
+    }
   });
 
   if (data) {

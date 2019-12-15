@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box } from '@material-ui/core';
+import { default as Box } from '@material-ui/core/Box';
 import * as React from 'react';
 import { NoInternet } from 'src/components/pages/noInternet/NoInternet';
 import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';

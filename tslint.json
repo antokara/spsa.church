@@ -47,7 +47,9 @@
       "src",
       "assets",
       "@material-ui/core",
-      "apollo-cache-persist/types"
+      "@material-ui/icons",
+      "apollo-cache-persist/types",
+      "date-fns"
     ],
     // @see https://github.com/ajafff/tslint-consistent-codestyle/blob/master/docs/naming-convention.md
     "naming-convention": [

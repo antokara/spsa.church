@@ -14,14 +14,17 @@ type TProps = {
 };
 
 /**
- *  preloads the contents/assets of page provided
- * TODO: fix hooks error on stale
+ * preloads the contents/assets of page provided
  */
 const PreloadPage: (props: TProps) => JSX.Element | null = ({
   page
 }: TProps): JSX.Element | null => {
   // get the html tag list
-  const { data } = useQuery<TData>(getHtmlTagList);
+  const { data } = useQuery<TData>(getHtmlTagList, {
+    context: {
+      debounceKey: 'preloadHtmlTagList'
+    }
+  });
 
   const id: string = page._id;
   switch (page._contentTypeName) {

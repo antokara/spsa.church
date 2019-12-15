@@ -8,7 +8,10 @@ import { TPage, TProps } from './TPage';
 const News: TPage = ({ id, htmlTags = [] }: TProps): null => {
   // get the data
   const { data } = useQuery<TData>(getNewsPage, {
-    variables: { id, images: imageSizes }
+    variables: { id, images: imageSizes },
+    context: {
+      debounceKey: `preloadNews-${id}`
+    }
   });
 
   if (data) {
