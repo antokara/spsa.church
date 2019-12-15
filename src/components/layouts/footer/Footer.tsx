@@ -1,6 +1,12 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Grid, IconButton, useMediaQuery } from '@material-ui/core';
-import { GridJustification, GridSpacing } from '@material-ui/core/Grid';
+import { default as Box } from '@material-ui/core/Box';
+import {
+  default as Grid,
+  GridJustification,
+  GridSpacing
+} from '@material-ui/core/Grid';
+import { default as IconButton } from '@material-ui/core/IconButton';
+import { default as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import * as React from 'react';
 import { RichText } from 'src/components/shared/richText/RichText';
 import { SVG } from 'src/components/shared/SVG';

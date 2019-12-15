@@ -6,11 +6,8 @@
  * passing to the rest of the app, all the context required such as:
  * redux-store, apollo client, material ui theme, hot loader support, base css, etc.
  */
-import {
-  CssBaseline,
-  MuiThemeProvider,
-  StylesProvider
-} from '@material-ui/core';
+import { default as CssBaseline } from '@material-ui/core/CssBaseline';
+import { MuiThemeProvider, StylesProvider } from '@material-ui/core/styles';
 import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';

@@ -1,4 +1,4 @@
-import { CardMedia as MuiCardMedia } from '@material-ui/core';
+import { default as MuiCardMedia } from '@material-ui/core/CardMedia';
 import { default as styled } from 'styled-components';
 
 const CardMedia: typeof MuiCardMedia = styled(MuiCardMedia)`

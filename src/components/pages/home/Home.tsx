@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Grid } from '@material-ui/core';
+import { default as Box } from '@material-ui/core/Box';
+import { default as Grid } from '@material-ui/core/Grid';
 import * as React from 'react';
 import { NoInternet } from 'src/components/pages/noInternet/NoInternet';
 import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';

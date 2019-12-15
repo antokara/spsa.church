@@ -8,7 +8,10 @@ import { TPage, TProps } from './TPage';
 const InstallApp: TPage = ({ id, htmlTags = [] }: TProps): null => {
   // get the data
   const { data } = useQuery<TData>(getInstallApp, {
-    variables: { id, images: imageSizes }
+    variables: { id, images: imageSizes },
+    context: {
+      debounceKey: `preloadInstallApp-${id}`
+    }
   });
 
   if (data) {

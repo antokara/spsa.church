@@ -1,4 +1,4 @@
-import { createMuiTheme, Theme } from '@material-ui/core';
+import { createMuiTheme, Theme } from '@material-ui/core/styles';
 
 type TTheme = Theme & {
   palette: {

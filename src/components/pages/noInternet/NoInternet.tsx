@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { default as Box } from '@material-ui/core/Box';
 import * as React from 'react';
 
 /**

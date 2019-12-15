@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Box } from '@material-ui/core';
+import { default as Box } from '@material-ui/core/Box';
 import * as React from 'react';
 import { Picture, TSource } from 'src/components/shared/Picture';
 import { maxWidth } from 'src/constants/layout/maxWidth';

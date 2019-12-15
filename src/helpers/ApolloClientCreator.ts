@@ -8,6 +8,7 @@ import { PersistentStorage } from 'apollo-cache-persist/types';
 import { ApolloClient as Client } from 'apollo-client';
 import { ApolloLink, GraphQLRequest } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
+import { default as DebounceLink } from 'apollo-link-debounce';
 import { createHttpLink } from 'apollo-link-http';
 import { RetryLink } from 'apollo-link-retry';
 import * as localforage from 'localforage';
@@ -85,8 +86,13 @@ const ApolloClientCreator: () => Promise<
     attempts: { max: 1 }
   });
 
+  /**
+   * make sure we do not spam the graphQL server
+   */
+  const dounceLink: DebounceLink = new DebounceLink(100);
+
   return new Client({
-    link: ApolloLink.from([authLink, retryLink, httpLink]),
+    link: ApolloLink.from([dounceLink, authLink, retryLink, httpLink]),
     cache,
     defaultOptions: {
       // TODO test

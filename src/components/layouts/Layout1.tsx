@@ -1,4 +1,5 @@
-import { Box, Grid } from '@material-ui/core';
+import { default as Box } from '@material-ui/core/Box';
+import { default as Grid } from '@material-ui/core/Grid';
 import * as React from 'react';
 import { Footer } from 'src/components/layouts/footer/Footer';
 import { Header } from 'src/components/layouts/header/Header';
@@ -6,8 +7,7 @@ import { InstallAppPrompt } from 'src/components/layouts/InstallAppPrompt';
 import { Routes } from 'src/components/layouts/Routes';
 import { Separator } from 'src/components/shared/Separator';
 import { maxWidth } from 'src/constants/layout/maxWidth';
-// TODO: enable after CMS is replaced
-// import { Preloader } from 'src/helpers/preloader/Preloader';
+import { Preloader } from 'src/helpers/preloader/Preloader';
 
 // TODO: use render hook to flip the separator components
 const Layout1: () => JSX.Element = (): JSX.Element => (
@@ -38,6 +38,7 @@ const Layout1: () => JSX.Element = (): JSX.Element => (
       </Grid>
     </Grid>
     <InstallAppPrompt />
+    <Preloader />
   </Box>
 );
 

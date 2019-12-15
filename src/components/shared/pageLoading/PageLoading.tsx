@@ -1,4 +1,6 @@
-import { Box, CircularProgress, Fade } from '@material-ui/core';
+import { default as Box } from '@material-ui/core/Box';
+import { default as CircularProgress } from '@material-ui/core/CircularProgress';
+import { default as Fade } from '@material-ui/core/Fade';
 import * as React from 'react';
 
 type TProps = {

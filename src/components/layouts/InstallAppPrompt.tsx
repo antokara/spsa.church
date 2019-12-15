@@ -1,4 +1,7 @@
-import { Box, Button, Grid, Slide } from '@material-ui/core';
+import { default as Box } from '@material-ui/core/Box';
+import { default as Button } from '@material-ui/core/Button';
+import { default as Grid } from '@material-ui/core/Grid';
+import { default as Slide } from '@material-ui/core/Slide';
 import { push } from 'connected-react-router';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
