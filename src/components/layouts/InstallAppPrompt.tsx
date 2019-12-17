@@ -28,15 +28,24 @@ const InstallAppPrompt: () => JSX.Element | null = (): JSX.Element | null => {
     return null;
   }
 
-  // when it is just installed, take the user to the app page to show the thank you...
-  if (context.installed === EInstalled.justInstalled) {
-    routerPushAc('/app');
-  }
-
-  // default to navigate to the "Install App" page
   let onInstallClick: () => void = (): void => {
-    routerPushAc('/app');
+    return;
   };
+  React.useEffect(() => {
+    // when it is just installed, take the user to the app page to show the thank you...
+    if (context.installed === EInstalled.justInstalled) {
+      routerPushAc('/app');
+    }
+
+    // default to navigate to the "Install App" page and hide install prompt
+    onInstallClick = (): void => {
+      routerPushAc('/app');
+      if (context.setPromptVisibility) {
+        context.setPromptVisibility(false);
+      }
+    };
+  }, [context.installed, context.setPromptVisibility]);
+
   // when the native install function is available, use it
   if (context.nativePromptToInstall) {
     onInstallClick = context.nativePromptToInstall;

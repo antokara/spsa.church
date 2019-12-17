@@ -9,4 +9,6 @@ const Context: React.Context<IContext> = React.createContext<IContext>(
   defaultState
 );
 
-export { Context };
+type TSetContext = React.Dispatch<React.SetStateAction<IContext>>;
+
+export { Context, TSetContext };

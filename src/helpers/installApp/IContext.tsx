@@ -9,6 +9,7 @@
 enum EPlatform {
   /**
    * we need to show instructions for the installation
+   * Mobile Safari + iOS
    */
   iOS = 'iOS',
   /**

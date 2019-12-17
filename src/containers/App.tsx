@@ -22,7 +22,7 @@ import {
   TApolloClient
 } from 'src/helpers/ApolloClientCreator';
 import { history } from 'src/helpers/history';
-import { InstallAppProvider } from 'src/helpers/installApp/InstallAppProvider';
+import { InstallAppProvider } from 'src/helpers/installApp/provider/InstallAppProvider';
 import { store } from 'src/helpers/store';
 import { ThemeProvider } from 'styled-components';
 import * as WebFont from 'webfontloader';
