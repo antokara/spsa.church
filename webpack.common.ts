@@ -110,7 +110,9 @@ const common: (env: NodeJS.ProcessEnv) => Configuration = (
         mobile: true,
         lang: 'en-US',
         appMountId: 'root',
-        baseHref: '/'
+        baseHref: '/',
+        bodyHtmlSnippet:
+          '<noscript>We are sorry but this Application requires Javascript to be Enabled.</noscript>'
       }),
       new FaviconsWebpackPlugin({
         logo: path.resolve(__dirname, 'assets/churchLogo.png'),
