@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { default as Box } from '@material-ui/core/Box';
 import { default as Grid } from '@material-ui/core/Grid';
 import * as React from 'react';
+import { News } from 'src/components/pages/news/News';
 import { NoInternet } from 'src/components/pages/noInternet/NoInternet';
 import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';
 import { RichText } from 'src/components/shared/richText/RichText';
@@ -56,6 +57,10 @@ const Home: (props: TProps) => JSX.Element | null = ({
           </Box>
           <Separator flipped={true} absolute={false} />
         </Box>
+      </Grid>
+      <Grid item={true} xs={12}>
+        <News id="bdc5ac78-2c6b-4e02-a379-b0ba44bbe49d" />
+        <Separator flipped={true} absolute={false} />
       </Grid>
       <Grid item={true} xs={12}>
         <Calendar>Calendar is coming soon!</Calendar>
