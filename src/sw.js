@@ -92,5 +92,5 @@ workbox.routing.registerRoute(
 // cache anything that webpack is aware of (through the workbox webpack plugin)
 workbox.precaching.precacheAndRoute(self.__precacheManifest);
 
-// TODO: enable google analytics
-// workbox.googleAnalytics.initialize();
+// allow GA to work offline
+workbox.googleAnalytics.initialize();
