@@ -11,6 +11,7 @@ import { MuiThemeProvider, StylesProvider } from '@material-ui/core/styles';
 import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
+import * as ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
 import { hot } from 'ReactHotLoader';
 import { Layout1 } from 'src/components/layouts/Layout1';
@@ -21,6 +22,7 @@ import {
   ApolloClientCreator,
   TApolloClient
 } from 'src/helpers/ApolloClientCreator';
+import { GATrackPageView } from 'src/helpers/GATrackPageView';
 import { history } from 'src/helpers/history';
 import { InstallAppProvider } from 'src/helpers/installApp/provider/InstallAppProvider';
 import { store } from 'src/helpers/store';
@@ -32,6 +34,11 @@ WebFont.load({
     families: ['Noto Serif JP:400,500,700:latin']
   }
 });
+
+// initialize google analytics
+if (process.env.GA_TRACKING_ID) {
+  ReactGA.initialize(process.env.GA_TRACKING_ID);
+}
 
 const App: React.FunctionComponent | null = (): React.ReactElement<
   React.ReactNode
@@ -66,6 +73,7 @@ const App: React.FunctionComponent | null = (): React.ReactElement<
     children = (
       <ApolloProvider client={apolloClient}>
         <Layout1 />
+        <GATrackPageView />
       </ApolloProvider>
     );
   } else if (error) {
