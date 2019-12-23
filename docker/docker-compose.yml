@@ -1,38 +1,35 @@
-version: '3'
+version: '3.7'
 services:
-  cms:
-    image: strapi/strapi
-    restart: always
-    environment:
-      DATABASE_CLIENT: postgres
-      DATABASE_HOST: localhost
-      DATABASE_PORT: 5432
-      DATABASE_USERNAME: user
-      DATABASE_PASSWORD: password
-      DATABASE_SSL: false
-    volumes:
-      - type: volume
-        source: strapi
-        target: /srv/app
-        volume:
-          nocopy: true
-    ports:
-      - '1337'
   db:
     image: postgres:alpine
     restart: always
     environment:
+      POSTGRES_DB: strapi
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - type: volume
-        source: pgdata
-        target: /var/lib/postgresql/data/pgdata
-        volume:
-          nocopy: true
+      - pgdata:/var/lib/postgresql/data/pgdata
     ports:
-      - '5432'
+      - target: 5432
+        published: 5432
+        protocol: tcp
+        mode: host
+
+  strapi:
+    env_file: ./strapi/.env
+    build:
+      context: './strapi/'
+    restart: always
+    volumes:
+      - type: bind
+        source: ./strapi/src
+        target: /srv/app
+    ports:
+      - target: 1337
+        published: 1337
+        protocol: tcp
+        mode: host
+
 volumes:
   pgdata:
-  strapi:

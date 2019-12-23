@@ -16,9 +16,7 @@
     "build:js": "webpack --config ./webpack.build.ts --env.NODE_ENV=production --env.production --progress",
     "cl": "commitlint --from=HEAD~1",
     "ts:validate": "tsc -p tsconfig.build.json --outDir /tmp",
-    "start": "node --max-old-space-size=2048 node_modules/webpack-dev-server/bin/webpack-dev-server.js --config ./webpack.dev.ts",
-    "podman:compose-up": "podman-compose -f docker/docker-compose.yml up",
-    "podman:compose-start": "podman-compose -f docker/docker-compose.yml start db cms"
+    "start": "node --max-old-space-size=2048 node_modules/webpack-dev-server/bin/webpack-dev-server.js --config ./webpack.dev.ts"
   },
   "repository": {
     "type": "git",

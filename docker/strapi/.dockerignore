@@ -1,0 +1,7 @@
+**/*.cache
+**/*node_modules
+**/*build
+**/*README.md
+**/*.editorconfig
+**/*.eslint
+**/*.eslintignore
