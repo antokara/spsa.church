@@ -20,7 +20,13 @@ St. Peter & St. Andrew Coptic Orthodox Church website (https://spsa.church)
 
 add/modify docker/strapi/src files
 
+### db migration
+
+`$npm run db:migrate`
+
 ### containers
+
+`$sudo setenforce 0`
 
 #### for creation / startup of the containers
 
