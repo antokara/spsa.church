@@ -3,13 +3,13 @@ config({
   path: '../.env'
 });
 
-const coreStoreTableName = 'core_store1';
-const adminTableName = 'strapi_administrator1';
-const uploadFileTableName = 'upload_file1';
-const uploadFileMorphTableName = 'upload_file_morph1';
-const usersPermissionsPermissionTableName = 'users-permissions_permission1';
-const usersPermissionsRoleTableName = 'users-permissions_role1';
-const usersPermissionsUserTableName = 'users-permissions_user1';
+const coreStoreTableName = 'core_store';
+const adminTableName = 'strapi_administrator';
+const uploadFileTableName = 'upload_file';
+const uploadFileMorphTableName = 'upload_file_morph';
+const usersPermissionsPermissionTableName = 'users-permissions_permission';
+const usersPermissionsRoleTableName = 'users-permissions_role';
+const usersPermissionsUserTableName = 'users-permissions_user';
 
 exports.up = async knex => {
   // core_store
