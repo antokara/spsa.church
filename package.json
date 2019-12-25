@@ -17,7 +17,7 @@
     "cl": "commitlint --from=HEAD~1",
     "ts:validate": "tsc -p tsconfig.build.json --outDir /tmp",
     "start": "node --max-old-space-size=2048 node_modules/webpack-dev-server/bin/webpack-dev-server.js --config ./webpack.dev.ts",
-    "db:migrate": "npx knex migrate:latest --knexfile docker/db/knexfile.js",
+    "db:migrate": "npx knex --knexfile docker/db/knexfile.js migrate:latest",
     "cms:up": "sudo docker-compose -f docker/docker-compose.yml up"
   },
   "repository": {
