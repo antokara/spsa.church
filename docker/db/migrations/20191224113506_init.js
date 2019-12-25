@@ -2,6 +2,9 @@ const coreStoreTableName = 'core_store1';
 const adminTableName = 'strapi_administrator1';
 const uploadFileTableName = 'upload_file1';
 const uploadFileMorphTableName = 'upload_file_morph1';
+const usersPermissionsPermissionTableName = 'users-permissions_permission1';
+const usersPermissionsRoleTableName = 'users-permissions_role1';
+const usersPermissionsUserTableName = 'users-permissions_user1';
 
 exports.up = async knex => {
   // core_store
@@ -296,8 +299,8 @@ exports.up = async knex => {
   // columns
   await knex.schema.createTable(uploadFileMorphTableName, table => {
     table.increments('id');
-    table.integer('upload_file_id', 255);
-    table.integer('related_id', 255);
+    table.integer('upload_file_id');
+    table.integer('related_id');
     table.text('related_type');
     table.text('field');
   });
@@ -307,6 +310,78 @@ exports.up = async knex => {
   );
   await knex.raw(
     `CREATE INDEX search_${uploadFileMorphTableName}_related_type ON public.${uploadFileMorphTableName} USING gin (related_type gin_trgm_ops);`
+  );
+
+  // users-permissions_permission
+  // columns
+  await knex.schema.createTable(usersPermissionsPermissionTableName, table => {
+    table.increments('id');
+    table.string('type', 255).notNullable();
+    table.string('controller', 255).notNullable();
+    table.string('action', 255).notNullable();
+    table.boolean('enabled').notNullable();
+    table.string('policy', 255);
+    table.integer('role');
+  });
+  // indices
+  await knex.raw(
+    `CREATE INDEX "search_${usersPermissionsPermissionTableName}_action" ON public."${usersPermissionsPermissionTableName}" USING gin (action gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX "search_${usersPermissionsPermissionTableName}_controller" ON public."${usersPermissionsPermissionTableName}" USING gin (controller gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX "search_${usersPermissionsPermissionTableName}_policy" ON public."${usersPermissionsPermissionTableName}" USING gin (policy gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX "search_${usersPermissionsPermissionTableName}_type" ON public."${usersPermissionsPermissionTableName}" USING gin (type gin_trgm_ops);`
+  );
+
+  // users-permissions_role
+  // columns
+  await knex.schema.createTable(usersPermissionsRoleTableName, table => {
+    table.increments('id');
+    table.string('name', 255).notNullable();
+    table.string('description', 255);
+    table.string('type', 255).unique();
+  });
+  // indices
+  await knex.raw(
+    `CREATE INDEX "search_${usersPermissionsRoleTableName}_description" ON public."${usersPermissionsRoleTableName}" USING gin (description gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX "search_${usersPermissionsRoleTableName}_name" ON public."${usersPermissionsRoleTableName}" USING gin (name gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX "search_${usersPermissionsRoleTableName}_type" ON public."${usersPermissionsRoleTableName}" USING gin (type gin_trgm_ops);`
+  );
+
+  // users-permissions_user
+  // columns
+  await knex.schema.createTable(usersPermissionsUserTableName, table => {
+    table.increments('id');
+    table
+      .string('username', 255)
+      .notNullable()
+      .unique();
+    table.string('email', 255).notNullable();
+    table.string('provider', 255);
+    table.string('password', 255);
+    table.string('resetPasswordToken', 255);
+    table.boolean('confirmed');
+    table.boolean('blocked');
+    table.integer('role');
+    table.timestamps(true, true);
+  });
+  // indices
+  await knex.raw(
+    `CREATE INDEX "search_${usersPermissionsUserTableName}_provider" ON public."${usersPermissionsUserTableName}" USING gin (provider gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX "search_${usersPermissionsUserTableName}_resetPasswordToken" ON public."${usersPermissionsUserTableName}" USING gin ("resetPasswordToken" gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX "search_${usersPermissionsUserTableName}_username" ON public."${usersPermissionsUserTableName}" USING gin (username gin_trgm_ops);`
   );
 };
 
@@ -319,4 +394,10 @@ exports.down = async knex => {
   await knex.schema.dropTable(uploadFileTableName);
   // upload_file_morph
   await knex.schema.dropTable(uploadFileMorphTableName);
+  // users-permissions_permission
+  await knex.schema.dropTable(usersPermissionsPermissionTableName);
+  // users-permissions_role
+  await knex.schema.dropTable(usersPermissionsRoleTableName);
+  // users-permissions_user
+  await knex.schema.dropTable(usersPermissionsUserTableName);
 };
