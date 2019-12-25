@@ -1,5 +1,7 @@
 const coreStoreTableName = 'core_store1';
 const adminTableName = 'strapi_administrator1';
+const uploadFileTableName = 'upload_file1';
+const uploadFileMorphTableName = 'upload_file_morph1';
 
 exports.up = async knex => {
   // core_store
@@ -251,6 +253,61 @@ exports.up = async knex => {
       blocked: null
     }
   ]);
+
+  // upload_file
+  // columns
+  await knex.schema.createTable(uploadFileTableName, table => {
+    table.increments('id');
+    table.string('name', 255).notNullable();
+    table.string('hash', 255).notNullable();
+    table.string('sha256', 255);
+    table.string('ext', 255);
+    table.string('mime', 255).notNullable();
+    table.decimal('size', 10, 2).notNullable();
+    table.string('url', 255).notNullable();
+    table.string('provider', 255).notNullable();
+    table.jsonb('provider_metadata');
+    table.timestamps(true, true);
+  });
+  // indices
+  await knex.raw(
+    `CREATE INDEX search_${uploadFileTableName}_ext ON public.${uploadFileTableName} USING gin (ext gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX search_${uploadFileTableName}_hash ON public.${uploadFileTableName} USING gin (hash gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX search_${uploadFileTableName}_mime ON public.${uploadFileTableName} USING gin (mime gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX search_${uploadFileTableName}_name ON public.${uploadFileTableName} USING gin (name gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX search_${uploadFileTableName}_provider ON public.${uploadFileTableName} USING gin (provider gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX search_${uploadFileTableName}_sha256 ON public.${uploadFileTableName} USING gin (sha256 gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX search_${uploadFileTableName}_url ON public.${uploadFileTableName} USING gin (url gin_trgm_ops);`
+  );
+
+  // upload_file_morph
+  // columns
+  await knex.schema.createTable(uploadFileMorphTableName, table => {
+    table.increments('id');
+    table.integer('upload_file_id', 255);
+    table.integer('related_id', 255);
+    table.text('related_type');
+    table.text('field');
+  });
+  // indices
+  await knex.raw(
+    `CREATE INDEX search_${uploadFileMorphTableName}_field ON public.${uploadFileMorphTableName} USING gin (field gin_trgm_ops);`
+  );
+  await knex.raw(
+    `CREATE INDEX search_${uploadFileMorphTableName}_related_type ON public.${uploadFileMorphTableName} USING gin (related_type gin_trgm_ops);`
+  );
 };
 
 exports.down = async knex => {
@@ -258,4 +315,8 @@ exports.down = async knex => {
   await knex.schema.dropTable(coreStoreTableName);
   // strapi_administrator
   await knex.schema.dropTable(adminTableName);
+  // upload_file
+  await knex.schema.dropTable(uploadFileTableName);
+  // upload_file_morph
+  await knex.schema.dropTable(uploadFileMorphTableName);
 };
