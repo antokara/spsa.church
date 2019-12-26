@@ -1,7 +1,4 @@
-const config = require('dotenv').config;
-config({
-  path: '../.env'
-});
+require('../loadEnv');
 
 const coreStoreTableName = 'core_store';
 const adminTableName = 'strapi_administrator';
@@ -1703,4 +1700,6 @@ exports.down = async knex => {
   await knex.schema.dropTable(usersPermissionsRoleTableName);
   // users-permissions_user
   await knex.schema.dropTable(usersPermissionsUserTableName);
+  // @see https://www.postgresql.org/docs/9.1/sql-dropextension.html
+  await knex.raw('DROP EXTENSION pg_trgm;');
 };
