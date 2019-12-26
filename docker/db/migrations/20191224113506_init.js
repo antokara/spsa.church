@@ -12,6 +12,9 @@ const usersPermissionsRoleTableName = 'users-permissions_role';
 const usersPermissionsUserTableName = 'users-permissions_user';
 
 exports.up = async knex => {
+  // @see https://www.postgresql.org/docs/9.6/contrib.html
+  await knex.raw('CREATE EXTENSION pg_trgm;');
+
   // core_store
   // columns
   await knex.schema.createTable(coreStoreTableName, function(table) {
