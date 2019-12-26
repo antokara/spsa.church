@@ -30,13 +30,13 @@ add/modify docker/strapi/src files
 
 #### for creation / startup of the containers
 
-- `$sudo docker-compose -f docker/docker-compose.yml up`
+- `$sudo docker-compose -f docker/docker-compose.develop|prod.yml up`
 
 #### for restart of the containers prior to cleanup
 
-- `$sudo docker-compose -f docker/docker-compose.yml start db cms`
+- `$sudo docker-compose -f docker/docker-compose.yml start db strapi`
 
-#### for shutdown / cleanup of the containers
+#### for cleanup of the containers
 
 - `$sudo docker-compose -f docker/docker-compose.yml down`
 
