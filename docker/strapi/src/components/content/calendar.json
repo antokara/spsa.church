@@ -1,0 +1,15 @@
+{
+  "info": {
+    "name": "Calendar",
+    "icon": "table"
+  },
+  "options": {},
+  "attributes": {
+    "URL": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "connection": "default",
+  "collectionName": "components_content_calendars"
+}

@@ -5,5 +5,7 @@ exports.tableNames = {
   uploadFileMorph: 'upload_file_morph',
   usersPermissionsPermission: 'users-permissions_permission',
   usersPermissionsRole: 'users-permissions_role',
-  usersPermissionsUser: 'users-permissions_user'
+  usersPermissionsUser: 'users-permissions_user',
+  // content types
+  pages: 'pages'
 };

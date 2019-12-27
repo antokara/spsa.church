@@ -1,0 +1,15 @@
+{
+  "connection": "default",
+  "collectionName": "components_content_contents",
+  "info": {
+    "name": "RichText",
+    "icon": "list-alt"
+  },
+  "options": {},
+  "attributes": {
+    "Content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}
