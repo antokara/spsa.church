@@ -17,6 +17,7 @@ services:
         mode: host
 
   strapi:
+    user: '1000'
     env_file: ./strapi/.env
     build:
       context: './strapi/'
