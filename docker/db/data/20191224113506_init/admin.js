@@ -1,4 +1,4 @@
-require('../loadEnv');
+require('../../loadEnv');
 
 exports.data = [
   {

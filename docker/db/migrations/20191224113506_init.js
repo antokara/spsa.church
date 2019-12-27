@@ -45,7 +45,7 @@ exports.up = async knex => {
   );
 
   // data
-  ({ data, lastId } = require('../data/coreStore'));
+  ({ data, lastId } = require('../data/20191224113506_init/coreStore'));
   await knex(coreStoreTableName).insert(data);
   // auto-increment set
   await knex.raw(
@@ -73,7 +73,7 @@ exports.up = async knex => {
     `CREATE INDEX search_${adminTableName}_username ON public.${adminTableName} USING gin (username gin_trgm_ops);`
   );
   // data
-  ({ data, lastId } = require('../data/admin'));
+  ({ data, lastId } = require('../data/20191224113506_init/admin'));
   await knex(adminTableName).insert(data);
   // auto-increment set
   await knex.raw(
@@ -164,7 +164,10 @@ exports.up = async knex => {
     `CREATE INDEX "${indexPrefix}type" ON public."${usersPermissionsPermissionTableName}" USING gin (type gin_trgm_ops);`
   );
   // data
-  ({ data, lastId } = require('../data/usersPermissionsPermission'));
+  ({
+    data,
+    lastId
+  } = require('../data/20191224113506_init/usersPermissionsPermission'));
   await knex(usersPermissionsPermissionTableName).insert(data);
   // auto-increment set
   await knex.raw(
@@ -191,7 +194,10 @@ exports.up = async knex => {
     `CREATE INDEX "${indexPrefix}type" ON public."${usersPermissionsRoleTableName}" USING gin (type gin_trgm_ops);`
   );
   // data
-  ({ data, lastId } = require('../data/usersPermissionsRole'));
+  ({
+    data,
+    lastId
+  } = require('../data/20191224113506_init/usersPermissionsRole'));
   await knex(usersPermissionsRoleTableName).insert(data);
   // auto-increment set
   await knex.raw(
