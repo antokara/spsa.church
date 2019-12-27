@@ -1,5 +1,6 @@
 require('../loadEnv');
 const { tableNames } = require('../constants');
+const migrationId = '20191224113506_init';
 let data;
 let lastId;
 let indexPrefix;
@@ -38,7 +39,7 @@ exports.up = async knex => {
   );
 
   // data
-  ({ data, lastId } = require('../data/20191224113506_init/coreStore'));
+  ({ data, lastId } = require(`../data/${migrationId}/coreStore`));
   await knex(tableNames.coreStore).insert(data);
   // auto-increment set
   await knex.raw(
@@ -66,7 +67,7 @@ exports.up = async knex => {
     `CREATE INDEX search_${tableNames.admin}_username ON public.${tableNames.admin} USING gin (username gin_trgm_ops);`
   );
   // data
-  ({ data, lastId } = require('../data/20191224113506_init/admin'));
+  ({ data, lastId } = require(`../data/${migrationId}/admin`));
   await knex(tableNames.admin).insert(data);
   // auto-increment set
   await knex.raw(
@@ -163,7 +164,7 @@ exports.up = async knex => {
   ({
     data,
     lastId
-  } = require('../data/20191224113506_init/usersPermissionsPermission'));
+  } = require(`../data/${migrationId}/usersPermissionsPermission`));
   await knex(tableNames.usersPermissionsPermission).insert(data);
   // auto-increment set
   await knex.raw(
@@ -190,10 +191,7 @@ exports.up = async knex => {
     `CREATE INDEX "${indexPrefix}type" ON public."${tableNames.usersPermissionsRole}" USING gin (type gin_trgm_ops);`
   );
   // data
-  ({
-    data,
-    lastId
-  } = require('../data/20191224113506_init/usersPermissionsRole'));
+  ({ data, lastId } = require(`../data/${migrationId}/usersPermissionsRole`));
   await knex(tableNames.usersPermissionsRole).insert(data);
   // auto-increment set
   await knex.raw(
