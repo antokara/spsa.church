@@ -23,6 +23,8 @@ add/modify docker/strapi/src files
 ### db migration
 
 `$npm run db:migrate`
+`npx knex --knexfile docker/db/knexfile.js migrate:up`
+`npx knex --knexfile docker/db/knexfile.js migrate:down`
 
 ### containers
 
