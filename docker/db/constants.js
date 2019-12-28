@@ -7,5 +7,8 @@ exports.tableNames = {
   usersPermissionsRole: 'users-permissions_role',
   usersPermissionsUser: 'users-permissions_user',
   // content types
-  pages: 'pages'
+  pages: 'pages',
+  pagesComponents: 'pages_components',
+  componentsContentCalendars: 'components_content_calendars',
+  componentsContentContents: 'components_content_contents'
 };
