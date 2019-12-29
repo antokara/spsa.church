@@ -1,0 +1,38 @@
+version: '3.7'
+services:
+  #
+  # Database
+  #
+  mysql:
+    image: mysql:5.7
+    restart: always
+    env_file: ./mysql/.env
+    volumes:
+      - mysqlData:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  #
+  # Directus instance.
+  # This should serve directus and won't work before database
+  # is properly installed by running the installer.
+  # $docker-compose -f containers/compose.develop.yml run directus install --email antokarag@gmail.com --password password
+  #
+  directus:
+    image: directus/directus:v8-apache
+    restart: always
+    env_file: ./directus/.env
+    ports:
+      - '8080:80'
+    volumes:
+      - type: bind
+        source: ./directus/data/config
+        target: /var/directus/config
+      - type: bind
+        source: ./directus/data/uploads
+        target: /var/directus/public/uploads
+    links:
+      - mysql:mysql
+
+volumes:
+  mysqlData:
