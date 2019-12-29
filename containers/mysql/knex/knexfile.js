@@ -18,6 +18,7 @@ module.exports = {
   },
   migrations: {
     tableName: 'knex_migrations',
-    directory: __dirname + '/migrations'
+    directory: __dirname + '/migrations',
+    stub: __dirname + '/migration.stub'
   }
 };

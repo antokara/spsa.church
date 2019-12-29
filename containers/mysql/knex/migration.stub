@@ -1,0 +1,10 @@
+require('../loadEnv');
+const { tableNames } = require('../constants');
+const { asyncForEach } = require('../utils');
+const migrationId = '';
+let indexPrefix;
+let data;
+
+exports.up = async knex => {};
+
+exports.down = async knex => {};

@@ -18,5 +18,6 @@ Initialize the Database with an admin account
 #### db migrations
 
 `$npx knex --knexfile containers/mysql/knex/knexfile.js migrate:up`
+`$npx knex --knexfile containers/mysql/knex/knexfile.js migrate:make migration-name`
 
 ### production
