@@ -1,5 +1,10 @@
 require('../loadEnv');
-const { tableNames } = require('../constants');
+const {
+  tableNames,
+  defaultCollation,
+  defaultCharset,
+  statuses
+} = require('../constants');
 const { asyncForEach } = require('../utils');
 const migrationId = '';
 let indexPrefix;
