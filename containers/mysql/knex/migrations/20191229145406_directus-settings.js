@@ -10,7 +10,7 @@ exports.up = async knex => {
     .where('key', 'password_policy')
     .update(
       'value',
-      "/(?=^.{8,}$)(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{';'?>.<,])(?!.*s).*$/"
+      "/(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{';'?>.<,])(?!.*\\s).*$/"
     )
     .limit(1);
   await knex(tableNames.core.settings)
