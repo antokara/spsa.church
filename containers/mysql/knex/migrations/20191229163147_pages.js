@@ -52,6 +52,10 @@ exports.up = async knex => {
   // directus_fields
   ({ data } = require(`../data/${migrationId}/${tableNames.core.fields}`));
   await knex(tableNames.core.fields).insert(data);
+
+  // directus_permissions
+  ({ data } = require(`../data/${migrationId}/${tableNames.core.permissions}`));
+  await knex(tableNames.core.permissions).insert(data);
 };
 
 exports.down = async knex => {
@@ -79,4 +83,9 @@ exports.down = async knex => {
         .del()
         .limit(1)
   );
+
+  // directus_permissions
+  await knex(tableNames.core.fields)
+    .where('collection', tableNames.collections.pages)
+    .del();
 };

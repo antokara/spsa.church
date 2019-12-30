@@ -2,7 +2,8 @@ exports.tableNames = {
   core: {
     settings: 'directus_settings',
     collections: 'directus_collections',
-    fields: 'directus_fields'
+    fields: 'directus_fields',
+    permissions: 'directus_permissions'
   },
   collections: {
     pages: 'pages'
