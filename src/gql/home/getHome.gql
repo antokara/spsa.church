@@ -1,6 +1,7 @@
 query getHome($id: ID!, $images: TSImagesConfig) {
   getHomePage(_id: $id) {
+    pinnedContentHtml(images: $images)
     contentHtml(images: $images)
-    calendarUrl
+    lowerSectionHtml(images: $images)
   }
 }
