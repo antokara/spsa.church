@@ -10,7 +10,6 @@ import { Separator } from 'src/components/shared/Separator';
 import { imageSizes } from 'src/constants/layout/imageSizes';
 import * as getHome from 'src/gql/home/getHome.gql';
 import { TData } from 'src/gql/home/TData';
-import { Calendar } from './Calendar';
 
 type TProps = {
   id: string;
@@ -48,8 +47,40 @@ const Home: (props: TProps) => JSX.Element | null = ({
     contents.push(<RichText key="main" html={data.getHomePage.contentHtml} />);
   }
 
+  // optional pinned content
+  let pinnedContentHtml: JSX.Element | null = null;
+  if (data?.getHomePage.pinnedContentHtml) {
+    pinnedContentHtml = (
+      <Grid item={true} xs={12}>
+        <Box px={2} overflow="hidden">
+          <RichText
+            key="pinnedContentHtml"
+            html={data.getHomePage.pinnedContentHtml}
+          />
+        </Box>
+        <Separator flipped={false} absolute={false} />
+      </Grid>
+    );
+  }
+
+  // optional lower section
+  let lowerSectionHtml: JSX.Element | null = null;
+  if (data?.getHomePage.lowerSectionHtml) {
+    lowerSectionHtml = (
+      <Grid item={true} xs={12}>
+        <Box px={2} overflow="hidden">
+          <RichText
+            key="lowerSectionHtml"
+            html={data.getHomePage.lowerSectionHtml}
+          />
+        </Box>
+      </Grid>
+    );
+  }
+
   return (
     <Grid container={true}>
+      {pinnedContentHtml}
       <Grid item={true} xs={12}>
         <Box position="relative">
           <Box px={2} overflow="hidden">
@@ -62,9 +93,7 @@ const Home: (props: TProps) => JSX.Element | null = ({
         <News id="bdc5ac78-2c6b-4e02-a379-b0ba44bbe49d" />
         <Separator flipped={true} absolute={false} />
       </Grid>
-      <Grid item={true} xs={12}>
-        <Calendar>Calendar is coming soon!</Calendar>
-      </Grid>
+      {lowerSectionHtml}
     </Grid>
   );
 };

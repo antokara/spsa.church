@@ -4,8 +4,9 @@
  */
 type TData = {
   getHomePage: {
+    pinnedContentHtml?: string;
     contentHtml: string;
-    calendarUrl: string;
+    lowerSectionHtml?: string;
   };
 };
 
