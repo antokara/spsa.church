@@ -31,7 +31,8 @@ const allowedTags: string[] = [
   'pre',
   'iframe',
   'figure',
-  'img'
+  'img',
+  'ins'
 ];
 
 export { allowedTags };
