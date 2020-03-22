@@ -40,7 +40,7 @@ const StyledRichText: StyledComponent<
   }
 
   a {
-    color: ${(p: TProps): string => p.theme.palette.secondary.dark};
+    color: ${(p: TProps): string => p.theme.palette.primary.main};
     text-decoration: none;
   }
 
