@@ -8,6 +8,7 @@ const layout: Reducer = produce((draft: TState, action: TAction) => {
   switch (action.type) {
     case actionTypes.menuOpen:
       draft.menuOpen = action.payload;
+      break;
     default:
   }
 }, defaultState);

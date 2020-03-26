@@ -12,7 +12,7 @@ let render: jest.Mock<TRender>;
 jest.mock(
   'react-dom',
   (): TReactDom => ({
-    render
+    render,
   })
 );
 
@@ -21,13 +21,13 @@ const App: () => JSX.Element = (): JSX.Element => <div>mocked component</div>;
 
 // mock the App Module
 jest.mock('src/containers/App', () => ({
-  App
+  App,
 }));
 
 // mock the service worker function
 let serviceWorker: jest.Mock;
 jest.mock('src/helpers/serviceWorker', () => ({
-  serviceWorker
+  serviceWorker,
 }));
 
 describe('index function', () => {

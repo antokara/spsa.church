@@ -1,4 +1,4 @@
-// tslint:disable no-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AppContainerProps } from 'react-hot-loader';
 
 type THocFn = <T = React.ComponentType<any>>(
@@ -13,11 +13,8 @@ type THocFn = <T = React.ComponentType<any>>(
  * @see https://web-dev-etc.blogspot.com/2017/12/dynamic-import-of-es6-modules-with.html
  * @see tslint.json, tsconfig.json, tsconfig.build.json, webpack.build.js, webpack.dev.js
  */
-const hot: (mdl: any) => THocFn = (mdl: any): THocFn => <
-  T = React.ComponentType<any>
->(
-  Component: T,
-  props?: AppContainerProps
+const hot: (mdl: any) => THocFn = (): THocFn => <T = React.ComponentType<any>>(
+  Component: T
 ): T => Component;
 
 export { hot, THocFn };

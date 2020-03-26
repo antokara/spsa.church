@@ -7,13 +7,13 @@ const defaultState: IMockStore = {
       hash: '',
       pathname: '/',
       search: '',
-      state: undefined
-    }
+      state: undefined,
+    },
   },
   mock: {
     mockStorePropA: 'test-a',
-    mockStorePropB: 10
-  }
+    mockStorePropB: 10,
+  },
 };
 
 export { defaultState };

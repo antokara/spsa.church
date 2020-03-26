@@ -1,4 +1,4 @@
-import * as fetchMock from 'fetch-mock';
+import { default as fetchMock } from 'fetch-mock';
 
 // throw on console.warn/error
 // to force the failure of the test(s)

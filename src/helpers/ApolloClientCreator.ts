@@ -1,18 +1,18 @@
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
-  NormalizedCacheObject
+  NormalizedCacheObject,
 } from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
 import { PersistentStorage } from 'apollo-cache-persist/types';
 import { ApolloClient as Client } from 'apollo-client';
 import { ApolloLink, GraphQLRequest } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
-import { default as DebounceLink } from 'apollo-link-debounce';
+import DebounceLink from 'apollo-link-debounce';
 import { createHttpLink } from 'apollo-link-http';
 import { RetryLink } from 'apollo-link-retry';
-import * as localforage from 'localforage';
-import { default as introspectionResult } from 'src/gql/introspection/introspectionResult';
+import localforage from 'localforage';
+import introspectionResult from 'src/gql/introspection/introspectionResult';
 
 // the type of our apollo client with the cache structure
 // TODO: properly use a cache structure and test it
@@ -30,23 +30,23 @@ interface IContext {
 /**
  * creates the apollo client asynchronously in the promise returned
  */
-const ApolloClientCreator: () => Promise<
+const ApolloClientCreator: () => Promise<TApolloClient> = async (): Promise<
   TApolloClient
-> = async (): Promise<TApolloClient> => {
+> => {
   // TODO test
   const fragmentMatcher: IntrospectionFragmentMatcher = new IntrospectionFragmentMatcher(
     {
-      introspectionQueryResultData: introspectionResult
+      introspectionQueryResultData: introspectionResult,
     }
   );
   const cache: InMemoryCache = new InMemoryCache({
-    fragmentMatcher
+    fragmentMatcher,
   });
   // TODO test
   // TODO implement cache invalidation on data update
   const store: LocalForage = localforage.createInstance({
     name: 'apollo-cache',
-    version: 1
+    version: 1,
   });
 
   /**
@@ -56,7 +56,7 @@ const ApolloClientCreator: () => Promise<
    */
   await persistCache({
     cache,
-    storage: <PersistentStorage<NormalizedCacheObject>>store
+    storage: <PersistentStorage<NormalizedCacheObject>>store,
   });
 
   /**
@@ -66,8 +66,8 @@ const ApolloClientCreator: () => Promise<
     (operation: GraphQLRequest, prevContext: IContext): IContext => ({
       headers: {
         ...prevContext.headers,
-        authorization: `Bearer ${process.env.TAKESHAPE_API_KEY}`
-      }
+        authorization: `Bearer ${process.env.TAKESHAPE_API_KEY}`,
+      },
     })
   );
 
@@ -75,7 +75,7 @@ const ApolloClientCreator: () => Promise<
    * handles https requests
    */
   const httpLink: ApolloLink = createHttpLink({
-    uri: process.env.TAKESHAPE_API_URL
+    uri: process.env.TAKESHAPE_API_URL,
   });
 
   /**
@@ -83,7 +83,7 @@ const ApolloClientCreator: () => Promise<
    */
   // TODO test
   const retryLink: RetryLink = new RetryLink({
-    attempts: { max: 1 }
+    attempts: { max: 1 },
   });
 
   /**
@@ -97,12 +97,12 @@ const ApolloClientCreator: () => Promise<
     defaultOptions: {
       // TODO test
       query: {
-        fetchPolicy: 'cache-first'
+        fetchPolicy: 'cache-first',
       },
       watchQuery: {
-        fetchPolicy: 'cache-and-network'
-      }
-    }
+        fetchPolicy: 'cache-and-network',
+      },
+    },
   });
 };
 

@@ -2,7 +2,7 @@
 import { Action, Location, LocationState } from 'history';
 import {
   defaultState as layoutDefaultState,
-  TState as TLayoutState
+  TState as TLayoutState,
 } from 'src/reducers/layout/defaultState';
 
 // TODO remove when bug is fixed and use the RouterState type commented out above
@@ -28,13 +28,13 @@ const routerDefaultState: IRouterState = {
     pathname: '/',
     search: '',
     state: undefined,
-    query: {}
-  }
+    query: {},
+  },
 };
 
 const defaultState: TState = {
   router: routerDefaultState,
-  layout: layoutDefaultState
+  layout: layoutDefaultState,
 };
 
 export { defaultState, TState };

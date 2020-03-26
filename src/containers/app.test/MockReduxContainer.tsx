@@ -28,7 +28,7 @@ const mapStateToProps: (state: IMockStore) => IMapStateProps = (
   state: IMockStore
 ): IMapStateProps => ({
   mockStorePropAA: state.mock.mockStorePropA,
-  mockStorePropBB: state.mock.mockStorePropB
+  mockStorePropBB: state.mock.mockStorePropB,
 });
 
 /**

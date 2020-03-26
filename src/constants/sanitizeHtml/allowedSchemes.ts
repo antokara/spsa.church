@@ -4,7 +4,7 @@ const allowedSchemes: string[] = [
   'ftp',
   'mailto',
   'tel',
-  'fax'
+  'fax',
 ];
 
 export { allowedSchemes };

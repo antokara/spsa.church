@@ -1,4 +1,4 @@
-import { default as Box } from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box';
 import * as React from 'react';
 
 /**
@@ -8,8 +8,8 @@ import * as React from 'react';
  */
 const NoInternet: () => JSX.Element | null = (): JSX.Element | null => (
   <Box p={4} py={8}>
-    We're sorry but you need Internet to access this page. Please check your
-    WiFi/Data access.
+    We&apos;re sorry but you need Internet to access this page. Please check
+    your WiFi/Data access.
   </Box>
 );
 

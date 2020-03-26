@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/react-hooks';
-import { default as Box } from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box';
 import * as React from 'react';
 import { NoInternet } from 'src/components/pages/noInternet/NoInternet';
 import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';
@@ -8,10 +8,11 @@ import { imageSizes } from 'src/constants/layout/imageSizes';
 import * as getNewsArticles from 'src/gql/newsArticles/getNewsArticles.gql';
 import {
   TData as TNewsArticles,
-  TNewsArticle
+  TNewsArticle,
 } from 'src/gql/newsArticles/TData';
 import * as getNewsPage from 'src/gql/newsPage/getNewsPage.gql';
 import { TData } from 'src/gql/newsPage/TData';
+import { QueryResult } from 'react-apollo';
 import { NewsArticle } from './newsArticle/NewsArticle';
 
 type TProps = {
@@ -24,18 +25,19 @@ type TProps = {
  * Renders the news page with its content
  */
 const News: (props: TProps) => JSX.Element | null = ({
-  id
+  id,
 }: TProps): JSX.Element | null => {
   // get the news page data
-  const { loading, data, error } = useQuery<TData>(getNewsPage, {
-    variables: { id, images: imageSizes }
+  const { loading, data, error }: QueryResult = useQuery<TData>(getNewsPage, {
+    variables: { id, images: imageSizes },
   });
 
   // get the news articles
-  const { data: newsArticlesData, error: newsArticlesError } = useQuery<
-    TNewsArticles
-  >(getNewsArticles, {
-    variables: { id, images: imageSizes }
+  const {
+    data: newsArticlesData,
+    error: newsArticlesError,
+  }: QueryResult = useQuery<TNewsArticles>(getNewsArticles, {
+    variables: { id, images: imageSizes },
   });
 
   // TODO: refactor other components that use the same logic to remove repeatitive code
@@ -50,7 +52,7 @@ const News: (props: TProps) => JSX.Element | null = ({
 
   // always show the loading so that it can fade away...
   const contents: JSX.Element[] = [
-    <PageLoading key="loading" visible={firstLoading} position="relative" />
+    <PageLoading key="loading" visible={firstLoading} position="relative" />,
   ];
 
   // show only when we have data but ignore the loading...

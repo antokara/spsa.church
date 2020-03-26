@@ -9,7 +9,7 @@ const pageTypes: IPageTypes = {
   homePage: 'homePage',
   genericPage: 'genericPage',
   installAppPage: 'installAppPage',
-  newsPage: 'newsPage'
+  newsPage: 'newsPage',
 };
 
 export { pageTypes };

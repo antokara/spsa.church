@@ -2,7 +2,7 @@ import { AnyAction, Dispatch, Middleware } from 'redux';
 import { createLogger } from './createLogger';
 
 describe('createLogger function', () => {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let result: Middleware<{}, any, Dispatch<AnyAction>> | undefined;
 
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TAsset } from 'src/gql/shared/TAsset';
 import { assetUrl } from 'src/helpers/assetUrl';
-import { default as styled } from 'styled-components';
+import styled from 'styled-components';
 
 type TSource = {
   srcSet: string;
@@ -41,13 +41,15 @@ const Picture: (props: TProps) => JSX.Element | null = ({
   assets,
   className,
   alt,
-  sources
+  sources,
 }: TProps): JSX.Element | null => {
   let iAlt: string;
   let iSrc: string | string[];
   let sSrc: string;
   if (Array.isArray(assets)) {
     iSrc = assets.map((asset: TAsset) => assetUrl(asset.path));
+    // TODO: report potential bug to eslint
+    // eslint-disable-next-line prefer-destructuring
     sSrc = iSrc[0];
     iAlt = alt ?? assets[0].title;
   } else {

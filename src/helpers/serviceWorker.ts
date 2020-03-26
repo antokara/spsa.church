@@ -20,16 +20,13 @@ const serviceWorker: () => Promise<ServiceWorkerRegistration> | undefined = ():
       ): void =>
         // register it on page load
         window.addEventListener('load', () => {
-          navigator.serviceWorker
-            .register('sw.js')
-            .then(resolve)
-            .catch(reject);
+          navigator.serviceWorker.register('sw.js').then(resolve).catch(reject);
         })
     );
   }
 
   // not supported
-  return;
+  return undefined;
 };
 
 export { serviceWorker };

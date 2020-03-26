@@ -32,7 +32,7 @@ const cleanUp: (
     (oldState: TState): TState => ({
       ...oldState,
       beforeInstallPromptEventListener: undefined,
-      appInstalledEventListener: undefined
+      appInstalledEventListener: undefined,
     })
   );
 
@@ -40,7 +40,7 @@ const cleanUp: (
   setContext(
     (oldContext: IContext): IContext => ({
       ...oldContext,
-      nativePromptToInstall: undefined
+      nativePromptToInstall: undefined,
     })
   );
 };

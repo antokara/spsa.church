@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/react-hooks';
-import { default as Box } from '@material-ui/core/Box';
-import { default as Button } from '@material-ui/core/Button';
-import { default as SvgIcon } from '@material-ui/core/SvgIcon';
-import { default as IOsA2HS } from 'assets/iOsA2HS.svg';
-import { default as IOsShareSvg } from 'assets/iOsShare.svg';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import IOsA2HS from 'assets/iOsA2HS.svg';
+import IOsShareSvg from 'assets/iOsShare.svg';
 import * as React from 'react';
 import { NoInternet } from 'src/components/pages/noInternet/NoInternet';
 import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';
@@ -15,9 +15,10 @@ import { Context } from 'src/helpers/installApp/Context';
 import {
   EInstalled,
   EPlatform,
-  IContext
+  IContext,
 } from 'src/helpers/installApp/IContext';
-import { default as styled } from 'styled-components';
+import styled from 'styled-components';
+import { QueryResult } from 'react-apollo';
 
 type TProps = {
   id: string;
@@ -29,7 +30,6 @@ const ValignSvgIcon: typeof SvgIcon = styled(SvgIcon)`
 `;
 
 // TODO: remove when dynamic
-// tslint:disable-next-line:max-func-body-length
 const selectContent: (context: IContext) => JSX.Element = (
   context: IContext
 ): JSX.Element => {
@@ -42,104 +42,110 @@ const selectContent: (context: IContext) => JSX.Element = (
         <p>Please share it with anyone who you think might be interested.</p>
       </div>
     );
-  } else {
-    // accessed through a browser
-    if (context.platform === EPlatform.iOS) {
-      // show installation instructions for iOS
+  }
+  // accessed through a browser
+  if (context.platform === EPlatform.iOS) {
+    // show installation instructions for iOS
+    return (
+      <div>
+        <p>
+          This website can be installed as an Application, for quick access and
+          offline usage.
+        </p>
+        <p>To install the Application you need to</p>
+        <ol>
+          <li>
+            tap on the share
+            <ValignSvgIcon component={IOsShareSvg} color="primary" />
+            button
+          </li>
+          <li>
+            tap on the Add to Home Screen
+            <ValignSvgIcon component={IOsA2HS} color="primary" />
+            button
+          </li>
+        </ol>
+        <p>
+          After that, this application will be available in your Home Screen for
+          quick access
+        </p>
+      </div>
+    );
+  }
+
+  if (context.platform === EPlatform.supported) {
+    // installation prompt is supported but may not be available at this moment
+    if (context.nativePromptToInstall) {
+      // show the install button -> prompt
       return (
         <div>
           <p>
             This website can be installed as an Application, for quick access
             and offline usage.
           </p>
-          <p>To install the Application you need to</p>
-          <ol>
-            <li>
-              tap on the share
-              <ValignSvgIcon component={IOsShareSvg} color="primary" />
-              button
-            </li>
-            <li>
-              tap on the Add to Home Screen
-              <ValignSvgIcon component={IOsA2HS} color="primary" />
-              button
-            </li>
-          </ol>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={context.nativePromptToInstall}
+          >
+            Install
+          </Button>
+        </div>
+      );
+    }
+
+    if (context.installed === EInstalled.justInstalled) {
+      // thank the user for installing the app and inform them how they can access it
+      return (
+        <div>
+          <p>Thank you for Installing the Application!</p>
           <p>
-            After that, this application will be available in your Home Screen
+            The Application can now be accessed from your Home Screen or App
+            Drawer for quick access
+          </p>
+        </div>
+      );
+    }
+
+    if (context.installed === EInstalled.alreadyInstalled) {
+      // inform the user that the app is already installed and how they can access it
+      return (
+        <div>
+          <p>You have already installed the application.</p>
+          <p>
+            The Application can be accessed from your Home Screen or App Drawer
             for quick access
           </p>
         </div>
       );
-    } else if (context.platform === EPlatform.supported) {
-      // installation prompt is supported but may not be available at this moment
-      if (context.nativePromptToInstall) {
-        // show the install button -> prompt
-        return (
-          <div>
-            <p>
-              This website can be installed as an Application, for quick access
-              and offline usage.
-            </p>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={context.nativePromptToInstall}
-            >
-              Install
-            </Button>
-          </div>
-        );
-      } else if (context.installed === EInstalled.justInstalled) {
-        // thank the user for installing the app and inform them how they can access it
-        return (
-          <div>
-            <p>Thank you for Installing the Application!</p>
-            <p>
-              The Application can now be accessed from your Home Screen or App
-              Drawer for quick access
-            </p>
-          </div>
-        );
-      } else if (context.installed === EInstalled.alreadyInstalled) {
-        // inform the user that the app is already installed and how they can access it
-        return (
-          <div>
-            <p>You have already installed the application.</p>
-            <p>
-              The Application can be accessed from your Home Screen or App
-              Drawer for quick access
-            </p>
-          </div>
-        );
-      } else if (context.installed === EInstalled.maybeInstalled) {
-        // it is probably installed but we're not sure and we do not have the ability to show the install button -> prompt
-        // show instructions of how to manually install the app depending the browser
-        return (
-          <div>
-            <p>You have already installed the application in the past.</p>
-            <p>
-              The Application should be accessible from your Home Screen or App
-              Drawer for quick access.
-            </p>
-            <p>
-              If you cannot find the application in your Home Screen or App
-              Drawer
-            </p>
-            <ol>
-              <li>open your browser's menu</li>
-              <li>tap on the Add to Home Screen button</li>
-            </ol>
-          </div>
-        );
-      } else {
-        // it is not installed and we do not have the ability to show the install button -> prompt
-        // show instructions of how to manually install the app depending the browser
-      }
-    } else {
-      // probably app installation is not supported,
-      // just instruct user to add to home page using a generic method
     }
+
+    if (context.installed === EInstalled.maybeInstalled) {
+      // it is probably installed but we're not sure and we do not have the ability to show the install button -> prompt
+      // show instructions of how to manually install the app depending the browser
+      return (
+        <div>
+          <p>You have already installed the application in the past.</p>
+          <p>
+            The Application should be accessible from your Home Screen or App
+            Drawer for quick access.
+          </p>
+          <p>
+            If you cannot find the application in your Home Screen or App Drawer
+          </p>
+          <ol>
+            <li>open your browser&apos;s menu</li>
+            <li>tap on the Add to Home Screen button</li>
+          </ol>
+        </div>
+      );
+      // } else {
+      // it is not installed and we do not have the ability to show the install button -> prompt
+      // show instructions of how to manually install the app depending the browser
+    }
+    // } else {
+    // probably app installation is not supported,
+    // just instruct user to add to home page using a generic method
   }
 
   return (
@@ -150,7 +156,7 @@ const selectContent: (context: IContext) => JSX.Element = (
       </p>
       <p>To install the Application you need to</p>
       <ol>
-        <li>open your browser's menu</li>
+        <li>open your browser&apos;s menu</li>
         <li>tap on the Add to Home Screen button</li>
       </ol>
       <p>
@@ -167,11 +173,11 @@ const selectContent: (context: IContext) => JSX.Element = (
  * Renders the "install app" page with its content
  */
 const InstallApp: (props: TProps) => JSX.Element | null = ({
-  id
+  id,
 }: TProps): JSX.Element | null => {
   // get the Install App page data
-  const { loading, data, error } = useQuery<TData>(getInstallApp, {
-    variables: { id, images: imageSizes }
+  const { loading, data, error }: QueryResult = useQuery<TData>(getInstallApp, {
+    variables: { id, images: imageSizes },
   });
 
   // get the context
@@ -188,7 +194,7 @@ const InstallApp: (props: TProps) => JSX.Element | null = ({
 
   // always show the loading so that it can fade away...
   const contents: JSX.Element[] = [
-    <PageLoading key="loading" visible={firstLoading} position="relative" />
+    <PageLoading key="loading" visible={firstLoading} position="relative" />,
   ];
 
   // show only when we have data but ignore the loading...

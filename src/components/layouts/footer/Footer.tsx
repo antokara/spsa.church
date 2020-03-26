@@ -1,12 +1,8 @@
 import { useQuery } from '@apollo/react-hooks';
-import { default as Box } from '@material-ui/core/Box';
-import {
-  default as Grid,
-  GridJustification,
-  GridSpacing
-} from '@material-ui/core/Grid';
-import { default as IconButton } from '@material-ui/core/IconButton';
-import { default as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import Box from '@material-ui/core/Box';
+import Grid, { GridJustification, GridSpacing } from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import * as React from 'react';
 import { RichText } from 'src/components/shared/richText/RichText';
 import { SVG } from 'src/components/shared/SVG';
@@ -14,6 +10,7 @@ import { theme } from 'src/constants/theme';
 import { TIconLink } from 'src/gql/shared/TIconLink';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TData } from 'src/gql/theme/TData';
+import { QueryResult } from 'react-apollo';
 
 /**
  * Footer component.
@@ -22,7 +19,7 @@ import { TData } from 'src/gql/theme/TData';
  */
 const Footer: () => JSX.Element | null = (): JSX.Element | null => {
   // get the theme data
-  const { loading, data } = useQuery<TData>(getTheme);
+  const { loading, data }: QueryResult = useQuery<TData>(getTheme);
 
   // calculate media query dependent values
   const { spacing, justify, textAlign }: TDynamicValues = useMediaQuery(

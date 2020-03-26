@@ -8,6 +8,7 @@ import { Generic } from 'src/helpers/preloader/pageTypes/Generic';
 import { Home } from 'src/helpers/preloader/pageTypes/Home';
 import { InstallApp } from 'src/helpers/preloader/pageTypes/InstallApp';
 import { News } from 'src/helpers/preloader/pageTypes/News';
+import { QueryResult } from 'react-apollo';
 
 type TProps = {
   page: TMenuPage;
@@ -17,13 +18,13 @@ type TProps = {
  * preloads the contents/assets of page provided
  */
 const PreloadPage: (props: TProps) => JSX.Element | null = ({
-  page
+  page,
 }: TProps): JSX.Element | null => {
   // get the html tag list
-  const { data } = useQuery<TData>(getHtmlTagList, {
+  const { data }: QueryResult = useQuery<TData>(getHtmlTagList, {
     context: {
-      debounceKey: 'preloadHtmlTagList'
-    }
+      debounceKey: 'preloadHtmlTagList',
+    },
   });
 
   const id: string = page._id;

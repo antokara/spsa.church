@@ -1,4 +1,4 @@
-import { default as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { maxWidth } from 'src/constants/layout/maxWidth';
 
 /**

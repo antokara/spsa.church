@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Context, TSetContext } from 'src/helpers/installApp/Context';
+import { TSetContext } from 'src/helpers/installApp/Context';
 import {
   EInstalled,
   EOutcome,
   EPlatform,
-  IContext
+  IContext,
 } from 'src/helpers/installApp/IContext';
 import { localStorageKeys } from 'src/helpers/installApp/localStorageKeys';
 import { cleanUp } from './cleanUp';
@@ -40,12 +40,10 @@ const effectCallback: (
         (oldContext: IContext): IContext => ({
           ...oldContext,
           nativePromptToInstall: (): void => {
-            e.prompt()
-              .then()
-              .catch();
+            e.prompt().then().catch();
           },
           installed: EInstalled.no,
-          platform: EPlatform.supported
+          platform: EPlatform.supported,
         })
       );
       localStorage.removeItem(localStorageKeys.installed);
@@ -67,7 +65,7 @@ const effectCallback: (
             (oldContext: IContext): IContext => ({
               ...oldContext,
               outcome,
-              nativePromptToInstall: undefined
+              nativePromptToInstall: undefined,
             })
           );
         }
@@ -83,7 +81,7 @@ const effectCallback: (
         (oldContext: IContext): IContext => ({
           ...oldContext,
           installed: EInstalled.justInstalled,
-          isPromptVisible: false
+          isPromptVisible: false,
         })
       );
     };
@@ -93,7 +91,7 @@ const effectCallback: (
       (oldState: TState): TState => ({
         ...oldState,
         beforeInstallPromptEventListener: tempBeforeInstallPromptEventListener,
-        appInstalledEventListener: tmpAppInstalledEventListener
+        appInstalledEventListener: tmpAppInstalledEventListener,
       })
     );
     window.addEventListener(

@@ -1,7 +1,7 @@
 import {
   getByTestId,
   RenderResult,
-  waitForElement
+  waitForElement,
 } from '@testing-library/react';
 
 /**
@@ -25,7 +25,7 @@ const waitForLoadingToEnd: (rr: RenderResult) => Promise<boolean> = (
         'data-visible'
       ) === 'false',
     {
-      container: rr.container
+      container: rr.container,
     }
   );
 

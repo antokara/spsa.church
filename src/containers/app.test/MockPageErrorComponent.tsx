@@ -8,7 +8,7 @@ type TProps = {
  * a mock functional component that is used in place of the PageError one
  */
 const MockPageErrorComponent: (props: TProps) => JSX.Element = ({
-  error
+  error,
 }: TProps): JSX.Element => (
   <div
     data-testid="mock-page-error-component"

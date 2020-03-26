@@ -1,8 +1,8 @@
-import { default as Box } from '@material-ui/core/Box';
-import { default as SeparatorSvg } from 'assets/separator.svg';
+import Box from '@material-ui/core/Box';
+import SeparatorSvg from 'assets/separator.svg';
 import * as React from 'react';
 import { useCss } from 'src/helpers/useCss';
-import { default as styled } from 'styled-components';
+import styled from 'styled-components';
 
 // TODO: change when v5 is out
 // @see https://github.com/styled-components/styled-components/issues/135 is fixed
@@ -41,7 +41,7 @@ type TProps = {
  */
 const Separator: (props: TProps) => JSX.Element = ({
   flipped = false,
-  absolute = true
+  absolute = true,
 }: TProps): JSX.Element => {
   const iFlipped: number = flipped ? 1 : 0;
   const iAbsolute: number = absolute ? 1 : 0;

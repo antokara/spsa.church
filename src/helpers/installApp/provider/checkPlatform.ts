@@ -24,7 +24,7 @@ const checkPlatform: (
     // if this event exists, it is probably supported...
     setContext({
       ...context,
-      platform: EPlatform.supported
+      platform: EPlatform.supported,
     });
   } else if (
     uaParser.getOS().name === 'iOS' &&
@@ -33,7 +33,7 @@ const checkPlatform: (
     // in case of Safari on iOS and mobile...
     setContext({
       ...context,
-      platform: EPlatform.iOS
+      platform: EPlatform.iOS,
     });
   }
 };

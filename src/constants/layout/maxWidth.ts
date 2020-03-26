@@ -12,7 +12,7 @@ type TMaxWidth = {
 const maxWidth: TMaxWidth = {
   unit,
   value,
-  property
+  property,
 };
 
 export { maxWidth };

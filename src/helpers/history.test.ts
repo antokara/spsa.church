@@ -1,4 +1,4 @@
-import { Action, Location, LocationState } from 'history';
+import { Action, Location } from 'history';
 import { history } from './history';
 
 describe('history object', () => {
@@ -75,11 +75,9 @@ describe('history object', () => {
 
     it('does not get invoked when push is called after unlisten has been called', () => {
       expect.assertions(0);
-      const unlisten: Function = history.listen(
-        (location: Location, action: Action) => {
-          expect(unlisten()).toBeTruthy();
-        }
-      );
+      const unlisten: Function = history.listen(() => {
+        expect(unlisten()).toBeTruthy();
+      });
       unlisten();
 
       return history.push('/test-location', { some: 'state' });

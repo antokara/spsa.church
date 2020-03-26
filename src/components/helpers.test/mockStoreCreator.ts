@@ -1,4 +1,4 @@
-import { default as configureStore, MockStoreEnhanced } from 'redux-mock-store';
+import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
 import { defaultState, TState } from 'src/reducers/defaultState';
 
 type TMockStore = MockStoreEnhanced<TState>;

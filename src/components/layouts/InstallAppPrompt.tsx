@@ -1,7 +1,7 @@
-import { default as Box } from '@material-ui/core/Box';
-import { default as Button } from '@material-ui/core/Button';
-import { default as Grid } from '@material-ui/core/Grid';
-import { default as Slide } from '@material-ui/core/Slide';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Slide from '@material-ui/core/Slide';
 import { push } from 'connected-react-router';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
@@ -28,9 +28,7 @@ const InstallAppPrompt: () => JSX.Element | null = (): JSX.Element | null => {
     return null;
   }
 
-  let onInstallClick: () => void = (): void => {
-    return;
-  };
+  let onInstallClick: () => void = (): void => {};
   React.useEffect(() => {
     // when it is just installed, take the user to the app page to show the thank you...
     if (context.installed === EInstalled.justInstalled) {
