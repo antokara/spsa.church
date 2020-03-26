@@ -39,8 +39,8 @@ const common: (env: NodeJS.ProcessEnv) => Configuration = (
       }
     },
     output: {
-      filename: '[name].bundle.js',
-      chunkFilename: '[name].chunk.js',
+      filename: '[name].[hash].bundle.js',
+      chunkFilename: '[name].[hash].chunk.js',
       path: path.resolve(__dirname, 'dist')
     },
     performance: {
