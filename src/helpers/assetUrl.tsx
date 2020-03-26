@@ -1,4 +1,4 @@
-import * as buildUrl from 'build-url';
+import buildUrl from 'build-url';
 
 /**
  * returns the absolute URL from the CMS for the asset provided
@@ -15,7 +15,7 @@ const assetUrl: (
 ): string =>
   buildUrl(process.env.TAKESHAPE_ASSETS_HOST ?? '', {
     path,
-    queryParams
+    queryParams,
   });
 
 export { assetUrl };

@@ -1,11 +1,11 @@
-import { default as Box } from '@material-ui/core/Box';
-import { CardProps, default as Card } from '@material-ui/core/Card';
-import { default as CardContent } from '@material-ui/core/CardContent';
-import { default as Grid } from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Card, { CardProps } from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
 import { WithTheme } from '@material-ui/core/styles';
-import { default as Warning } from '@material-ui/icons/Warning';
+import Warning from '@material-ui/icons/Warning';
 import * as React from 'react';
-import { default as styled } from 'styled-components';
+import styled from 'styled-components';
 
 /**
  * a styled card component that is need to create and pass the className prop
@@ -20,7 +20,7 @@ const ClassedCard: React.ComponentType<CardProps> = styled(Card)`
  */
 const ErrorCard: React.ComponentType<CardProps> = ({
   children,
-  className
+  className,
 }: React.PropsWithChildren<CardProps>): JSX.Element => (
   <ClassedCard classes={{ root: className }}>{children}</ClassedCard>
 );
@@ -37,7 +37,7 @@ type TProps = {
  * with absolute left/top positioning
  */
 const PageError: (props: TProps) => JSX.Element = ({
-  error
+  error,
 }: TProps): JSX.Element => (
   <Box
     display="flex"

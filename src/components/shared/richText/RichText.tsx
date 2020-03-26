@@ -3,11 +3,11 @@ import {
   INode,
   Parser,
   ProcessNodeDefinitions,
-  TProcessingInstruction
+  TProcessingInstruction,
 } from 'html-to-react';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import * as sanitizeHtml from 'sanitize-html';
+import sanitizeHtml from 'sanitize-html';
 import { allowedAttributes } from 'src/constants/sanitizeHtml/allowedAttributes';
 import { allowedSchemes } from 'src/constants/sanitizeHtml/allowedSchemes';
 import { allowedTags } from 'src/constants/sanitizeHtml/allowedTags';
@@ -15,6 +15,7 @@ import * as getHtmlTagList from 'src/gql/htmlTags/getHtmlTagList.gql';
 import { TData } from 'src/gql/htmlTags/TData';
 import { replaceTags } from 'src/helpers/replaceTags';
 import { useCss } from 'src/helpers/useCss';
+import { QueryResult } from 'react-apollo';
 import { StyledRichText } from './StyledRichText';
 
 /**
@@ -30,14 +31,14 @@ type TProps = {
 // tslint:disable-next-line:max-func-body-length
 const RichText: (props: TProps) => JSX.Element | null = ({
   html,
-  replaceHtmlTags = true
+  replaceHtmlTags = true,
 }: TProps): JSX.Element | null => {
   // calculate the dynamic font size using hooks
   const h2FontSize: string = useCss('5vw', '1.5em', '425px');
   const margin: string = useCss('3vw', '2em');
 
   // get the html tag list
-  const { data } = useQuery<TData>(getHtmlTagList);
+  const { data }: QueryResult = useQuery<TData>(getHtmlTagList);
 
   // in case we have no data, do not show the content yet
   if (!data) {
@@ -48,7 +49,7 @@ const RichText: (props: TProps) => JSX.Element | null = ({
   let safeHtml: string = sanitizeHtml(html, {
     allowedTags,
     allowedAttributes,
-    allowedSchemes
+    allowedSchemes,
   });
 
   // replace custom tags
@@ -67,6 +68,7 @@ const RichText: (props: TProps) => JSX.Element | null = ({
       // replace A tags that start with / with a React Router Dom Link component
       shouldProcessNode: (node: INode): boolean =>
         node.name === 'a' && node.attribs.href.startsWith('/'),
+      // eslint-disable-next-line react/display-name
       processNode: (
         node: INode,
         children: JSX.Element,
@@ -75,13 +77,13 @@ const RichText: (props: TProps) => JSX.Element | null = ({
         <Link key={index} to={node.attribs.href}>
           {children}
         </Link>
-      )
+      ),
     },
     {
       // Anything else, just use the default processor
       shouldProcessNode: isValidNode,
-      processNode: processNodeDefinitions.processDefaultNode
-    }
+      processNode: processNodeDefinitions.processDefaultNode,
+    },
   ];
 
   // const reactElement: JSX.Element = htmlToReactParser.parse(safeHtml);

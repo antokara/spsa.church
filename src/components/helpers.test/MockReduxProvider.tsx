@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import {
   mockStoreCreator,
-  TMockStore
+  TMockStore,
 } from 'src/components/helpers.test/mockStoreCreator';
 
 type TProps = React.PropsWithChildren<{
@@ -17,7 +17,7 @@ type TProps = React.PropsWithChildren<{
  */
 const MockReduxProvider: React.FunctionComponent<TProps> = ({
   children,
-  store = mockStoreCreator()
+  store = mockStoreCreator(),
 }: TProps): React.ReactElement<React.ReactNode> => (
   <Provider store={store}>{children}</Provider>
 );

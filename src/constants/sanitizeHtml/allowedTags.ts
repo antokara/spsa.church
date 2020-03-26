@@ -32,7 +32,7 @@ const allowedTags: string[] = [
   'iframe',
   'figure',
   'img',
-  'ins'
+  'ins',
 ];
 
 export { allowedTags };

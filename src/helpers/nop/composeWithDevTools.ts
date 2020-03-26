@@ -1,4 +1,4 @@
-// tslint:disable:no-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { compose } from 'redux';
 
 /**
@@ -8,8 +8,8 @@ import { compose } from 'redux';
  * @see https://web-dev-etc.blogspot.com/2017/12/dynamic-import-of-es6-modules-with.html
  * @see tslint.json, tsconfig.json, tsconfig.build.json, webpack.build.js, webpack.dev.js
  */
-const composeWithDevTools: (o?: any) => typeof compose | undefined = (
-  o?: any
-): typeof compose | undefined => undefined;
+const composeWithDevTools: (o?: any) => typeof compose | undefined = ():
+  | typeof compose
+  | undefined => undefined;
 
 export { composeWithDevTools };

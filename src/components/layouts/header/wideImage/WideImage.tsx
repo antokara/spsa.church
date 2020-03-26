@@ -1,11 +1,12 @@
 import { useQuery } from '@apollo/react-hooks';
-import { default as Box } from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box';
 import * as React from 'react';
 import { Picture, TSource } from 'src/components/shared/Picture';
 import { maxWidth } from 'src/constants/layout/maxWidth';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
 import { TAsset, TData } from 'src/gql/theme/TData';
 import { useCss } from 'src/helpers/useCss';
+import { QueryResult } from 'react-apollo';
 
 /**
  * Wide Image component.
@@ -14,7 +15,7 @@ import { useCss } from 'src/helpers/useCss';
  */
 const WideImage: () => JSX.Element | null = (): JSX.Element | null => {
   // get the theme data
-  const { loading, data } = useQuery<TData>(getTheme);
+  const { loading, data }: QueryResult = useQuery<TData>(getTheme);
 
   // must be calculated every time
   const overlayFontSize: string = useCss('3vw', '2rem');
@@ -29,18 +30,18 @@ const WideImage: () => JSX.Element | null = (): JSX.Element | null => {
   const focalPointLandscape: string = 'fp-x=0.5&fp-y=0.5&fp-z=1';
   const assets: TAsset[] = [
     data.theme.photoPortrait,
-    data.theme.photoLandscape
+    data.theme.photoLandscape,
   ];
 
   const sources: TSource[] = [
     {
       srcSet: `{url[0]}?${focalPointPortrait}&fit=crop&h=700&w=${maxWidth.value}`,
-      media: '(orientation: portrait)'
+      media: '(orientation: portrait)',
     },
     {
       srcSet: `{url[1]}?${focalPointLandscape}&fit=crop&h=500&w=${maxWidth.value}`,
-      media: '(orientation: landscape)'
-    }
+      media: '(orientation: landscape)',
+    },
   ];
 
   return (

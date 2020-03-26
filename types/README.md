@@ -38,3 +38,7 @@ because
 
 - `domhandler` does not export `DomElement`
 - and `domelementtype` just exports `ElementType` not `DomElement`
+
+## jest-styled-components
+
+https://github.com/styled-components/jest-styled-components/issues/291

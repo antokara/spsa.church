@@ -1,4 +1,4 @@
-import { default as Box } from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box';
 import * as React from 'react';
 
 /**
@@ -8,7 +8,7 @@ import * as React from 'react';
  */
 const NotFound: () => JSX.Element | null = (): JSX.Element | null => (
   <Box p={4} py={8}>
-    We're sorry but this Page does not exist!
+    We&apos;re sorry but this Page does not exist!
   </Box>
 );
 

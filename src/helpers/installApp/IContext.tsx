@@ -15,12 +15,12 @@ enum EPlatform {
   /**
    * install prompt is supported on this platform
    */
-  supported = 'supported'
+  supported = 'supported',
 }
 
 enum EOutcome {
   accepted = 'accepted',
-  dismissed = 'dismissed'
+  dismissed = 'dismissed',
 }
 
 enum EInstalled {
@@ -48,7 +48,7 @@ enum EInstalled {
    * we know that when the app is running in standalone mode
    * since it must be installed for that to happen
    */
-  alreadyInstalled = 'alreadyInstalled'
+  alreadyInstalled = 'alreadyInstalled',
 }
 
 type TPromptToInstall = () => void;
@@ -102,7 +102,7 @@ const defaultState: IContext = {
   installed: undefined,
   outcome: undefined,
   platform: undefined,
-  standalone: undefined
+  standalone: undefined,
 };
 
 export {
@@ -111,5 +111,5 @@ export {
   EOutcome,
   EPlatform,
   EInstalled,
-  TPromptToInstall
+  TPromptToInstall,
 };

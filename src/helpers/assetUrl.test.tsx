@@ -35,7 +35,7 @@ describe('assertUrl function', () => {
           testParam2: 'true',
           testParam3: 'test value',
           testParam4: 'test=value',
-          testParam5: 'test&value'
+          testParam5: 'test&value',
         });
       });
 
@@ -74,7 +74,7 @@ describe('assertUrl function', () => {
           testParam2: 'true',
           testParam3: 'test value',
           testParam4: 'test=value',
-          testParam5: 'test&value'
+          testParam5: 'test&value',
         });
       });
 

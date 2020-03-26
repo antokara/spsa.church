@@ -17,7 +17,7 @@ type TProps = React.PropsWithChildren<{
  */
 const MockThemeProvider: React.FunctionComponent<TProps> = ({
   children,
-  theme = THEME
+  theme = THEME,
 }: TProps): React.ReactElement<React.ReactNode> => (
   <MuiThemeProvider theme={theme}>
     <ThemeProvider theme={theme}>{children}</ThemeProvider>

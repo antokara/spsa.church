@@ -25,7 +25,7 @@ describe('serviceWorker function', () => {
             loadCallback = cb;
           }
         }),
-        configurable: true
+        configurable: true,
       });
     });
 
@@ -39,14 +39,12 @@ describe('serviceWorker function', () => {
               .mockImplementation(
                 (swPath: string): Promise<string> =>
                   new Promise(
-                    (
-                      resolve: (value?: string | undefined) => void,
-                      reject: (reason?: string) => void
-                    ): void => resolve(`successful-sw-registration:${swPath}`)
+                    (resolve: (value?: string | undefined) => void): void =>
+                      resolve(`successful-sw-registration:${swPath}`)
                   )
-              )
+              ),
           },
-          configurable: true
+          configurable: true,
         });
 
         result = serviceWorker();
@@ -83,9 +81,9 @@ describe('serviceWorker function', () => {
                     ): void =>
                       reject(new Error(`failed-sw-registration:${swPath}`))
                   )
-              )
+              ),
           },
-          configurable: true
+          configurable: true,
         });
 
         result = serviceWorker();

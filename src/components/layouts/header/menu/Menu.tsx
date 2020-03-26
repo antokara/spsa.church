@@ -1,14 +1,14 @@
 import { useQuery } from '@apollo/react-hooks';
-import { default as AppBar } from '@material-ui/core/AppBar';
-import { default as Box } from '@material-ui/core/Box';
-import { default as Drawer } from '@material-ui/core/Drawer';
-import { default as Fab } from '@material-ui/core/Fab';
-import { default as List } from '@material-ui/core/List';
-import { default as ListItem } from '@material-ui/core/ListItem';
-import { default as ListItemText } from '@material-ui/core/ListItemText';
-import { default as Tabs } from '@material-ui/core/Tabs';
-import { default as useMediaQuery } from '@material-ui/core/useMediaQuery';
-import { default as MenuIcon } from '@material-ui/icons/Menu';
+import AppBar from '@material-ui/core/AppBar';
+import Box from '@material-ui/core/Box';
+import Drawer from '@material-ui/core/Drawer';
+import Fab from '@material-ui/core/Fab';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Tabs from '@material-ui/core/Tabs';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import MenuIcon from '@material-ui/icons/Menu';
 import { Location } from 'history';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +21,7 @@ import { TData, TMenuEntry } from 'src/gql/theme/TData';
 import { getMenuUrl } from 'src/helpers/getMenuUrl';
 import { findActiveMenuEntries } from 'src/helpers/routes/findActiveMenuEntries';
 import { TState } from 'src/reducers/defaultState';
+import { QueryResult } from 'react-apollo';
 import { NavTab } from './NavTab';
 
 /**
@@ -80,7 +81,7 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
   const onClick: () => TAction = (): TAction => menuOpenAc(!menuOpenSt);
 
   // get the theme data
-  const { loading, data } = useQuery<TData>(getTheme);
+  const { loading, data }: QueryResult = useQuery<TData>(getTheme);
 
   // get router location
   const location: Location = useLocation();

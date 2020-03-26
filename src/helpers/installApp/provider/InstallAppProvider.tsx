@@ -4,7 +4,7 @@ import {
   defaultState,
   EInstalled,
   EPlatform,
-  IContext
+  IContext,
 } from 'src/helpers/installApp/IContext';
 import { localStorageKeys } from 'src/helpers/installApp/localStorageKeys';
 import { UAParser } from 'ua-parser-js';
@@ -23,13 +23,19 @@ type TProps = React.PropsWithChildren<{}>;
  * to provide the Install App context
  */
 const InstallAppProvider: (props: TProps) => JSX.Element = ({
-  children
+  children,
 }: TProps): JSX.Element => {
   // shared context state
-  const [context, setContext] = React.useState(defaultState);
+  const [context, setContext]: [
+    IContext,
+    React.Dispatch<React.SetStateAction<IContext>>
+  ] = React.useState(defaultState);
 
   // internal state
-  const [state, setState] = React.useState<TState>({});
+  const [state, setState]: [
+    TState,
+    React.Dispatch<React.SetStateAction<TState>>
+  ] = React.useState<TState>({});
 
   // check if we're running in standalone and/or installed
   checkStandaloneInstalled(context, setContext);
@@ -50,10 +56,10 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
         setContext(
           (oldContext: IContext): IContext => ({
             ...oldContext,
-            isPromptVisible: visible
+            isPromptVisible: visible,
           })
         );
-      }
+      },
     });
   }
 
@@ -80,10 +86,10 @@ const InstallAppProvider: (props: TProps) => JSX.Element = ({
           setContext(
             (oldContext: IContext): IContext => ({
               ...oldContext,
-              isPromptVisible: true
+              isPromptVisible: true,
             })
           );
-        }, 2000)
+        }, 2000),
       })
     );
   }

@@ -3,7 +3,7 @@ interface IActionTypes {
 }
 
 const actionTypes: IActionTypes = {
-  menuOpen: 'LAYOUT.MENU_OPEN'
+  menuOpen: 'LAYOUT.MENU_OPEN',
 };
 
 export { actionTypes };

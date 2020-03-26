@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/react-hooks';
+import { QueryResult } from 'react-apollo';
 import { Location } from 'history';
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
@@ -9,12 +10,12 @@ import { News } from 'src/components/pages/news/News';
 import { NotFound } from 'src/components/pages/notFound/NotFound';
 import { pageTypes } from 'src/constants/layout/pageTypes';
 import * as getTheme from 'src/gql/theme/getTheme.gql';
-import { TData, TMenuEntry, TMenuPage } from 'src/gql/theme/TData';
+import { TData, TMenuEntry } from 'src/gql/theme/TData';
 import { findActiveMenuEntries } from 'src/helpers/routes/findActiveMenuEntries';
 
 const Routes: () => JSX.Element | null = (): JSX.Element | null => {
   // get the theme data
-  const { loading, data } = useQuery<TData>(getTheme);
+  const { loading, data }: QueryResult = useQuery<TData>(getTheme);
 
   // get router location
   const location: Location = useLocation();
@@ -33,7 +34,7 @@ const Routes: () => JSX.Element | null = (): JSX.Element | null => {
 
   // make sure we found an active menu/page
   if (activeMenus.length && activeMenus[activeMenus.length - 1]?.page) {
-    const page: TMenuPage = activeMenus[activeMenus.length - 1].page;
+    const { page }: TMenuEntry = activeMenus[activeMenus.length - 1];
     const id: string = page._id;
     switch (page._contentTypeName) {
       case pageTypes.homePage:

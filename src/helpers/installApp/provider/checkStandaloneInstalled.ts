@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   EInstalled,
   EPlatform,
-  IContext
+  IContext,
 } from 'src/helpers/installApp/IContext';
 import { localStorageKeys } from 'src/helpers/installApp/localStorageKeys';
 
@@ -36,7 +36,7 @@ const checkStandaloneInstalled: (
       ...context,
       standalone: true,
       installed: EInstalled.alreadyInstalled,
-      platform: EPlatform.supported
+      platform: EPlatform.supported,
     });
   } else if (localStorage.getItem(localStorageKeys.installed)) {
     // mark as not standalone but maybe installed and PWA install supported
@@ -44,14 +44,14 @@ const checkStandaloneInstalled: (
       ...context,
       standalone: false,
       installed: EInstalled.maybeInstalled,
-      platform: EPlatform.supported
+      platform: EPlatform.supported,
     });
   } else {
     // mark as not standalone
     setContext({
       ...context,
       standalone: false,
-      installed: EInstalled.no
+      installed: EInstalled.no,
     });
   }
 };

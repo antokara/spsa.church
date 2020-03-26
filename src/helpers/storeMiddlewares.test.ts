@@ -24,12 +24,13 @@ describe('storeMiddlewares array', () => {
         // mock the redux-logger, so that we can test
         // if it gets used or not, without caring of what it does
         jest.mock('redux-logger', () => ({
-          createLogger: jest.fn().mockReturnValue('redux-logger')
+          createLogger: jest.fn().mockReturnValue('redux-logger'),
         }));
       });
 
       beforeEach(async () => {
-        ({ storeMiddlewares } = await import('./storeMiddlewares'));
+        storeMiddlewares = (await import('./storeMiddlewares'))
+          .storeMiddlewares;
       });
 
       it('is an array', () => {
@@ -46,12 +47,13 @@ describe('storeMiddlewares array', () => {
         // mock the redux-logger, so that we can test
         // if it gets used or not, without caring of what it does
         jest.mock('redux-logger', () => ({
-          createLogger: jest.fn().mockReturnValue(undefined)
+          createLogger: jest.fn().mockReturnValue(undefined),
         }));
       });
 
       beforeEach(async () => {
-        ({ storeMiddlewares } = await import('./storeMiddlewares'));
+        storeMiddlewares = (await import('./storeMiddlewares'))
+          .storeMiddlewares;
       });
 
       it('is an array', () => {
@@ -74,12 +76,13 @@ describe('storeMiddlewares array', () => {
         // mock the redux-logger, so that we can test
         // if it gets used or not, without caring of what it does
         jest.mock('redux-logger', () => ({
-          createLogger: jest.fn().mockReturnValue('redux-logger')
+          createLogger: jest.fn().mockReturnValue('redux-logger'),
         }));
       });
 
       beforeEach(async () => {
-        ({ storeMiddlewares } = await import('./storeMiddlewares'));
+        storeMiddlewares = (await import('./storeMiddlewares'))
+          .storeMiddlewares;
       });
 
       it('is an array', () => {

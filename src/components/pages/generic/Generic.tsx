@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/react-hooks';
-import { default as Box } from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box';
 import * as React from 'react';
 import { NoInternet } from 'src/components/pages/noInternet/NoInternet';
 import { PageLoading } from 'src/components/shared/pageLoading/PageLoading';
@@ -7,6 +7,7 @@ import { RichText } from 'src/components/shared/richText/RichText';
 import { imageSizes } from 'src/constants/layout/imageSizes';
 import * as getGeneric from 'src/gql/generic/getGeneric.gql';
 import { TData } from 'src/gql/generic/TData';
+import { QueryResult } from 'react-apollo';
 
 type TProps = {
   id: string;
@@ -18,11 +19,11 @@ type TProps = {
  * Renders a generic page with its content
  */
 const Generic: (props: TProps) => JSX.Element | null = ({
-  id
+  id,
 }: TProps): JSX.Element | null => {
   // get the generic page data
-  const { loading, data, error } = useQuery<TData>(getGeneric, {
-    variables: { id, images: imageSizes }
+  const { loading, data, error }: QueryResult = useQuery<TData>(getGeneric, {
+    variables: { id, images: imageSizes },
   });
 
   // TODO: refactor other components that use the same logic to remove repeatitive code
@@ -37,7 +38,7 @@ const Generic: (props: TProps) => JSX.Element | null = ({
 
   // always show the loading so that it can fade away...
   const contents: JSX.Element[] = [
-    <PageLoading key="loading" visible={firstLoading} position="relative" />
+    <PageLoading key="loading" visible={firstLoading} position="relative" />,
   ];
 
   // show only when we have data but ignore the loading...

@@ -1,5 +1,5 @@
-import { createBrowserHistory, LocationState } from 'history';
+import { createBrowserHistory, History } from 'history';
 
-const history: LocationState = createBrowserHistory();
+const history: History = createBrowserHistory();
 
 export { history };

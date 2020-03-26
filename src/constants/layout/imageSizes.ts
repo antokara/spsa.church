@@ -8,7 +8,7 @@ enum EImageSizes {
   df = 'default',
   sm = 'small',
   md = 'medium',
-  lg = 'large'
+  lg = 'large',
 }
 
 type TImageSizes = {
@@ -21,20 +21,20 @@ type TImageSizes = {
 const imageSizes: TImageSizes = {
   [EImageSizes.df]: {
     w: 500,
-    h: 500
+    h: 500,
   },
   [EImageSizes.sm]: {
     w: 300,
-    h: 500
+    h: 500,
   },
   [EImageSizes.md]: {
     w: 600,
-    h: 900
+    h: 900,
   },
   [EImageSizes.lg]: {
     w: 1000,
-    h: 1300
-  }
+    h: 1300,
+  },
 };
 
 export { imageSizes };

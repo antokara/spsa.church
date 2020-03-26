@@ -3,15 +3,16 @@ import { imageSizes } from 'src/constants/layout/imageSizes';
 import * as getHome from 'src/gql/home/getHome.gql';
 import { TData } from 'src/gql/home/TData';
 import { parseHtml } from 'src/helpers/preloader/parseHtml';
+import { QueryResult } from 'react-apollo';
 import { TPage, TProps } from './TPage';
 
 const Home: TPage = ({ id, htmlTags = [] }: TProps): null => {
   // get the home data
-  const { data } = useQuery<TData>(getHome, {
+  const { data }: QueryResult = useQuery<TData>(getHome, {
     variables: { id, images: imageSizes },
     context: {
-      debounceKey: `preloadHome-${id}`
-    }
+      debounceKey: `preloadHome-${id}`,
+    },
   });
 
   if (data) {

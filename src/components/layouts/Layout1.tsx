@@ -1,5 +1,5 @@
-import { default as Box } from '@material-ui/core/Box';
-import { default as Grid } from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import * as React from 'react';
 import { Footer } from 'src/components/layouts/footer/Footer';
 import { Header } from 'src/components/layouts/header/Header';

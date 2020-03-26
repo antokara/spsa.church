@@ -1,6 +1,6 @@
-import { default as Box } from '@material-ui/core/Box';
-import { default as CircularProgress } from '@material-ui/core/CircularProgress';
-import { default as Fade } from '@material-ui/core/Fade';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Fade from '@material-ui/core/Fade';
 import * as React from 'react';
 
 type TProps = {
@@ -14,7 +14,7 @@ type TProps = {
  */
 const PageLoading: (props: TProps) => JSX.Element = ({
   visible = true,
-  position = 'absolute'
+  position = 'absolute',
 }: TProps): JSX.Element => (
   <Fade in={visible} data-testid="fade" unmountOnExit={true}>
     <Box

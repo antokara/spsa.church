@@ -1,20 +1,20 @@
 import { config } from 'dotenv';
-import * as Dotenv from 'dotenv-webpack';
-import * as FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import * as path from 'path';
 import {
   Configuration,
   ContextReplacementPlugin,
   EnvironmentPlugin,
-  NamedModulesPlugin
+  NamedModulesPlugin,
 } from 'webpack';
 import { InjectManifest } from 'workbox-webpack-plugin';
 import { supportedLocales } from './src/constants/dateFns/supportedLocales';
 config();
 
 // plugins
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as HtmlWebpackTemplatePlugin from 'html-webpack-template';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackTemplatePlugin from 'html-webpack-template';
 
 // constants
 const title: string = 'St. Peter & St. Andrew Coptic Orthodox Church';
@@ -35,17 +35,17 @@ const common: (env: NodeJS.ProcessEnv) => Configuration = (
       extensions: ['.js', '.ts', '.tsx'],
       alias: {
         src: path.resolve(__dirname, 'src'),
-        assets: path.resolve(__dirname, 'assets')
-      }
+        assets: path.resolve(__dirname, 'assets'),
+      },
     },
     output: {
       filename: '[name].[hash].bundle.js',
       chunkFilename: '[name].[hash].chunk.js',
-      path: path.resolve(__dirname, 'dist')
+      path: path.resolve(__dirname, 'dist'),
     },
     performance: {
       assetFilter: (assetFilename: string): boolean =>
-        assetFilename.endsWith('.js')
+        assetFilename.endsWith('.js'),
     },
     module: {
       rules: [
@@ -59,19 +59,19 @@ const common: (env: NodeJS.ProcessEnv) => Configuration = (
                 configFile:
                   environment === 'development'
                     ? 'tsconfig.json'
-                    : 'tsconfig.build.json'
-              }
-            }
-          ]
+                    : 'tsconfig.build.json',
+              },
+            },
+          ],
         },
         {
           test: /\.gql$/,
           exclude: /node_modules/,
-          loader: 'graphql-tag/loader'
+          loader: 'graphql-tag/loader',
         },
         {
           test: /\.svg$/,
-          use: ['@svgr/webpack']
+          use: ['@svgr/webpack'],
         },
         {
           test: /\.(png|jpg|gif)$/,
@@ -79,12 +79,12 @@ const common: (env: NodeJS.ProcessEnv) => Configuration = (
             {
               loader: 'file-loader',
               options: {
-                outputPath: 'assets/'
-              }
-            }
-          ]
-        }
-      ]
+                outputPath: 'assets/',
+              },
+            },
+          ],
+        },
+      ],
     },
     plugins: [
       // @see https://date-fns.org/v2.8.1/docs/webpack
@@ -94,13 +94,13 @@ const common: (env: NodeJS.ProcessEnv) => Configuration = (
       ),
       new EnvironmentPlugin({
         NODE_ENV: environment,
-        DEBUG: false
+        DEBUG: false,
       }),
       new Dotenv({
         path: path.resolve(__dirname, '.env'),
         safe: true,
         systemvars: true,
-        silent: true
+        silent: true,
       }),
       new HtmlWebpackPlugin({
         title: 'St. Peter & St. Andrew Coptic Orthodox Church',
@@ -112,7 +112,7 @@ const common: (env: NodeJS.ProcessEnv) => Configuration = (
         appMountId: 'root',
         baseHref: '/',
         bodyHtmlSnippet:
-          '<noscript>We are sorry but this Application requires Javascript to be Enabled.</noscript>'
+          '<noscript>We are sorry but this Application requires Javascript to be Enabled.</noscript>',
       }),
       new FaviconsWebpackPlugin({
         logo: path.resolve(__dirname, 'assets/churchLogo.png'),
@@ -152,16 +152,16 @@ const common: (env: NodeJS.ProcessEnv) => Configuration = (
             // opengraph: true,
             // twitter: true,
             yandex: false,
-            windows: true
-          }
-        }
+            windows: true,
+          },
+        },
       }),
       new InjectManifest({
         swSrc: path.resolve(__dirname, 'src/sw.js'),
-        swDest: 'sw.js'
+        swDest: 'sw.js',
       }),
-      new NamedModulesPlugin()
-    ]
+      new NamedModulesPlugin(),
+    ],
   };
 };
 

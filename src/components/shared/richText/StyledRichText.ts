@@ -2,7 +2,7 @@
  * Styled Rich Text component which adds the css required to the rich text
  */
 import { WithTheme } from '@material-ui/core/styles';
-import { default as styled, StyledComponent } from 'styled-components';
+import styled, { StyledComponent } from 'styled-components';
 
 type TStyledProps = {
   h2FontSize: string;

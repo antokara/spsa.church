@@ -2,7 +2,7 @@ import { Action, Store, StoreCreator } from 'redux';
 import {
   mockMiddleware,
   TMockMiddleware,
-  TMockMiddlewareMockedFn
+  TMockMiddlewareMockedFn,
 } from './mockMiddleware';
 
 describe('store object', () => {
@@ -33,14 +33,14 @@ describe('store object', () => {
     // in the future, as we modify the reducers/store
     jest.mock('src/reducers/index', () => ({
       index: jest.fn().mockReturnValue({
-        testReducer: true
-      })
+        testReducer: true,
+      }),
     }));
 
     // mock the storeMiddlewares, since we want an isolated test here
     // of just the store with its StoreEnhancer
     jest.mock('src/helpers/storeMiddlewares', () => ({
-      storeMiddlewares: []
+      storeMiddlewares: [],
     }));
   });
   afterAll(() => {
@@ -64,12 +64,12 @@ describe('store object', () => {
           .fn()
           .mockImplementation((): TMockMiddleware => dMiddleware);
         jest.mock('redux-devtools-extension', () => ({
-          composeWithDevTools
+          composeWithDevTools,
         }));
       });
 
       beforeEach(async () => {
-        ({ store } = await import('src/helpers/store'));
+        store = (await import('src/helpers/store')).store;
       });
 
       it('is an object', () => {
@@ -83,7 +83,7 @@ describe('store object', () => {
 
         it('returns the state object', () => {
           expect(store.getState()).toStrictEqual({
-            testReducer: true
+            testReducer: true,
           });
         });
       });
@@ -100,7 +100,7 @@ describe('store object', () => {
           });
           it('returns the action passed, when called', () => {
             expect(result).toStrictEqual({
-              type: 'TEST_ACTION_TYPE'
+              type: 'TEST_ACTION_TYPE',
             });
           });
 
@@ -125,12 +125,12 @@ describe('store object', () => {
         // if it gets used or not, without caring of what it does
         composeWithDevTools = jest.fn().mockReturnValue(undefined);
         jest.mock('redux-devtools-extension', () => ({
-          composeWithDevTools
+          composeWithDevTools,
         }));
       });
 
       beforeEach(async () => {
-        ({ store } = await import('src/helpers/store'));
+        store = (await import('src/helpers/store')).store;
       });
 
       it('is an object', () => {
@@ -148,7 +148,7 @@ describe('store object', () => {
 
         it('returns the state object', () => {
           expect(store.getState()).toStrictEqual({
-            testReducer: true
+            testReducer: true,
           });
         });
       });
@@ -165,7 +165,7 @@ describe('store object', () => {
           });
           it('returns the action passed, when called', () => {
             expect(result).toStrictEqual({
-              type: 'TEST_ACTION_TYPE'
+              type: 'TEST_ACTION_TYPE',
             });
           });
 

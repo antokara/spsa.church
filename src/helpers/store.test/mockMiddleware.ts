@@ -27,5 +27,5 @@ export {
   THandleAndReturnAction,
   TDispatchAndReturnAction,
   TMockMiddleware,
-  TMockMiddlewareMockedFn
+  TMockMiddlewareMockedFn,
 };

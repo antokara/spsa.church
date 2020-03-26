@@ -14,7 +14,7 @@ setAutoFreeze(process.env.NODE_ENV !== 'production');
 
 const index: Reducer = combineReducers({
   router: connectRouter(history),
-  layout
+  layout,
 });
 
 export { index };

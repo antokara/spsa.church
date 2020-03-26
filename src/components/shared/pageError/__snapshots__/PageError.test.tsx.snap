@@ -5,7 +5,7 @@ exports[`PageError component renders the component 1`] = `
   class="MuiBox-root MuiBox-root-2"
 >
   <div
-    class="MuiPaper-root MuiPaper-elevation1 MuiCard-root sc-bdVaJa eiEVOF MuiPaper-rounded"
+    class="MuiPaper-root MuiCard-root sc-AxjAm cqvqZZ MuiPaper-elevation1 MuiPaper-rounded"
   >
     <div
       class="MuiCardContent-root"
@@ -21,7 +21,6 @@ exports[`PageError component renders the component 1`] = `
             class="MuiSvgIcon-root"
             data-testid="warning-icon"
             focusable="false"
-            role="presentation"
             viewBox="0 0 24 24"
           >
             <path

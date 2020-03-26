@@ -8,7 +8,7 @@ const allowedAttributes:
   | undefined = {
   a: ['href', 'name', 'target'],
   img: ['src', 'alt', 'title'],
-  figure: ['class']
+  figure: ['class'],
 };
 
 export { allowedAttributes };

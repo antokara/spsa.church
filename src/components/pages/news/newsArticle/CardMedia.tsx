@@ -1,5 +1,5 @@
-import { default as MuiCardMedia } from '@material-ui/core/CardMedia';
-import { default as styled } from 'styled-components';
+import MuiCardMedia from '@material-ui/core/CardMedia';
+import styled from 'styled-components';
 
 const CardMedia: typeof MuiCardMedia = styled(MuiCardMedia)`
   width: 25vw;

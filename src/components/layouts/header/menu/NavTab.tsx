@@ -1,7 +1,7 @@
-import { default as MuiTab, TabProps } from '@material-ui/core/Tab';
+import MuiTab, { TabProps } from '@material-ui/core/Tab';
 import * as React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
-import { default as styled } from 'styled-components';
+import styled from 'styled-components';
 
 /**
  * a styled Tab component that is need to create and pass the className prop
@@ -22,7 +22,7 @@ const NavTab: React.FunctionComponent<TabProps<'div', NavLinkProps>> = ({
   wrapped,
   to,
   value,
-  fullWidth
+  fullWidth,
 }: TabProps<'div', NavLinkProps>): JSX.Element => (
   <ClassedTab
     fullWidth={fullWidth}

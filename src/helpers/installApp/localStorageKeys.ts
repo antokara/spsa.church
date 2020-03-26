@@ -8,7 +8,7 @@ type TLocalStorageKeys = {
  */
 const localStorageKeys: TLocalStorageKeys = {
   installed: 'pwa.maybeInstalled',
-  prompt: 'pwa.installPrompt'
+  prompt: 'pwa.installPrompt',
 };
 
 export { localStorageKeys };

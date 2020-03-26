@@ -12,6 +12,7 @@
     "jsx": "react",
     "target": "es2015",
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "declaration": false,
     "outDir": "./dist",
     "baseUrl": ".",
@@ -35,7 +36,9 @@
       "html-to-react",
       "other",
       "htmlparser2",
-      "domutils"
+      "domutils",
+      "jest-styled-components",
+      "testing-library__jest-dom"
     ]
   },
   "include": ["src/**/*"],

@@ -3,7 +3,7 @@ import {
   compose,
   createStore,
   Store,
-  StoreEnhancer
+  StoreEnhancer,
 } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { storeMiddlewares } from 'src/helpers/storeMiddlewares';

@@ -3,15 +3,16 @@ import { imageSizes } from 'src/constants/layout/imageSizes';
 import * as getInstallApp from 'src/gql/installApp/getInstallApp.gql';
 import { TData } from 'src/gql/installApp/TData';
 import { parseHtml } from 'src/helpers/preloader/parseHtml';
+import { QueryResult } from 'react-apollo';
 import { TPage, TProps } from './TPage';
 
 const InstallApp: TPage = ({ id, htmlTags = [] }: TProps): null => {
   // get the data
-  const { data } = useQuery<TData>(getInstallApp, {
+  const { data }: QueryResult = useQuery<TData>(getInstallApp, {
     variables: { id, images: imageSizes },
     context: {
-      debounceKey: `preloadInstallApp-${id}`
-    }
+      debounceKey: `preloadInstallApp-${id}`,
+    },
   });
 
   if (data) {

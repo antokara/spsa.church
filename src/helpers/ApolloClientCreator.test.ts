@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from 'apollo-client';
-import * as fetchMock from 'fetch-mock';
-import * as gql from 'graphql-tag';
+import fetchMock from 'fetch-mock';
+import gql from 'graphql-tag';
 import { TApolloClient } from './ApolloClientCreator';
 
 describe('ApolloClientCreator function', () => {
@@ -16,7 +16,8 @@ describe('ApolloClientCreator function', () => {
 
   beforeEach(async () => {
     localStorage.clear();
-    ({ ApolloClientCreator } = await import('./ApolloClientCreator'));
+    ApolloClientCreator = (await import('./ApolloClientCreator'))
+      .ApolloClientCreator;
   });
 
   it('is a function', () => {
@@ -81,11 +82,8 @@ describe('ApolloClientCreator function', () => {
                   if (opts.headers) {
                     Object.entries(opts.headers).forEach(
                       (
-                        // tslint:disable-next-line:no-any
-                        value: [string, any],
-                        index: number,
-                        // tslint:disable-next-line:no-any
-                        array: [string, any][]
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        value: [string, any]
                       ): void => {
                         if (value[0] === 'accept') {
                           expect(value[1]).toMatch('*/*');
@@ -115,14 +113,14 @@ describe('ApolloClientCreator function', () => {
               },
               response: {
                 data: {
-                  test: 'rest-response'
-                }
-              }
+                  test: 'rest-response',
+                },
+              },
             });
 
             result = ApolloClient.query({
-              query: gql.default('query getTest { test }'),
-              fetchPolicy: 'cache-first'
+              query: gql('query getTest { test }'),
+              fetchPolicy: 'cache-first',
             });
           });
 
@@ -146,7 +144,7 @@ describe('ApolloClientCreator function', () => {
 
             it('returns data', () => {
               expect(resolvedResult.data).toStrictEqual({
-                test: 'rest-response'
+                test: 'rest-response',
               });
             });
           });

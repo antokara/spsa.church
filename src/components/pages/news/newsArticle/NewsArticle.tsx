@@ -1,7 +1,7 @@
-import { default as Box } from '@material-ui/core/Box';
-import { default as Typography } from '@material-ui/core/Typography';
-import { default as format } from 'date-fns/format';
-import { default as locale } from 'date-fns/locale/en-US/index';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import format from 'date-fns/format';
+import locale from 'date-fns/locale/en-US/index';
 import * as React from 'react';
 import { RichText } from 'src/components/shared/richText/RichText';
 import { TNewsArticle } from 'src/gql/newsArticles/TData';
@@ -20,12 +20,12 @@ type TProps = {
  * Renders a news article with its content
  */
 const NewsArticle: (props: TProps) => JSX.Element | null = ({
-  newsArticle
+  newsArticle,
 }: TProps): JSX.Element | null => {
   const image: string = assetUrl(newsArticle.photo.path, {
     fit: 'crop',
     h: '250',
-    w: '250'
+    w: '250',
   });
 
   let date: string = '';

@@ -2,8 +2,8 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import * as path from 'path';
 import { Configuration } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import * as merge from 'webpack-merge';
-import { default as common } from './webpack.common';
+import merge from 'webpack-merge';
+import common from './webpack.common';
 
 module.exports = (env: NodeJS.ProcessEnv): Configuration =>
   merge(common(env), {
@@ -25,15 +25,15 @@ module.exports = (env: NodeJS.ProcessEnv): Configuration =>
           __dirname,
           'src/helpers/nop/composeWithDevTools.ts'
         ),
-        ReactHotLoader$: path.resolve(__dirname, 'src/helpers/nop/hot.ts')
-      }
+        ReactHotLoader$: path.resolve(__dirname, 'src/helpers/nop/hot.ts'),
+      },
     },
     plugins: [
       new CleanWebpackPlugin(),
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         reportFilename: '../reports/BundleAnalyzerReport.html',
-        openAnalyzer: false
-      })
-    ]
+        openAnalyzer: false,
+      }),
+    ],
   });
