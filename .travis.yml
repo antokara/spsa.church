@@ -17,10 +17,7 @@ jobs:
   include:
     - stage: lint
       script:
-        - npm run cl
-        - npm run prettier
         - npm run lint
-        - npm run ts:validate
     - stage: test
       script:
         - npm run test:cov
