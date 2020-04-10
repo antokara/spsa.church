@@ -5,8 +5,9 @@ env:
     - GIT_COMMITTER_NAME: Antonios Karagiannis
     - GIT_COMMITTER_EMAIL: antokarag@gmail.com
 language: node_js
-node_js:
-  - 10.16.3
+node_js: 10.16.3
+os: linux
+dist: xenial
 stages:
   - lint
   - test
@@ -22,16 +23,17 @@ jobs:
       script:
         - npm run test:cov
         - npm run coveralls
-        - stage: build
+    - stage: build
       script:
         - npm run build
     - stage: deploy
       script:
         - npm run build
       deploy:
+        edge: true
         - provider: s3
-          name: "dist directory"
-          skip_cleanup: true
+          name: 'dist directory'
+          cleanup: false
           bucket: spsa.church-production
           region: us-east-2
           local_dir: dist
@@ -40,10 +42,10 @@ jobs:
           secret_access_key:
             secure: 'SiJb1KOrJ6Dsh+NSQnyhLqZLaBHrPuZrlVx0EXD9RMrhqdUGReE2uxHYJu6MiPZceFIUmAPcVqk7XFf1ZzutFoqCZ6/ijPYFHHF2+lissaLzkqoiG4ep6CTK6rk4Ymb320YR5PktY9Vg2sSgDw+bdqjMEpSbcX7MtoY0iqqn7toKe3B5KTLmKE1thUKfwXrnh11j8KgDQ4e/ErBk94sl9gR/GznmhMuIYtiKrE29TPZMRgHjtyk2L40KvXgD/Etz393mYEW6YSMxSztnQEayPZKSlpVb4RvZ125ftwdsj+RAl/JA/sHSpzzfbTLlfW/R+fIBRsqv79vydGo5vfOVcaf5FG706z4jnhN6U+jLM59WhAKCcCoUCDPzzAFocl86lR2wGZDVudkyWoKG2ojAw0rmlYo4iaA+yx8NKXljgv2LDehABUKaetUD0Fyqt6rnMqf3/ezUcK8SblNrVjRe4HmNjiW/t7q7HMIadUGLOU2o/qAAC/+vHaFiEjTTuqTD/sjEwpE3U8eUhdSo/iQQBYwL7eYR/voJzO9SyfAx/ji90Pm6j0KqZrzysnf/vt/gBzvamBrRQ9bC009cLfcA3YQFZOtE/rWVoi5k9xjESmYV+7rIplt5ZFlLpUg2G4hMYmLlOybCk/njIEMZUnwixP+fspBtyAg8NuYbeTChlJc='
         - provider: s3
-          name: "index.html"
+          name: 'index.html'
           glob: dist/index.html
           cache_control: 'max-age=300'
-          skip_cleanup: true
+          cleanup: false
           bucket: spsa.church-production
           region: us-east-2
           access_key_id:
