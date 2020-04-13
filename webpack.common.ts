@@ -9,12 +9,13 @@ import {
   NamedModulesPlugin,
 } from 'webpack';
 import { InjectManifest } from 'workbox-webpack-plugin';
-import { supportedLocales } from './src/constants/dateFns/supportedLocales';
-config();
-
 // plugins
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackTemplatePlugin from 'html-webpack-template';
+// other
+import { supportedLocales } from './src/constants/dateFns/supportedLocales';
+
+config();
 
 // constants
 const title: string = 'St. Peter & St. Andrew Coptic Orthodox Church';
@@ -165,5 +166,4 @@ const common: (env: NodeJS.ProcessEnv) => Configuration = (
   };
 };
 
-// tslint:disable-next-line:no-default-export export-name
-export default common;
+export { common };

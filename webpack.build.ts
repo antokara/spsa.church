@@ -3,7 +3,7 @@ import * as path from 'path';
 import { Configuration } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import merge from 'webpack-merge';
-import common from './webpack.common';
+import { common } from './webpack.common';
 
 module.exports = (env: NodeJS.ProcessEnv): Configuration =>
   merge(common(env), {
