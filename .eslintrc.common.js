@@ -12,7 +12,7 @@ module.exports = {
   rules: {
     'import/no-extraneous-dependencies': [
       'error',
-      { devDependencies: ['**/*.test*', '**/*.test/**'] },
+      { devDependencies: ['**/*.test*', '**/*.test/**', 'webpack.*'] },
     ],
     'no-underscore-dangle': 'off',
     'import/prefer-default-export': 'off',

@@ -43,5 +43,10 @@
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"],
-  "files": ["jest.setup.afterEnv.ts"]
+  "files": [
+    "jest.setup.afterEnv.ts",
+    "webpack.build.ts",
+    "webpack.common.ts",
+    "webpack.dev.ts"
+  ]
 }
