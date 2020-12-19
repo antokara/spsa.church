@@ -17,8 +17,8 @@ const Preloader: () => JSX.Element | null = (): JSX.Element | null => {
   });
 
   // once loaded and we have data
-  if (!loading && data?.theme.headerMenu.menuEntries.length) {
-    return <>{preloadFromMenuEntries(data?.theme.headerMenu.menuEntries)}</>;
+  if (!loading && data?.getTheme.headerMenu.menuEntries.length) {
+    return <>{preloadFromMenuEntries(data?.getTheme.headerMenu.menuEntries)}</>;
   }
 
   return null;

@@ -29,8 +29,8 @@ const WideImage: () => JSX.Element | null = (): JSX.Element | null => {
   const focalPointPortrait: string = 'fp-x=0.35&fp-y=0.35&fp-z=1';
   const focalPointLandscape: string = 'fp-x=0.5&fp-y=0.5&fp-z=1';
   const assets: TAsset[] = [
-    data.theme.photoPortrait,
-    data.theme.photoLandscape,
+    data.getTheme.photoPortrait,
+    data.getTheme.photoLandscape,
   ];
 
   const sources: TSource[] = [
@@ -58,7 +58,7 @@ const WideImage: () => JSX.Element | null = (): JSX.Element | null => {
         color="white"
         bgcolor="rgba(0, 0, 0, 0.5)"
       >
-        {data.theme.overlay}
+        {data.getTheme.overlay}
       </Box>
     </Box>
   );

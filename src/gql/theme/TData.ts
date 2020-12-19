@@ -20,7 +20,7 @@ type TMenuEntry = {
  * should be used like so useQuery<TData>(getTheme)
  */
 type TData = {
-  theme: {
+  getTheme: {
     headerMenu: {
       label: string;
       menuEntries: TMenuEntry[];

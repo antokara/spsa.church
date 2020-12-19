@@ -34,7 +34,7 @@ const buildMenuTabs: (
   data: TData,
   activeRootMenuUrl: string | boolean
 ): JSX.Element => {
-  const TabItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
+  const TabItems: JSX.Element[] = data.getTheme.headerMenu.menuEntries.map(
     (menuEntry: TMenuEntry) => {
       const menuUrl: string = getMenuUrl(menuEntry);
 
@@ -92,7 +92,7 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
   if (data) {
     activeMenus = findActiveMenuEntries(
       location,
-      data.theme.headerMenu.menuEntries
+      data.getTheme.headerMenu.menuEntries
     );
     if (activeMenus.length) {
       activeRootMenuUrl = getMenuUrl(activeMenus[0]);
@@ -129,7 +129,7 @@ const Menu: () => JSX.Element | null = (): JSX.Element | null => {
   /**
    * builds the list items for the menu list
    */
-  const ListItems: JSX.Element[] = data.theme.headerMenu.menuEntries.map(
+  const ListItems: JSX.Element[] = data.getTheme.headerMenu.menuEntries.map(
     (menuEntry: TMenuEntry) => {
       const menuUrl: string = getMenuUrl(menuEntry);
       const selected: boolean = activeRootMenuUrl === menuUrl;

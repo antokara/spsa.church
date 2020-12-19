@@ -29,7 +29,7 @@ const Routes: () => JSX.Element | null = (): JSX.Element | null => {
   // also show the correct page type
   const activeMenus: TMenuEntry[] = findActiveMenuEntries(
     location,
-    data.theme.headerMenu.menuEntries
+    data.getTheme.headerMenu.menuEntries
   );
 
   // make sure we found an active menu/page

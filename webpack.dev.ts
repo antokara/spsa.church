@@ -12,7 +12,7 @@ module.exports = (env: NodeJS.ProcessEnv): Configuration =>
     devServer: {
       contentBase: path.join(__dirname, './'),
       compress: true,
-      port: 9000,
+      port: 9004,
       https: {
         key: fs.readFileSync('assets/archive/ssl/server.key'),
         cert: fs.readFileSync('assets/archive/ssl/server.crt'),

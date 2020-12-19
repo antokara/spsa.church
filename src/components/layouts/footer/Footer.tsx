@@ -36,7 +36,7 @@ const Footer: () => JSX.Element | null = (): JSX.Element | null => {
   /**
    * builds the link icons list
    */
-  const LinkIcons: JSX.Element[] = data.theme.footerIconLinks.map(
+  const LinkIcons: JSX.Element[] = data.getTheme.footerIconLinks.map(
     (iconLink: TIconLink) => (
       <Grid item={true} key={iconLink.link}>
         <IconButton
@@ -73,7 +73,7 @@ const Footer: () => JSX.Element | null = (): JSX.Element | null => {
         </Grid>
         <Grid item={true} xs={12} sm={6}>
           <Box textAlign={textAlign}>
-            <RichText html={data.theme.footerInfoHtml} />
+            <RichText html={data.getTheme.footerInfoHtml} />
           </Box>
         </Grid>
       </Grid>

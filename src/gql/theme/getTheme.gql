@@ -23,7 +23,7 @@ fragment NewsPage on NewsPage {
 }
 
 query getTheme($images: TSImagesConfig) {
-  theme {
+  getTheme {
     headerMenu {
       label
       menuEntries {
